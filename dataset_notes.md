@@ -16,6 +16,7 @@ One row: one yellow taxi trip (TPEP); pickup and dropoff as TLC taxi zones, time
 Keys: `PULocationID`, `DOLocationID` -> `taxi_zones_read()` `LocationID` (one numbering for all years).
 Issues:
 - 2012-2016 hold other trips than the legacy CSVs: 2012-01, -02, -04, -05, 2013-04 and 2013-08 lack 0.4-2.0M trips each (up to 13%), 2014-08..12 have 10-98k more, 2015-2016 about 0.05% fewer (`checks/yellow_legacy_parquet.R`, 2026-10-25). Use `tlc_legacy_open()` for counts in those years.
+- The missing 2012-2013 trips are spread over every day (2013-04: 14 whole or part days) and keep the borough and Manhattan-zone shares within sampling noise, so zone counts are scaled down, not shifted (month fixed effects absorb it). They are mostly VTS trips: in 2012 the parquet lacks 15-25% of VendorID 2 against 1-5% of VendorID 1, so vendor shares (and pooled tip rates, as the vendors' tip screens differ) are off in those months (`checks/yellow_parquet_gaps.R`).
 - From 2026-06 `request_source` names the ride-hail licence that dispatched the trip (HV0003 Uber ~25% of trips, HV0005 Lyft from 2026-08); app-dispatched trips are longer and dearer, so averages shift (audit 2026-10-24, `explore/notes/idea_dispatch.md`).
 - Outer-borough pickups jump in 2024-03 and again in 2025-02..05.
 - Missing days: 2013-08-11, 2022-09-18, 2023-09-21..24.
