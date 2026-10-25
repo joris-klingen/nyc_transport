@@ -98,3 +98,10 @@ nyc_opendata <- data.table::rbindlist(list(
 data.table::setnames(nyc_opendata, c("name", "id", "dir", "prefix", "ext"))
 
 nyc_snapshot_pattern <- function(prefix, ext) paste0("^", gsub("([.()+])", "\\\\\\1", prefix), "_(\\d{8})\\.", ext, "$")
+
+# file.rename() that retries: Dropbox briefly locks files it is syncing, and a failed rename
+# would otherwise leave a finished *.part file behind silently
+nyc_rename <- function(from, to, tries = 10) {
+  for (i in seq_len(tries)) { if (file.rename(from, to)) return(invisible(TRUE)); Sys.sleep(3) }
+  stop("cannot rename ", from, " to ", to)
+}

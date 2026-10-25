@@ -435,29 +435,56 @@ taxi_zones_read <- function() {
 }
 
 # Citi Bike ----
-citibike_files <- function() {
-  list.files(file.path(nyc_data_root(), "raw", "citibike", "trips"),
-             pattern = "citibike-tripdata\\.zip$", full.names = TRUE)
+citibike_dir <- function() file.path(nyc_data_root(), "raw", "citibike", "trips")
+
+# One parquet per month (citibike_tripdata_YYYY-MM.parquet), converted from the published zips by
+# scripts/20_download_citibike.R; zips not yet converted are listed too
+citibike_files <- function(type = c("parquet", "zip")) {
+  type <- match.arg(type)
+  list.files(citibike_dir(), full.names = TRUE,
+             pattern = if (type == "parquet") "^citibike_tripdata_\\d{4}-\\d{2}\\.parquet$" else "citibike-tripdata\\.zip$")
+}
+
+# All months as one arrow dataset, for queries across months (filter, then collect)
+citibike_open <- function() {
+  f <- citibike_files()
+  if (length(f) == 0) stop("no Citi Bike parquet files in ", citibike_dir())
+  arrow::open_dataset(f, unify_schemas = TRUE)
 }
 
 # Trips of one month ("2016-07") in one schema across the format change:
 #   started_at, ended_at (POSIXct, NYC time), start/end_station_id, _name, _lat, _lng,
 #   member (TRUE for members/subscribers), rideable_type and ride_id (from 2020),
 #   bikeid, birth_year, gender (to 2019-12: the 2024 repackaging converted 2020 to the new format).
-# Handles the three archive layouts: month folders in yearly zips (to 2019), monthly zips inside
-# yearly zips (2020-2023), monthly zips split into several CSVs (2024 on).
+# Reads the month's parquet; falls back on the published zip when the month is not converted.
 citibike_read <- function(ym, nrows = Inf) {
   stopifnot(requireNamespace("data.table", quietly = TRUE))
+  pq <- file.path(citibike_dir(), sprintf("citibike_tripdata_%s.parquet", substr(ym, 1, 7)))
+  if (file.exists(pq)) {
+    x <- data.table::as.data.table(arrow::read_parquet(pq))
+    if (is.finite(nrows)) x <- x[seq_len(min(nrows, .N))]
+    for (v in c("started_at", "ended_at")) attr(x[[v]], "tzone") <- "America/New_York"
+    return(x[])
+  }
   yyyymm <- gsub("-", "", ym)
-  f <- citibike_files()
+  f <- citibike_files("zip")
   outer <- f[basename(f) == paste0(yyyymm, "-citibike-tripdata.zip")]
   if (!length(outer)) outer <- f[basename(f) == paste0(substr(yyyymm, 1, 4), "-citibike-tripdata.zip")]
-  if (!length(outer)) stop("no Citi Bike archive for ", ym)
+  if (!length(outer)) stop("no Citi Bike parquet or archive for ", ym)
+  citibike_read_zip(outer, ym, nrows)
+}
+
+# One month from a published zip. Handles the three archive layouts: month folders in yearly zips
+# (to 2019), monthly zips inside yearly zips (2020-2023), monthly zips split into several CSVs (2024 on).
+citibike_read_zip <- function(outer, ym, nrows = Inf) {
+  yyyymm <- gsub("-", "", ym)
   tmp <- tempfile("citibike"); dir.create(tmp); on.exit(unlink(tmp, recursive = TRUE))
   # the 2013 archive has each month twice: whole (201309-...csv) and split (201309-..._1.csv, _2)
   one_copy <- function(csv) if (any(grepl("_[0-9]+\\.csv$", csv))) csv[grepl("_[0-9]+\\.csv$", csv)] else csv
   n <- utils::unzip(outer, list = TRUE)$Name
   n <- n[!grepl("__MACOSX|/\\.", n) & grepl(yyyymm, basename(n))]
+  # the 2018 archive holds April twice (top level and 4_April/): one copy per file name
+  n <- n[!duplicated(basename(n))]
   inner_zip <- n[grepl("\\.zip$", n)]
   if (length(inner_zip)) {
     utils::unzip(outer, files = inner_zip, exdir = tmp, junkpaths = TRUE)

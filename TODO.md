@@ -45,6 +45,24 @@ nyc_streets archived (both 2026-10-23).
       found anywhere if the gender work needs them.
 - [x] `output/` and `migration_logs/` deleted 2026-10-13.
 
+## Yellow legacy CSVs (raw/taxi/yellow_csv_legacy)
+
+The 54 CSVs (2012-01 to 2016-06, 123 GB) are the only copy of yellow trips with pickup and dropoff
+coordinates; TLC no longer serves them (403, checked 2026-10-24), so they stay in the store. Do both
+after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_legacy.R`) has finished.
+
+- [ ] Parquet copy for fast queries: `derived/taxi_yellow_legacy/yellow_tripdata_YYYY-MM.parquet`.
+  - One schema for all months: the TLC parquet names (`VendorID`, `tpep_pickup_datetime`, `RatecodeID`,
+    `extra`, ...) plus `pickup_longitude`, `pickup_latitude`, `dropoff_longitude`, `dropoff_latitude`
+    (2012-2014 write `vendor_id`, `pickup_datetime`, `rate_code`, `surcharge`; 2015-2016 the new names).
+  - Sorted by pickup time, row groups of about 250,000 trips (as the Citi Bike months).
+  - A reader `tlc_legacy_open()`, a check that row counts match the CSVs, and a line in the README
+    and the catalog. Expected size 15-25 GB, a few hours to build.
+- [ ] Gzip the CSVs in place for storage (`yellow_tripdata_YYYY-MM.csv.gz`, about 25-30 GB instead of
+      123 GB). The files stay byte-for-byte as published once unzipped; `fread()` reads `.csv.gz`.
+      Check the md5 of each unzipped file against the CSV before deleting the CSV, and update the
+      readers and scripts that list `*.csv` (the tips import, `checks/store.R`).
+
 ## Profiles and simulated data
 
 - [x] Profiles of every source in `profiles/` and simulators in `sim/` (2026-10-16); see the README.

@@ -81,10 +81,10 @@ The street network history has the same in `streets/` (`streets/profiles/`, `str
 | DOT bike routes | snapshots 2025-10, 2026-10; archives 2017-2020 | `segmentid` = LION `SegmentID` (99%) | 4326 | `bike_routes_read()` | 13 empty geometries (dropped by the reader) |
 | Automated traffic counts | 2000 to latest, 15 min | `SegmentID` (85% in current LION, rest in older releases) | 2263 (`WktGeom`) | `traffic_counts_read()` | |
 | Bicycle/pedestrian counts | DOT counters | sensor `id` | 4326 | `fread(nyc_latest("bike_ped_counts"))` | 10 of 66 counters in the 2020 version sit at 0,0 |
-| Citi Bike | 2013-06 to latest month | station lon/lat | 4326 | `citibike_read("2016-07")` | rider demographics only to 2019-12 (see below); 3 archive layouts |
+| Citi Bike | 2013-06 to latest month | station lon/lat | 4326 | `citibike_read("2016-07")`, `citibike_open()` | rider demographics only to 2019-12 (see below); monthly parquet |
 | Street layout (parking signs and meters, bus lanes, speed limits, slow zones, truck routes, speed humps and SRTS, LPI and Barnes dance signals, open streets, plazas, bike parking, pavement ratings, construction closures) | current state, dated snapshots from 2026-10-14 (SRTS, closures also 2020-02) | mostly LION `segmentid` or street + from/to street; signs and meters as points | 4326 | `nyc_latest("bus_lanes")` etc., names in `nyc_opendata` (`R/config.R`) | published as current state only: history exists only from the first snapshot, except fields with install dates (speed humps, LPI, bike racks, bus lane `year1`, signs `order_completed_on_date`) and `street_network_changes` (one-way conversions) |
 | Citi Bike stations | GBFS snapshots from 2026-10-14; 2019 snapshots | station lon/lat | 4326 | `jsonlite::fromJSON(nyc_latest("citibike_stations"))` | before 2026: first and last trip per station in the trip data |
-| Air pollution (EPA AQS) | 2012 to latest release (revised twice a year), hourly and daily | monitor `site_id` (state-county-site), lon/lat | 4326 (NAD83 or WGS84 per record, `datum`) | `air_pollution_read("42602", "hourly")` | national files kept as published; the NYC-area extract (box around the five boroughs, `nyc` flags them) is in `derived/air_pollution/`; PM2.5 filter samplers (`88101`, 1-in-3 days) appear only in the daily files |
+| Air pollution (EPA AQS) | 2012 to latest release (revised twice a year), hourly and daily | monitor `site_id` (state-county-site), lon/lat | 4326 (NAD83 or WGS84 per record, `datum`) | `air_pollution_read("42602", "hourly")` | national files kept as parquet (one per published zip); the NYC-area extract (box around the five boroughs, `nyc` flags them) is in `derived/air_pollution/`; PM2.5 filter samplers (`88101`, 1-in-3 days) appear only in the daily files |
 | Boundaries | 2020 census geographies, current admin areas | polygons | 4326 on disk | `boundaries_read("tracts")` | 4 census blocks have invalid geometry (repaired by the reader) |
 | Taxi zones | current | `LocationID` | 2263 | `taxi_zones_read()` | zones 264/265 are "unknown", no polygon |
 | Census block groups 2020 | TIGER/Line 2020, New York State; population per block group (Census API) | `GEOID` | 4269 | `census_block_groups_read()`, `nyc_latest("bg_population")` | population JSON has the names in its first row |
@@ -166,13 +166,21 @@ releases with their dates (a in February, b May, c August, d November).
 up to 2019-12 and `ride_id`, `rideable_type` from 2020. Citi Bike published the old format with
 rider demographics until 2021-01, but its 2024 repackaging converted all of 2020 to the new
 format; the original 2020-01 to 2021-01 files are not in the store. The 2013 archive holds each
-month twice (whole and split); the reader uses one copy.
+month twice (whole and split), and the 2018 archive holds April twice; the conversion uses one copy.
+
+The store keeps one parquet per month in this schema (`raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet`),
+converted from the published zips by `scripts/20_download_citibike.R`, which deletes the zips afterwards
+(they stay on S3). `citibike_open()` opens all months as one arrow dataset for queries across months.
+Months are by file, as Citi Bike publishes them: a trip starting late on the last day of a month can sit
+in the next month's file.
 
 ## Data layout
 
 ```
 nyc_transport_data/           top level is by KIND: raw / derived / reference / docs, and _meta / _archive
-  raw/                      every raw source, as published; never edited
+  raw/                      every raw source, as published; never edited. Exception: Citi Bike trips and the
+                            EPA AQS files are stored as parquet (converted on download; the zips can be
+                            downloaded again)
     taxi/
       yellow/              yellow_tripdata_YYYY-MM.parquet   2012-01 onward
       green/               green_tripdata_YYYY-MM.parquet    2014-01 onward
@@ -223,8 +231,9 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
                            Bicycle_Count(er)s_20200204.csv (historical version), DCP Manhattan and
                            East River bridge counts
     citibike/
-      trips/               YYYY-citibike-tripdata.zip (2013-2023), YYYYMM-citibike-tripdata.zip (2024 onward);
-                           old format with rider demographics to 2019-12, new format from 2020
+      trips/               citibike_tripdata_YYYY-MM.parquet, 2013-06 onward, one schema (citibike_read());
+                           converted from the published YYYY-citibike-tripdata.zip (2013-2023) and
+                           YYYYMM-citibike-tripdata.zip (2024 onward); rider demographics to 2019-12
       trips_monthly_original/ YYYYMM-citibike-tripdata(.csv).zip, 2014-01 to 2019-12: original monthly releases,
                            before Citi Bike repackaged them into yearly zips in 2024. Keep: original record
                            for the gender paper.
@@ -232,10 +241,11 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
                            citibikestationsNYC_YYYYMMDD_HHMM.json (2019)
     air_pollution/
       epa_aqs/
-        hourly/            hourly_<param>_YYYY.zip, national, 2012 onward: 44201 ozone, 42602 NO2, NONOxNOy,
+        hourly/            hourly_<param>_YYYY.parquet, national, 2012 onward: 44201 ozone, 42602 NO2, NONOxNOy,
                            42101 CO, 42401 SO2, 88101 PM2.5 FRM/FEM, 88502 PM2.5 non-FRM, 81102 PM10, WIND, TEMP
-        daily/             daily_<param>_YYYY.zip, same parameters (daily means, AQI)
-        sites/             aqs_sites_YYYYMMDD.zip, aqs_monitors_YYYYMMDD.zip (site and monitor lists)
+        daily/             daily_<param>_YYYY.parquet, same parameters (daily means, AQI)
+        sites/             aqs_sites_YYYYMMDD.parquet, aqs_monitors_YYYYMMDD.parquet (site and monitor lists)
+                           (each parquet is one published zip, columns as published, codes as text)
   derived/                  made from the raw data, can be rebuilt:
     crashes_parquet/       parquet copies of the crash snapshots (scripts/30_crashes_parquet.R)
     air_pollution/         {hourly,daily}_<param>.parquet: NYC-area monitors (scripts/41_air_pollution_nyc.R)
@@ -255,7 +265,8 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
   _meta/                    download logs and manifests (one place):
                            opendata_download_log.csv, taxi_manifest.csv, taxi_download_log.csv,
                            citibike_manifest.csv, epa_aqs_manifest.csv (epa manifest: Last-Modified and
-                           size per file; revised files kept as *.superseded_YYYYMMDD.zip)
+                           size per published zip; revised files kept as *.superseded_YYYYMMDD.parquet;
+                           citibike manifest: size and months per published zip)
   _archive/                 superseded legacy from earlier project generations (5_NYC_bikelanes_raw/)
 ```
 
@@ -280,8 +291,8 @@ Run from the repo root.
 | `scripts/10_download_opendata.R` | New dated snapshots of the NYC Open Data sets listed in `nyc_opendata` (`R/config.R`: crashes, LION, bike routes, street layout sets, counts, boundaries, ...) when they were updated; a download identical to the latest snapshot is dropped; logs to `opendata_download_log.csv` |
 | `scripts/21_snapshot_citibike_stations.R` | Citi Bike station list (GBFS) when it changed |
 | `scripts/11_download_lion_releases.R` | Quarterly LION releases from the DCP archive |
-| `scripts/20_download_citibike.R` | Citi Bike trip zips not yet present; writes `_meta/citibike_manifest.csv` |
-| `scripts/40_download_epa_aqs.R` | EPA AQS hourly and daily files from 2012 that are new or revised, site and monitor lists; writes `air_pollution/epa_aqs/manifest.csv` |
+| `scripts/20_download_citibike.R` | Citi Bike trip zips that are new or republished, converted to one parquet per month (zips deleted); writes `_meta/citibike_manifest.csv` |
+| `scripts/40_download_epa_aqs.R` | EPA AQS hourly and daily files from 2012 that are new or revised, site and monitor lists, converted to parquet (zips deleted); writes `_meta/epa_aqs_manifest.csv` |
 | `scripts/41_air_pollution_nyc.R` | NYC-area monitor extract per parameter in `derived/air_pollution/` |
 | `scripts/30_crashes_parquet.R` | Parquet copies of the crash snapshots in `derived/crashes_parquet/` |
 | `scripts/31_vehicle_lookup.R` | Classify vehicle type codes not yet in `reference/NYC_vehicle_lookup_table.csv` (review without `--write`); re-run after a new crash snapshot. E-bikes are Bike as in the 2020 hand-made table; e-scooters and standing scooters Scooter (since 2026-10-18); mopeds and motor scooters Motorcycle |

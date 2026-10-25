@@ -22,7 +22,8 @@ the store with the exact reader call. Regenerate: `Rscript scripts/50_build_cata
 source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_transport/R/nyc_transport.R")))
 ```
 
-**Rules.** Everything under `raw/` in the store is as published and never edited; snapshots keep their
+**Rules.** Everything under `raw/` in the store is as published and never edited (Citi Bike trips and
+EPA AQS files are stored as parquet, converted on download); snapshots keep their
 download date; computed outputs go to `derived/`. Work without the store via `sim/` + `profiles/`
 (and `streets/sim/`). The store is local only (not on GitHub). Store root: `NYC_TRANSPORT_DATA` in
 `config.local`.

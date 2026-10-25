@@ -67,13 +67,11 @@ for (t in names(tlc_start)[names(tlc_start) %in% list.files(tlc_data_dir())]) {
 
 # Citi Bike ----
 cb <- basename(citibike_files())
-years <- as.integer(sub("^(\\d{4})-citibike.*", "\\1", cb[grepl("^\\d{4}-", cb)]))
-months <- sub("^(\\d{4})(\\d{2})-citibike.*", "\\1-\\2", cb[grepl("^\\d{6}-", cb)])
-have <- sort(c(unlist(lapply(years, function(y) sprintf("%d-%02d", y, 1:12))), months))
-have <- have[have >= "2013-06"]
+have <- sort(sub("^citibike_tripdata_(\\d{4}-\\d{2})\\.parquet$", "\\1", cb))
 exp <- tlc_months("2013-06", max(have))
-cat(sprintf("\nCiti Bike: %d archives, months %s to %s\n", length(cb), min(have), max(have)))
+cat(sprintf("\nCiti Bike: %d monthly parquets, %s to %s\n", length(cb), min(have), max(have)))
 if (length(setdiff(exp, have))) flag("Citi Bike missing months: ", paste(setdiff(exp, have), collapse = ", "))
+if (length(citibike_files("zip"))) flag("Citi Bike: ", length(citibike_files("zip")), " zips not converted (run scripts/20_download_citibike.R)")
 
 # Traffic counts ----
 tc <- fread(nyc_latest("traffic_counts"), select = c("Yr", "SegmentID"))

@@ -1,6 +1,6 @@
 # Simulated Citi Bike trips
 #
-# Real data: raw/citibike/trips/*.zip (2013-06 onward, ~35M trips a year lately), read with
+# Real data: raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet (2013-06 onward, ~35M trips a year lately), read with
 # citibike_read("YYYY-MM"). One row per trip, in one schema across the 2020 format change:
 #   started_at, ended_at (POSIXct, America/New_York), start_station_id, start_station_name,
 #   start_lat, start_lng, end_station_id, end_station_name, end_lat, end_lng (text ids),

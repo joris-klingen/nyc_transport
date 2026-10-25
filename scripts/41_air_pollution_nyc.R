@@ -16,17 +16,18 @@ out_dir <- file.path(nyc_data_root(), "derived", "air_pollution")
 dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
 args <- commandArgs(trailingOnly = TRUE)
-files <- list.files(file.path(root, c("hourly", "daily")), pattern = "^(hourly|daily)_[A-Za-z0-9]+_\\d{4}\\.zip$", full.names = TRUE)
-key <- sub("^(hourly|daily)_([A-Za-z0-9]+)_\\d{4}\\.zip$", "\\1_\\2", basename(files))
+files <- list.files(file.path(root, c("hourly", "daily")), pattern = "^(hourly|daily)_[A-Za-z0-9]+_\\d{4}\\.parquet$", full.names = TRUE)
+key <- sub("^(hourly|daily)_([A-Za-z0-9]+)_\\d{4}\\.parquet$", "\\1_\\2", basename(files))
 if (length(args) >= 1) { keep <- sub("^[a-z]+_", "", key) %in% strsplit(args[1], ",")[[1]]; files <- files[keep]; key <- key[keep] }
 
 nyc_counties <- c("005", "047", "061", "081", "085")
 
 read_area <- function(f) {
-  x <- fread(cmd = paste("unzip -p", shQuote(f)), colClasses = c("State Code" = "character", "County Code" = "character",
-             "Site Num" = "character", "Parameter Code" = "character", "Method Code" = "character"), showProgress = FALSE)
-  x <- x[Longitude > -74.5 & Longitude < -73.4 & Latitude > 40.4 & Latitude < 41.2]
+  x <- setDT(dplyr::collect(dplyr::filter(open_dataset(f), Longitude > -74.5, Longitude < -73.4, Latitude > 40.4, Latitude < 41.2)))
   setnames(x, gsub("[^a-z0-9]+", "_", tolower(names(x))))
+  for (d in intersect(c("date_local", "date_gmt", "date_of_last_change"), names(x))) x[, (d) := as.character(get(d))]
+  # POC is text in the raw parquets (with the other codes), a number in the extract
+  if ("poc" %in% names(x)) x[, poc := as.integer(poc)]
   x[, site_id := paste(state_code, county_code, site_num, sep = "-")]
   x[, nyc := state_code == "36" & county_code %in% nyc_counties]
   for (d in intersect(c("date_local", "date_gmt", "date_of_last_change"), names(x))) x[, (d) := as.IDate(get(d))]
