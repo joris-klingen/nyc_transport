@@ -96,8 +96,6 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
 - [x] Profiles of every source in `profiles/` and simulators in `sim/` (2026-10-16); see the README.
 - [ ] Re-run `profiles/build_profiles.R` after refreshing the store (new snapshots, new months), so
       that the profiles and reference tables follow the data.
-- [ ] Optional: `sim_store(dir)` writing a fake data store in the real file formats (parquet months,
-      crash CSV, ...), so that the readers and project pipelines run unchanged on simulated data.
 
 ## Crash vehicle types
 
