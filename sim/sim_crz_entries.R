@@ -1,7 +1,7 @@
 # Simulated MTA congestion relief zone entries
 #
 # Real data: raw/congestion_pricing/MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025_YYYYMMDD.csv
-# (data.ny.gov t2rz-wjj6, ~4.6M rows), read raw with data.table::fread(nyc_latest("crz_entries")).
+# (data.ny.gov t6yz-b64h, was t2rz-wjj6; ~6.7M rows to 2026-10), read raw with data.table::fread(nyc_latest("crz_entries")).
 # One row per 10-minute block, vehicle class and detection group since the toll started on
 # 2025-01-05: Toll Date (text MM/DD/YYYY), Toll Hour and Toll 10 Minute Block (text
 # MM/DD/YYYY HH:MM:SS AM), Minute of Hour, Hour of Day, Day of Week Int (1 = Sunday), Day of

@@ -9,7 +9,7 @@ store root. One source() loads every reader, including the street network histor
 source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_transport/R/nyc_transport.R")))
 ```
 
-## raw and derived  (60 datasets)
+## raw and derived  (61 datasets)
 
 | source | read with | rows | geometry | notes |
 |---|---|---|---|---|
@@ -35,20 +35,20 @@ source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_tr
 | `citibike_stations` | `jsonlite::fromJSON(nyc_latest('citibike_stations'))$data$stations` | 2,519 |  | GBFS station_information; list columns (rental_uris, ...) left out |
 | `citibike_trips_2013_2019` | `citibike_read('YYYY-MM')` |  |  | station ids are numbers stored as text; gender 0 unknown, 1 male, 2 female |
 | `citibike_trips_2020_on` | `citibike_read('YYYY-MM')` |  |  | station ids like 5329.03 (text); ride_id 16 hex characters |
-| `counts_bicycle_counters_20200204` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/bicycle/Bicycle_Counters_20200204.csv'))` | 66 |  | historical file, no longer updated |
-| `counts_bicycle_counts_20200204` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/bicycle/Bicycle_Counts_20200204.csv'))` | 7,193,404 |  | historical file, no longer updated |
-| `counts_nycdcp_manhattan_bike_counts_off_street` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/bicycle/NYCDCP_Manhattan_Bike_Counts_-_Off_Street.csv'))` | 89 |  | historical file, no longer updated |
-| `counts_nycdcp_manhattan_bike_counts_on_street_weekday` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/bicycle/NYCDCP_Manhattan_Bike_Counts_-_On_Street_Weekday.csv'))` | 108 |  | historical file, no longer updated |
-| `counts_traffic_volume_counts_2011_2012` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Traffic_Volume_Counts__2011-2012_.csv'))` | 3,393 |  | historical file, no longer updated |
-| `counts_traffic_volume_counts_2012_2013` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Traffic_Volume_Counts__2012-2013_.csv'))` | 5,945 |  | historical file, no longer updated |
-| `counts_traffic_volume_counts_2014_2018` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Traffic_Volume_Counts__2014-2018_.csv'))` | 21,448 |  | historical file, no longer updated |
-| `counts_vehicle_classification_counts_2011_2012` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Vehicle_Classification_Counts__2011-2012_.csv'))` | 1,588 |  | historical file, no longer updated |
-| `counts_vehicle_classification_counts_2012_2013` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Vehicle_Classification_Counts__2012-2013_.csv'))` | 3,135 |  | historical file, no longer updated |
-| `counts_vehicle_classification_counts_2014_2018` | `data.table::fread(file.path(nyc_data_root(), 'traffic_counts/legacy/Vehicle_Classification_Counts__2014-2018_.csv'))` | 8,771 |  | historical file, no longer updated |
+| `counts_bicycle_counters_20200204` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/bicycle/Bicycle_Counters_20200204.csv'))` | 66 |  | historical file, no longer updated |
+| `counts_bicycle_counts_20200204` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/bicycle/Bicycle_Counts_20200204.csv'))` | 7,193,404 |  | historical file, no longer updated |
+| `counts_nycdcp_manhattan_bike_counts_off_street` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/bicycle/NYCDCP_Manhattan_Bike_Counts_-_Off_Street.csv'))` | 89 |  | historical file, no longer updated |
+| `counts_nycdcp_manhattan_bike_counts_on_street_weekday` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/bicycle/NYCDCP_Manhattan_Bike_Counts_-_On_Street_Weekday.csv'))` | 108 |  | historical file, no longer updated |
+| `counts_traffic_volume_counts_2011_2012` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Traffic_Volume_Counts__2011-2012_.csv'))` | 3,393 |  | historical file, no longer updated |
+| `counts_traffic_volume_counts_2012_2013` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Traffic_Volume_Counts__2012-2013_.csv'))` | 5,945 |  | historical file, no longer updated |
+| `counts_traffic_volume_counts_2014_2018` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Traffic_Volume_Counts__2014-2018_.csv'))` | 21,448 |  | historical file, no longer updated |
+| `counts_vehicle_classification_counts_2011_2012` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Vehicle_Classification_Counts__2011-2012_.csv'))` | 1,588 |  | historical file, no longer updated |
+| `counts_vehicle_classification_counts_2012_2013` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Vehicle_Classification_Counts__2012-2013_.csv'))` | 3,135 |  | historical file, no longer updated |
+| `counts_vehicle_classification_counts_2014_2018` | `data.table::fread(file.path(nyc_data_root(), 'raw/traffic_counts/legacy/Vehicle_Classification_Counts__2014-2018_.csv'))` | 8,771 |  | historical file, no longer updated |
 | `crash_persons` | `data.table::fread(nyc_latest('persons'))` | 5,984,110 |  | one row per person / vehicle in a crash; COLLISION_ID links to crashes collision_id |
 | `crash_vehicles` | `data.table::fread(nyc_latest('vehicles'))` | 4,551,002 |  | one row per person / vehicle in a crash; COLLISION_ID links to crashes collision_id |
 | `crashes` | `crashes_read()` | 2,269,187 |  | crash_time is text H:MM; coordinates NA outside NYC; house-number crashes geocoded to address points from 2024-11 (use crashes_relocate()) |
-| `crz_entries` | `data.table::fread(nyc_latest('crz_entries'))` | 4,354,560 |  | MTA congestion relief zone entries per 10-minute block, vehicle class and detection group from 2025-01-05 |
+| `crz_entries` | `data.table::fread(nyc_latest('crz_entries'))` | 6,749,136 |  | MTA congestion relief zone entries per 10-minute block, vehicle class and detection group from 2025-01-05 |
 | `lion` | `lion_read() (centerlines, default columns)` | 165,139 | MULTILINESTRING | LION street segments in EPSG 2263; 57 quarterly releases in raw/street_layout/lion (lion_releases(), nyc_lion_for_date()). All columns of the lion layer: Street SAFStreetName FeatureTyp SegmentTyp IncExFlag RB_Layer NonPed TrafDir TrafSrc SpecAddr FaceCode SeqNum StreetCode SAFStreetCode LGC1 LGC2 LGC3 LGC4 LGC5 LGC6 LGC7 LGC8 LGC9 BOE_LGC SegmentID SegCount LocStatus LZip RZip LBoro RBoro L_CD R_CD LATOMICPOLYGON RATOMICPOLYGON LCT2020 LCT2020Suf RCT2020 RCT2020Suf LCB2020 LCB2020Suf RCB2020 RCB2020Suf LCT2010 LCT2010Suf RCT2010 RCT2010Suf LCB2010 LCB2010Suf RCB2010 RCB2010Suf LCT2000 LCT2000Suf RCT2000 RCT2000Suf LCB2000 LCB2000Suf RCB2000 RCB2000Suf LCT1990 LCT1990Suf RCT1990 RCT1990Suf LAssmDist LElectDist RAssmDist RElectDist SplitElect LSchlDist RSchlDist SplitSchl LSubSect RSubSect SanDistInd MapFrom MapTo BoroBndry MH_RI_Flag XFrom YFrom XTo YTo ArcCenterX ArcCenterY CurveFlag Radius NodeIDFrom NodeIDTo NodeLevelF NodeLevelT ConParity Twisted RW_TYPE PhysicalID GenericID NYPDID FDNYID LBlockFaceID RBlockFaceID LegacyID Status StreetWidth_Min StreetWidth_Max StreetWidth_Irr BikeLane BIKE_TRAFDIR ACTIVE_FLAG POSTED_SPEED Snow_Priority Number_Travel_Lanes Number_Park_Lanes Number_Total_Lanes Carto_Display_Level FCC ROW_Type LLo_Hyphen LHi_Hyphen RLo_Hyphen RHi_Hyphen FromLeft ToLeft FromRight ToRight Join_ID L_PD_Service_Area R_PD_Service_Area TRUCK_ROUTE_TYPE SHAPE_Length SHAPE |
 | `lpi_signals` | `data.table::fread(nyc_latest('lpi_signals'))` | 6,803 | POINT | csv read as published |
 | `meter_blockfaces` | `sf::st_read(nyc_latest('meter_blockfaces'))` | 11,185 | MULTILINESTRING | geojson in EPSG 4326, read as published |
@@ -69,6 +69,7 @@ source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_tr
 | `taxi_green` | `tlc_open('green') / arrow::read_parquet(tlc_files('green'))` | 84,413,177 |  | columns and types change across years: see taxi_green_schema_by_year.csv; columns missing in a month are NA in the profile |
 | `taxi_yellow` | `tlc_open('yellow') / arrow::read_parquet(tlc_files('yellow'))` | 1,339,879,521 |  | columns and types change across years: see taxi_yellow_schema_by_year.csv; columns missing in a month are NA in the profile |
 | `taxi_yellow_csv_legacy` | `data.table::fread(file.path(tlc_data_dir(), 'yellow_csv_legacy', ...))` |  |  | 2012-2014 files use vendor_id/pickup_datetime/rate_code; 2015-16 use VendorID/tpep_pickup_datetime/RateCodeID (both sets in the profile, NA where absent). Coordinates as lon/lat. |
+| `taxi_yellow_legacy` | `tlc_legacy_open() / arrow::read_parquet(tlc_legacy_files(2012))` | 732,357,953 |  | the legacy CSVs in one schema with TLC parquet names and codes, plus pickup/dropoff lon/lat; sorted by pickup time |
 | `taxi_zones` | `taxi_zones_read()` | 263 | MULTIPOLYGON | TLC zones with the lookup columns (borough, zone, service_zone); the full lookup table is in taxi_zone_lookup_full.csv |
 | `tract_nta` | `data.table::fread(nyc_latest('tract_nta'))` | 2,327 |  | csv read as published |
 | `traffic_counts` | `traffic_counts_read()` | 1,875,154 |  | one row per 15 minutes, direction and count location; x, y in EPSG 2263 |

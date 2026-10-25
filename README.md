@@ -18,8 +18,7 @@ street network history under `derived/streets/`).
 ## Setup
 
 Copy `config.example` to `config.local` (not tracked) and set `NYC_TRANSPORT_DATA` to the root of
-the data store. An `NYC_TRANSPORT_DATA` environment variable takes precedence (the old names
-`NYC_TRAFFIC_DATA` and `NYC_DATA` still work as fallbacks). In R, one file loads every reader,
+the data store. An `NYC_TRANSPORT_DATA` environment variable takes precedence. In R, one file loads every reader,
 including the street network history:
 
 ```r
@@ -70,10 +69,11 @@ The street network history has the same in `streets/` (`streets/profiles/`, `str
 
 | Source | Coverage | Location / join key | CRS | Read with | Known issues |
 |---|---|---|---|---|---|
-| Yellow taxi | 2012-01 to latest month | `PULocationID`, `DOLocationID` (taxi zones) | - | `tlc_open("yellow")` | `airport_fee` is `Airport_fee` from 2023-02; `cbd_congestion_fee` from 2025-01, `request_source` from 2026-06; column types drift across years |
+| Yellow taxi | 2012-01 to latest month | `PULocationID`, `DOLocationID` (taxi zones) | - | `tlc_open("yellow")` | `airport_fee` is `Airport_fee` from 2023-02; `cbd_congestion_fee` from 2025-01, `request_source` from 2026-06; column types drift across years. 2012-2016 hold other trips than the legacy CSVs (`checks/yellow_legacy_parquet.R`): 2012-01, -02, -04, -05, 2013-04 and 2013-08 lack 0.4-2.0M trips each (up to 13%), 2014-08..12 have 10-98k more, 2015-2016 about 0.05% fewer; use `tlc_legacy_open()` for trip counts in those years |
 | Green taxi | 2014-01 to latest | zone ids | - | `tlc_open("green")` | 2013-08..12 not published as parquet |
 | FHVHV (Uber, Lyft, ...) | 2019-02 to latest | zone ids | - | `tlc_open("fhvhv")` | `trip_miles`, not `trip_distance`; `cbd_congestion_fee` from 2025-01 |
-| Yellow legacy CSV | 2012-01 to 2016-06 | pickup/dropoff lon/lat | 4326 | `fread` | ~2.4% of pickups at 0,0 or outside NYC: filter with `nyc_in_bbox()` |
+| FHV (other for-hire bases) | not in the store | zone ids | - | - | black car, livery and limousine trips; before 2019-02 also Uber and Lyft (the FHVHV files start then), so ride-hail trips 2015-2019-01 exist only here. No fares or distances; zones often missing before 2017. Download with `01_download_tlc.R` (type `fhv`) if needed |
+| Yellow legacy CSV | 2012-01 to 2016-06 | pickup/dropoff lon/lat | 4326 | `tlc_legacy_open()` (parquet copy), `fread` | the same trips as the yellow parquet files of those months, plus coordinates; ~2.4% of pickups at 0,0 or outside NYC: filter with `nyc_in_bbox()` |
 | Crashes | 2012-07 to latest | lon/lat; `crashes_relocate()` adds LION `segment_id`, `node_id` | 4326 | `crashes_read()`, `crashes_relocate()` | see [Crash locations](#crash-locations) |
 | Crash persons, vehicles | 2012 to latest | `collision_id` | - | `fread(nyc_latest("persons"))` | |
 | LION | 57 quarterly releases 2012a-2026c (12d, 22d not archived) + current snapshot | `SegmentID`, `NODEID`, `StreetCode` | 2263 | `lion_read()`, `nyc_lion_for_date()` | see [LION](#lion) |
@@ -86,7 +86,7 @@ The street network history has the same in `streets/` (`streets/profiles/`, `str
 | Citi Bike stations | GBFS snapshots from 2026-10-14; 2019 snapshots | station lon/lat | 4326 | `jsonlite::fromJSON(nyc_latest("citibike_stations"))` | before 2026: first and last trip per station in the trip data |
 | Air pollution (EPA AQS) | 2012 to latest release (revised twice a year), hourly and daily | monitor `site_id` (state-county-site), lon/lat | 4326 (NAD83 or WGS84 per record, `datum`) | `air_pollution_read("42602", "hourly")` | national files kept as parquet (one per published zip); the NYC-area extract (box around the five boroughs, `nyc` flags them) is in `derived/air_pollution/`; PM2.5 filter samplers (`88101`, 1-in-3 days) appear only in the daily files |
 | Boundaries | 2020 census geographies, current admin areas | polygons | 4326 on disk | `boundaries_read("tracts")` | 4 census blocks have invalid geometry (repaired by the reader) |
-| Taxi zones | current | `LocationID` | 2263 | `taxi_zones_read()` | zones 264/265 are "unknown", no polygon |
+| Taxi zones | current; one numbering for all trip years (2012 on) | `LocationID` | 2263 | `taxi_zones_read()` | zones 264/265 are "unknown", no polygon. The point-in-polygon of the legacy pickup coordinates gives TLC's `PULocationID` for 99.9-100% of trips 2012-2016, the rest within about 1 ft of a boundary (`checks/taxi_zones.R`). The 2025-09 file has the same polygons but numbers 57 as 56 and 104/105 as 103 |
 | Census block groups 2020 | TIGER/Line 2020, New York State; population per block group (Census API) | `GEOID` | 4269 | `census_block_groups_read()`, `nyc_latest("bg_population")` | population JSON has the names in its first row |
 | Congestion relief zone entries (MTA) | 2025-01-05 to snapshot | detection group (crossing), 10-minute block | - | `fread(nyc_latest("crz_entries"))` | times as text MM/DD/YYYY HH:MM:SS AM |
 
@@ -188,8 +188,8 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
       yellow_csv_legacy/   yellow_tripdata_YYYY-MM.csv       2012-01 to 2016-06, with pickup/dropoff
                                                              coordinates; no longer published this way, keep
       zones/               taxi_zones_YYYYMMDD.zip (shapefile), taxi_zone_lookup_YYYYMMDD.csv;
-                           taxi_zones_20250923.zip is the 2025 version used by nyc_res_bikelanes (other
-                           Manhattan LocationIDs, 3 duplicate ids)
+                           taxi_zones_20250923.zip is the 2025 version used by nyc_res_bikelanes (same
+                           polygons, but ids 56 and 103 duplicated where the trips use 57, 104, 105)
     crashes/               Motor_Vehicle_Collisions_-_{Crashes,Person,Vehicles}_YYYYMMDD.csv (dated snapshots)
                            NYPD_Motor_Vehicle_Collisions_YYYYMMDD.csv (pre-2020 version of the crash table)
     street_layout/         raw current-state street layout (renamed from streets/ 2026-10-23)
@@ -223,7 +223,8 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
                            census_tract_2020_to_nta_cdta_YYYYMMDD.csv
       census_block_groups_2020/ tl_2020_36_bg.* (TIGER/Line block groups, New York State) and
                            nyc_bg_population_2020_YYYYMMDD.json (P1_001N per block group); from nyc_res_cc
-    congestion_pricing/    MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025_YYYYMMDD.csv (data.ny.gov t2rz-wjj6)
+    congestion_pricing/    MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025_YYYYMMDD.csv (data.ny.gov
+                           t6yz-b64h, was t2rz-wjj6 until 2026; 10_download_opendata.R)
     traffic_counts/
       automated/           Automated_Traffic_Volume_Counts_YYYYMMDD.csv (DOT ATR counts)
       legacy/              DOT volume and vehicle classification counts 2011-2018, Midtown 2018
@@ -248,6 +249,8 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
                            (each parquet is one published zip, columns as published, codes as text)
   derived/                  made from the raw data, can be rebuilt:
     crashes_parquet/       parquet copies of the crash snapshots (scripts/30_crashes_parquet.R)
+    taxi_yellow_legacy/    yellow_tripdata_YYYY-MM.parquet: the legacy yellow CSVs in one schema (TLC parquet
+                           names and codes, sorted by pickup; scripts/02_yellow_legacy_parquet.R, tlc_legacy_open())
     air_pollution/         {hourly,daily}_<param>.parquet: NYC-area monitors (scripts/41_air_pollution_nyc.R)
     streets/               street network history built in streets/ (see streets/README.md):
       spine/               segment key across the 57 LION releases (lion_segment_releases, segment_versions,

@@ -39,7 +39,7 @@ download_one <- function(url, dest) {
   part <- paste0(dest, ".part")
   ok <- tryCatch(download.file(url, part, mode = "wb", quiet = TRUE, cacheOK = FALSE) == 0,
                  error = function(e) FALSE, warning = function(w) FALSE)
-  if (ok) file.rename(part, dest) else unlink(part)
+  if (ok) nyc_rename(part, dest) else unlink(part)
   ok
 }
 
@@ -66,7 +66,7 @@ for (type in types) {
     if (file.exists(dest)) {
       if (file.size(dest) == rs) next
       # republished by TLC: keep the old version next to the new one
-      file.rename(dest, sub("\\.parquet$", paste0(".superseded_", format(Sys.Date(), "%Y%m%d"), ".parquet"), dest))
+      nyc_rename(dest, sub("\\.parquet$", paste0(".superseded_", format(Sys.Date(), "%Y%m%d"), ".parquet"), dest))
       message(type, " ", ym, ": republished, re-downloading")
     }
 
@@ -93,7 +93,7 @@ for (z in c("taxi_zones.zip", "taxi_zone_lookup.csv")) {
 }
 
 # Manifest of everything on disk ----
-files <- list.files(raw_dir, pattern = "_tripdata_\\d{4}-\\d{2}\\.(parquet|csv)$", recursive = TRUE, full.names = TRUE)
+files <- list.files(raw_dir, pattern = "_tripdata_\\d{4}-\\d{2}\\.(parquet|csv|csv\\.gz)$", recursive = TRUE, full.names = TRUE)
 manifest <- data.table(
   file  = sub(paste0(raw_dir, "/"), "", files, fixed = TRUE),
   size  = file.size(files),

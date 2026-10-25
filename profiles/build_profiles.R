@@ -133,13 +133,27 @@ for (type in names(tlc_months_profiled)) local({
 })
 
 sources$taxi_yellow_csv_legacy <- function() {
-  files <- file.path(tlc_data_dir(), "yellow_csv_legacy", c("yellow_tripdata_2012-06.csv", "yellow_tripdata_2015-06.csv"))
+  # .csv as published, or .csv.gz after scripts/03_gzip_yellow_legacy.sh
+  files <- vapply(c("yellow_tripdata_2012-06.csv", "yellow_tripdata_2015-06.csv"), function(b)
+    Find(file.exists, file.path(tlc_data_dir(), "yellow_csv_legacy", paste0(b, c("", ".gz")))), character(1))
   x <- rbindlist(lapply(files, fread, nrows = 2e5, header = TRUE, blank.lines.skip = TRUE), use.names = TRUE, fill = TRUE)
   run_profile("taxi_yellow_csv_legacy", x, reader = "data.table::fread(file.path(tlc_data_dir(), 'yellow_csv_legacy', ...))",
               files = "raw/taxi/yellow_csv_legacy/yellow_tripdata_YYYY-MM.csv (2012-01 to 2016-06)", rows_total = NA,
               sample = "first 200,000 rows of 2012-06 and of 2015-06 (files are in time order, so early days of the month)",
               notes = "2012-2014 files use vendor_id/pickup_datetime/rate_code; 2015-16 use VendorID/tpep_pickup_datetime/RateCodeID (both sets in the profile, NA where absent). Coordinates as lon/lat.",
               raw = TRUE)
+}
+
+sources$taxi_yellow_legacy <- function() {
+  all_files <- tlc_legacy_files()
+  x <- rbindlist(lapply(all_files[basename(all_files) %in% c("yellow_tripdata_2012-06.parquet", "yellow_tripdata_2015-06.parquet")],
+                        parquet_sample, n = 1e5), use.names = TRUE, fill = TRUE)
+  rows <- sum(vapply(all_files, function(f) arrow::ParquetFileReader$create(f)$num_rows, numeric(1)))
+  run_profile("taxi_yellow_legacy", x, reader = "tlc_legacy_open() / arrow::read_parquet(tlc_legacy_files(2012))",
+              files = sprintf("derived/taxi_yellow_legacy/yellow_tripdata_YYYY-MM.parquet (%d months, 2012-01 to 2016-06)", length(all_files)),
+              rows_total = rows, sample = "100,000 random trips from each of 2012-06, 2015-06",
+              notes = "the legacy CSVs in one schema with TLC parquet names and codes, plus pickup/dropoff lon/lat; sorted by pickup time",
+              time_col = "tpep_pickup_datetime")
 }
 
 sources$taxi_zones <- function() {
@@ -219,8 +233,8 @@ sources$bike_ped_counts <- function() {
               files = rel(nyc_latest("bike_ped_counts")), rows_total = rows, sample = "1,000,000 random rows, deleted rows dropped",
               notes = "one row per sensor, flow (direction) and 15 minutes; time in NYC local time", time_col = "time", weight_col = "counts")
 }
-legacy <- list.files(file.path(root, "traffic_counts", "legacy"), "\\.csv$", full.names = TRUE)
-legacy <- c(legacy, file.path(root, "traffic_counts", "bicycle", c("Bicycle_Counts_20200204.csv", "Bicycle_Counters_20200204.csv",
+legacy <- list.files(file.path(root, "raw", "traffic_counts", "legacy"), "\\.csv$", full.names = TRUE)
+legacy <- c(legacy, file.path(root, "raw", "traffic_counts", "bicycle", c("Bicycle_Counts_20200204.csv", "Bicycle_Counters_20200204.csv",
                                                                      "NYCDCP_Manhattan_Bike_Counts_-_On_Street_Weekday.csv",
                                                                      "NYCDCP_Manhattan_Bike_Counts_-_Off_Street.csv")))
 for (f in legacy) local({
@@ -297,7 +311,7 @@ for (fq in c("hourly", "daily")) local({
 
 # Other open data snapshots, read as published (csv with fread, geojson with sf)
 done <- c("crashes", "persons", "vehicles", "bike_routes", "lion", "address_points", "traffic_counts", "bike_ped_counts",
-          "bike_ped_sensors", "boroughs", "community_districts", "ntas", "tracts", "blocks", "precincts")
+          "bike_ped_sensors", "boroughs", "community_districts", "ntas", "tracts", "blocks", "precincts", "crz_entries")
 for (nm in setdiff(nyc_opendata[, name], done)) local({
   s <- nm
   sources[[s]] <<- function() {

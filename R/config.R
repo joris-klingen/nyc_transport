@@ -1,8 +1,7 @@
 # Shared configuration for the NYC transport data store (nyc_transport_data)
 #
 # The root is taken from the environment variable NYC_TRANSPORT_DATA, or else from
-# NYC_TRANSPORT_DATA in config.local at the repo root (copy config.example). The old names
-# NYC_TRAFFIC_DATA and NYC_DATA are still read as fallbacks. Layout: raw/ (every raw source: taxi,
+# NYC_TRANSPORT_DATA in config.local at the repo root (copy config.example). Layout: raw/ (every raw source: taxi,
 # crashes, street_layout, boundaries, traffic_counts, citibike, air_pollution, congestion_pricing),
 # derived/ (computed; derived/streets is the street network history built in streets/),
 # reference/ (lookup tables), docs/ (PDFs), _meta/ (download logs and manifests), _archive/
@@ -22,8 +21,6 @@ nyc_data_root <- function() {
     readRenviron(nyc_config_file)
     d <- Sys.getenv("NYC_TRANSPORT_DATA", unset = "")
   }
-  if (d == "") d <- Sys.getenv("NYC_TRAFFIC_DATA", unset = "")
-  if (d == "") d <- Sys.getenv("NYC_DATA", unset = "")
   if (d == "") stop("NYC_TRANSPORT_DATA not set: copy config.example to ", nyc_config_file, " and edit it")
   normalizePath(d, winslash = "/", mustWork = FALSE)
 }
@@ -96,6 +93,11 @@ nyc_opendata <- data.table::rbindlist(list(
   list("tract_nta",           "hm78-6dwm", "boundaries",               "census_tract_2020_to_nta_cdta",        "csv")
 ))
 data.table::setnames(nyc_opendata, c("name", "id", "dir", "prefix", "ext"))
+nyc_opendata[, domain := "data.cityofnewyork.us"]
+# same Socrata API on the state portal; the MTA republished the entries as t6yz-b64h in 2026 (t2rz-wjj6 is gone)
+nyc_opendata <- rbind(nyc_opendata, data.table::data.table(
+  name = "crz_entries", id = "t6yz-b64h", dir = "congestion_pricing",
+  prefix = "MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025", ext = "csv", domain = "data.ny.gov"))
 
 nyc_snapshot_pattern <- function(prefix, ext) paste0("^", gsub("([.()+])", "\\\\\\1", prefix), "_(\\d{8})\\.", ext, "$")
 

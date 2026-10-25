@@ -31,6 +31,22 @@ tlc_open <- function(type, years = NULL) {
   arrow::open_dataset(f, unify_schemas = TRUE)
 }
 
+# legacy yellow trips with coordinates (2012-01 to 2016-06), parquet copy of the published CSVs
+# built by scripts/02_yellow_legacy_parquet.R: one schema, TLC parquet names and codes, sorted by pickup
+tlc_legacy_dir <- function() file.path(nyc_data_root(), "derived", "taxi_yellow_legacy")
+
+tlc_legacy_files <- function(years = NULL) {
+  f <- list.files(tlc_legacy_dir(), pattern = "^yellow_tripdata_\\d{4}-\\d{2}\\.parquet$", full.names = TRUE)
+  if (!is.null(years)) f <- f[as.integer(substr(basename(f), 17, 20)) %in% years]
+  f
+}
+
+tlc_legacy_open <- function(years = NULL) {
+  f <- tlc_legacy_files(years)
+  if (length(f) == 0) stop("no legacy yellow parquet in ", tlc_legacy_dir(), "; run scripts/02_yellow_legacy_parquet.R")
+  arrow::open_dataset(f)
+}
+
 # Dated snapshots ----
 nyc_snapshots <- c(
   setNames(lapply(seq_len(nrow(nyc_opendata)), function(i)
@@ -39,8 +55,6 @@ nyc_snapshots <- c(
     taxi_zones        = c("taxi/zones",        "^taxi_zones_(\\d{8})\\.zip$"),
     taxi_zone_lookup  = c("taxi/zones",        "^taxi_zone_lookup_(\\d{8})\\.csv$"),
     citibike_stations = c("citibike/stations", "^station_information_(\\d{8})\\.json$"),
-    # MTA congestion relief zone entries (data.ny.gov t2rz-wjj6), 10-minute blocks from 2025-01-05
-    crz_entries       = c("congestion_pricing", "^MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025_(\\d{8})\\.csv$"),
     # 2020 census population (P1_001N) per block group, from the Census API
     bg_population     = c("boundaries/census_block_groups_2020", "^nyc_bg_population_2020_(\\d{8})\\.json$")
   )
@@ -423,10 +437,14 @@ census_block_groups_read <- function() {
 }
 
 # TLC taxi zones (LocationID, borough, zone, service_zone) as sf in nyc_crs; the location in all
-# TLC parquet trips (PULocationID, DOLocationID). Zones 264/265 are unknown and have no polygon.
-taxi_zones_read <- function() {
+# TLC parquet trips (PULocationID, DOLocationID), 2012 on. Zones 264/265 are unknown and have no polygon.
+# One numbering for all years: a point-in-polygon of the legacy pickup coordinates reproduces TLC's
+# PULocationID up to points on a zone boundary (checks/taxi_zones.R). The 2025-09 file (as_of = "20250923") has the same
+# polygons but numbers three of them wrong (56 twice instead of 56/57, 103 three times instead of
+# 103/104/105), so trips in zones 57, 104 and 105 find no polygon in it; keep the default.
+taxi_zones_read <- function(as_of = NULL) {
   stopifnot(requireNamespace("sf", quietly = TRUE))
-  z <- nyc_latest("taxi_zones")
+  z <- nyc_latest("taxi_zones", as_of = as_of)
   shp <- grep("\\.shp$", utils::unzip(z, list = TRUE)$Name, value = TRUE)[1]
   zones <- sf::st_read(paste0("/vsizip/", z, "/", shp), quiet = TRUE)
   lk <- data.table::fread(nyc_latest("taxi_zone_lookup"))

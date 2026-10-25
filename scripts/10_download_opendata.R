@@ -13,12 +13,12 @@ library(data.table)
 source("R/config.R")
 
 urls <- c(
-  csv     = "https://data.cityofnewyork.us/api/views/%s/rows.csv?accessType=DOWNLOAD",
-  geojson = "https://data.cityofnewyork.us/api/geospatial/%s?method=export&format=GeoJSON",
-  zip     = "https://data.cityofnewyork.us/download/%s/application/zip"
+  csv     = "https://%s/api/views/%s/rows.csv?accessType=DOWNLOAD",
+  geojson = "https://%s/api/geospatial/%s?method=export&format=GeoJSON",
+  zip     = "https://%s/download/%s/application/zip"
 )
 # the geospatial export is empty for some sets (bus lanes); the API endpoint then has the features
-url_geojson_api <- "https://data.cityofnewyork.us/resource/%s.geojson?$limit=10000000"
+url_geojson_api <- "https://%s/resource/%s.geojson?$limit=10000000"
 
 datasets <- copy(nyc_opendata)
 args <- commandArgs(trailingOnly = TRUE)
@@ -30,8 +30,8 @@ dir.create(file.path(root, "_meta"), showWarnings = FALSE)
 log_file <- file.path(root, "_meta", "opendata_download_log.csv")
 options(timeout = 7200)
 
-last_updated <- function(id) {
-  j <- jsonlite::fromJSON(sprintf("https://data.cityofnewyork.us/api/views/%s.json", id))
+last_updated <- function(domain, id) {
+  j <- jsonlite::fromJSON(sprintf("https://%s/api/views/%s.json", domain, id))
   ts <- j$rowsUpdatedAt %||% j$viewLastModified
   as.Date(as.POSIXct(ts, origin = "1970-01-01"))
 }
@@ -58,14 +58,14 @@ looks_valid <- function(f, ext) {
 # Download loop ----
 for (i in seq_len(nrow(datasets))) {
   d <- datasets[i]
-  out_dir <- file.path(root, d[, dir])
+  out_dir <- file.path(root, "raw", d[, dir])
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
 
   pattern <- nyc_snapshot_pattern(d[, prefix], d[, ext])
   local <- sort(list.files(out_dir, pattern = pattern))
   latest_local <- if (length(local)) as.Date(sub(pattern, "\\1", local[length(local)]), "%Y%m%d") else as.Date("1900-01-01")
   latest_seen <- max(latest_local, unchanged[name == d[, name], remote])
-  updated <- tryCatch(last_updated(d[, id]), error = function(e) NA)
+  updated <- tryCatch(last_updated(d[, domain], d[, id]), error = function(e) NA)
   if (is.na(updated)) { message(d[, name], ": metadata FAILED"); log_row(d, "metadata failed", NA); next }
 
   message(d[, name], ": remote updated ", updated, ", latest local snapshot ", latest_local)
@@ -79,8 +79,8 @@ for (i in seq_len(nrow(datasets))) {
     else if (download.file(url, part, mode = "wb", quiet = TRUE) != 0) stop("download.file returned non-zero")
     if (looks_valid(part, d[, ext])) "" else "response is not data"
   }, error = function(e) conditionMessage(e))
-  err <- fetch(sprintf(urls[[d[, ext]]], d[, id]))
-  if (err != "" && d[, ext] == "geojson") err <- fetch(sprintf(url_geojson_api, d[, id]))
+  err <- fetch(sprintf(urls[[d[, ext]]], d[, domain], d[, id]))
+  if (err != "" && d[, ext] == "geojson") err <- fetch(sprintf(url_geojson_api, d[, domain], d[, id]))
   if (err != "") {
     unlink(part)
     log_row(d, "FAILED", updated, msg = err)
@@ -90,7 +90,7 @@ for (i in seq_len(nrow(datasets))) {
     log_row(d, "unchanged", updated, msg = paste("same as", local[length(local)]))
     message(d[, name], ": unchanged since ", local[length(local)])
   } else {
-    file.rename(part, dest)
+    nyc_rename(part, dest)
     log_row(d, "downloaded", updated, file.size(dest))
     message(d[, name], ": saved ", basename(dest), " ", round(file.size(dest) / 1e6), " MB")
   }

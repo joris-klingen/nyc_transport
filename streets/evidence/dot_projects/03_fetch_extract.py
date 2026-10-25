@@ -11,7 +11,7 @@ Usage (from repo root): python evidence/dot_projects/03_fetch_extract.py [matche
 import csv, os, re, sys, time, urllib.request
 import fitz  # pymupdf
 
-ROOT = (os.environ.get("NYC_TRANSPORT_DATA") or os.environ.get("NYC_TRAFFIC_DATA") or os.environ.get("NYC_DATA")
+ROOT = (os.environ.get("NYC_TRANSPORT_DATA")
         or os.path.join(os.environ["USERPROFILE"], "Dropbox/1_research/nyc_transport_data"))
 PDF_DIR = os.path.join(ROOT, "docs", "dot_presentations")
 TIMING = re.compile(r"install|implement|construct|complet|began|begin|upgrad|timeline|next steps|"

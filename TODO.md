@@ -39,10 +39,20 @@ nyc_streets archived (both 2026-10-23).
 - [x] `lanes/01_lion_panel.R` re-run through `nyc_data_root()` 2026-10-13; output identical.
 - [x] `nyc_res_bikelanes/notes/*.md` point to the current repos and data store (2026-10-16; a
       header line in each note says the paths were updated).
-- [ ] Optionally drop the `NYC_DATA` fallback in `R/config.R` once nothing uses it.
-- [ ] Citi Bike: the original 2020-01 to 2021-01 releases with rider demographics are not in the
-      store (the 2024 repackaging converted 2020 to the new format). Check whether they can still be
-      found anywhere if the gender work needs them.
+- [x] `NYC_DATA` and `NYC_TRAFFIC_DATA` fallbacks dropped 2026-10-25 (no environment variable,
+      `.Renviron` or config file used them).
+- [x] Citi Bike: the original 2020-01 to 2021-01 releases with rider demographics are not in the
+      store (the 2024 repackaging converted 2020 to the new format). Checked 2026-10-25: S3 no longer
+      has them; the Wayback Machine has only `202002-` and `202003-citibike-tripdata.csv.zip`
+      (web.archive.org/cdx, captures 2020-12 and 2022-06). Not downloaded; for more months look for
+      copies others posted (Kaggle) if the gender work needs 2020.
+- [x] Congestion relief zone entries downloaded by `10_download_opendata.R` (2026-10-25): the MTA
+      republished them on data.ny.gov as `t6yz-b64h` (`t2rz-wjj6` is gone); `nyc_opendata` has a
+      `domain` column for the state portal.
+- [x] `10_download_opendata.R` wrote new snapshots to `<root>/<dir>` instead of `<root>/raw/<dir>`
+      since the store moved to `raw/` (2026-10-23); fixed 2026-10-25 (no snapshot was downloaded in
+      between). Same fix for the legacy count files in `profiles/build_profiles.R` and their reader
+      calls in `profiles/index.csv`.
 - [x] `output/` and `migration_logs/` deleted 2026-10-13.
 
 ## Yellow legacy CSVs (raw/taxi/yellow_csv_legacy)
@@ -51,7 +61,11 @@ The 54 CSVs (2012-01 to 2016-06, 123 GB) are the only copy of yellow trips with 
 coordinates; TLC no longer serves them (403, checked 2026-10-24), so they stay in the store. Do both
 after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_legacy.R`) has finished.
 
-- [ ] Parquet copy for fast queries: `derived/taxi_yellow_legacy/yellow_tripdata_YYYY-MM.parquet`.
+- [x] Parquet copy built 2026-10-25 (`scripts/02_yellow_legacy_parquet.R`, 19 GB, `tlc_legacy_open()`);
+      rows equal the CSV in all 54 months (`checks/yellow_legacy_parquet.R`). Found on the way: TLC's
+      own yellow parquet files of 2012-2016 hold other trips (6 months lack 0.4-2.0M trips; see
+      the README). Plan as written:
+- Parquet copy for fast queries: `derived/taxi_yellow_legacy/yellow_tripdata_YYYY-MM.parquet`.
   - One schema for all months: the TLC parquet names (`VendorID`, `tpep_pickup_datetime`, `RatecodeID`,
     `extra`, ...) plus `pickup_longitude`, `pickup_latitude`, `dropoff_longitude`, `dropoff_latitude`
     (2012-2014 write `vendor_id`, `pickup_datetime`, `rate_code`, `surcharge`; 2015-2016 the new names).
@@ -62,6 +76,17 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
       123 GB). The files stay byte-for-byte as published once unzipped; `fread()` reads `.csv.gz`.
       Check the md5 of each unzipped file against the CSV before deleting the CSV, and update the
       readers and scripts that list `*.csv` (the tips import, `checks/store.R`).
+
+## Taxi zones and trip types
+
+- [x] Zone numbering (issue #1), 2026-10-25: one numbering for all trip years. The point-in-polygon of
+      the legacy pickup coordinates reproduces TLC's `PULocationID` with the 2026-10 file for
+      99.9-100% of trips (2012-07, 2014-01, 2016-01; the rest within 1.2 ft of the boundary,
+      `checks/taxi_zones.R`); the 2025-09 file has the same polygons but ids 56 and 103 duplicated
+      where the trips use 57, 104 and 105. `taxi_zones_read(as_of)` reads an older file if needed.
+- [x] Non-high-volume FHV (issue #2): not in the store; documented in the README source table
+      (the only record of Uber and Lyft trips before 2019-02). Download with `01_download_tlc.R` if a
+      project needs ride-hail volumes 2015-2019.
 
 ## Profiles and simulated data
 
