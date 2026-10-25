@@ -1,115 +1,115 @@
 column,rank,value,share
-travel_mode,1,bike,0.927646
-travel_mode,2,pedestrian,0.0709272
-travel_mode,3,scooter,0.0014271
-direction,1,in,0.50043
-direction,2,out,0.49957
-flow_name,1,"",0.136541
-flow_name,2,Southbound,0.0326234
-flow_name,3,Northbound,0.0325994
-flow_name,4,Prospect Park West Cyclist Northbound,0.0260229
-flow_name,5,Prospect Park West Cyclist Southbound,0.0258749
-flow_name,6,Manhattan Bridge Display Bike Counter Cyclist IN,0.0234267
-flow_name,7,Manhattan Bridge Display Bike Counter Cyclist OUT,0.0231117
-flow_name,8,WB - MN Bound,0.0210295
-flow_name,9,BK - MN Bound,0.0209775
-flow_name,10,WB - BK Bound,0.0209165
-flow_name,11,QB - MN Bound,0.0207905
-flow_name,12,MN(P) - MN Bound,0.0207535
-flow_name,13,QB - QN Bound,0.0206765
-flow_name,14,BK - BK Bound,0.0205305
-flow_name,15,MN(P) - BK Bound,0.0204945
-flow_name,16,Departing St. George,0.0174783
-flow_name,17,Departing Whitehall,0.0174013
-flow_name,18,Pulaski Bridge  Cyclists BK bound / SB,0.0152511
-flow_name,19,Pulaski Bridge  Cyclists Q bound / NB,0.0152331
-flow_name,20,111th St at 50th Ave  Cyclist OUT,0.0146141
-flow_name,21,111th St at 50th Ave  Cyclist IN,0.0145461
-flow_name,22,Fountain Ave Cyclist OUT,0.013577
-flow_name,23,Fountain Ave Cyclist IN,0.013506
-flow_name,24,50th St. and 8th Ave OUT,0.0129869
-flow_name,25,50th St. and 8th Ave IN,0.0128829
-flow_name,26,86th St. and Amsterdam IN,0.0114028
-flow_name,27,86th St. and Amsterdam OUT,0.0113728
-flow_name,28,87th ST. and Columbus OUT,0.0113668
-flow_name,29,87th ST. and Columbus IN,0.0112478
-flow_name,30,Ocean Pkwy at Avenue J Cyclist IN,0.0101947
-flow_name,31,Ed Koch Queensboro Bridge Shared Path [Bike IN],0.0101607
-flow_name,32,Ocean Pkwy at Avenue J Cyclist OUT,0.0101427
-flow_name,33,Ed Koch Queensboro Bridge Shared Path [Bike OUT],0.0100767
-flow_name,34,Staten Island Ferry [Bike OUT],0.00985072
-flow_name,35,Manhattan Bridge 2012 to 2019 Bike Counter IN,0.0096137
-flow_name,36,Staten Island Ferry [Bike IN],0.0096117
-flow_name,37,Pelham Pkwy Cyclist OUT,0.0095257
-flow_name,38,Manhattan Bridge 2012 to 2019 Bike Counter OUT,0.00947269
-flow_name,39,Pulaski Bridge [Bike IN],0.00945169
-flow_name,40,Williamsburg Bridge Bike Path [Bike OUT],0.00944669
-flow_name,41,Kent Ave btw North 8th St and North 9th St [Bike OUT],0.00942369
-flow_name,42,Kent Ave btw North 8th St and North 9th St [Bike IN],0.00941969
-flow_name,43,Pulaski Bridge [Bike OUT],0.00940069
-flow_name,44,Manhattan Bridge Ped Path [Bike OUT],0.00938769
-flow_name,45,Williamsburg Bridge Bike Path [Bike IN],0.00934568
-flow_name,46,Pelham Pkwy Cyclist IN,0.00934168
-flow_name,47,Manhattan Bridge Ped Path [Bike IN],0.00912467
-flow_name,48,Brooklyn Bridge Bicycle Path (Roadway) Cyclist OUT,0.00910266
-flow_name,49,Brooklyn Bridge Bicycle Path (Roadway) Cyclist IN,0.00900466
-flow_name,50,Manhattan Bridge 2013 to 2018 Bike Counter IN (MN Bound),0.00780357
-flow_name,51,Manhattan Bridge 2013 to 2018 Bike Counter OUT (BK Bound),0.00776657
-flow_name,52,8th Ave at 50th St. [Bike IN],0.00705051
-flow_name,53,8th Ave at 50th St. [Bike OUT],0.00694851
-flow_name,54,Willis Ave Pedestrian OUT,0.00510937
-flow_name,55,Willis Ave Pedestrian IN,0.00509637
-flow_name,56,Willis Ave Cyclist IN,0.00503537
-flow_name,57,Willis Ave Cyclist OUT,0.00488936
-flow_name,58,Emmons Ave [Bike OUT],0.00464134
-flow_name,59,Emmons Ave [Pedestrian OUT],0.00459434
-flow_name,60,Emmons Ave [Bike IN],0.00452733
-flow_name,61,Emmons Ave [Pedestrian IN],0.00451533
-flow_name,62,P-102DELV - Hunts Point Ave Station Cyclist Southbound,0.00419031
-flow_name,63,Concrete Plant Park [Bike IN],0.00417831
-flow_name,64,Concrete Plant Park [Pedestrian IN],0.0041263
-flow_name,65,Concrete Plant Park [Pedestrian OUT],0.0041233
-flow_name,66,Concrete Plant Park [Bike OUT],0.0040593
-flow_name,67,High Bridge [Bike IN],0.00403929
-flow_name,68,High Bridge [Pedestrian IN],0.00403529
-flow_name,69,High Bridge [Pedestrian OUT],0.00401129
-flow_name,70,P-102DELV - Hunts Point Ave Station Cyclist Northbound,0.00399329
-flow_name,71,High Bridge [Bike OUT],0.00399129
-flow_name,72,Kent Ave btw South 6th St. and Broadway_OUT,0.00369127
-flow_name,73,Kent Ave btw South 6th St. and Broadway_IN,0.00368627
-flow_name,74,Manhattan Bridge 2012 Test Bike Counter IN (Manhattan bound),0.00173713
-flow_name,75,Manhattan Bridge 2012 Test Bike Counter OUT (Brooklyn bound),0.00166212
-flow_name,76,Manhattan Bridge Display Bike Counter [Bike IN],0.00147011
-flow_name,77,Concrete Plant Park Peds IN,0.0014331
-flow_name,78,Emmons Ave Bikes IN,0.0014251
-flow_name,79,Emmons Ave Bikes OUT,0.0014181
-flow_name,80,Concrete Plant Park Peds OUT,0.0014121
-flow_name,81,Manhattan Bridge Display Bike Counter IN,0.0014031
-flow_name,82,Emmons Ave Peds OUT,0.0014011
-flow_name,83,Concrete Plant Park Bikes OUT,0.0013951
-flow_name,84,Concrete Plant Park Bikes IN,0.0013941
-flow_name,85,Manhattan Bridge Display Bike Counter [Bike OUT],0.0013911
-flow_name,86,Manhattan Bridge Display Bike Counter OUT,0.0013881
-flow_name,87,Emmons Ave Peds IN,0.00129509
-flow_name,88,Comprehensive Brooklyn Bridge OUT,0.00121309
-flow_name,89,Comprehensive Brooklyn Bridge IN,0.00120309
-flow_name,90,50th St and Broadway OUT,0.00101307
-flow_name,91,50th St and Broadway IN,0.00095507
-flow_name,92,High Bridge Bikes IN,0.000868063
-flow_name,93,High Bridge Peds OUT,0.000847062
-flow_name,94,High Bridge Peds IN,0.000791058
-flow_name,95,High Bridge Bikes OUT,0.000773056
-flow_name,96,Channel 1 IN,0.000732053
-flow_name,97,Channel 3 IN,0.000706052
-flow_name,98,Channel 2 OUT,0.000698051
-flow_name,99,Channel 4 OUT,0.00068305
-flow_name,100,Flatlands Ave & 76th St Scooter IN,0.000494036
-flow_name,101,Flatlands Ave & 76th St [Bike OUT],0.000491036
-flow_name,102,Flatlands Ave & 76th St [E-Scooter OUT],0.000474035
-flow_name,103,Flatlands Ave & 76th St Cyclist IN,0.000446033
-flow_name,104,Flatlands Ave & 76th St Cyclist OUT,0.00027102
-flow_name,105,Flatlands Ave & 76th St [E-Scooter IN],0.000237017
-flow_name,106,Flatlands Ave & 76th St Scooter OUT,0.000222016
-flow_name,107,Flatlands Ave & 76th St [Bike IN],0.000218016
-status,1,raw,0.885549
-status,2,modified,0.114451
+travel_mode,1,bike,0.927741
+travel_mode,2,pedestrian,0.0708037
+travel_mode,3,scooter,0.00145512
+direction,1,in,0.500168
+direction,2,out,0.499832
+flow_name,1,"",0.136533
+flow_name,2,Southbound,0.0326536
+flow_name,3,Northbound,0.0326296
+flow_name,4,Prospect Park West Cyclist Northbound,0.0259611
+flow_name,5,Prospect Park West Cyclist Southbound,0.025545
+flow_name,6,Manhattan Bridge Display Bike Counter Cyclist IN,0.0235389
+flow_name,7,Manhattan Bridge Display Bike Counter Cyclist OUT,0.0231559
+flow_name,8,WB - BK Bound,0.0210647
+flow_name,9,WB - MN Bound,0.0209377
+flow_name,10,MN(P) - BK Bound,0.0209087
+flow_name,11,QB - MN Bound,0.0207927
+flow_name,12,BK - MN Bound,0.0206967
+flow_name,13,QB - QN Bound,0.0206677
+flow_name,14,MN(P) - MN Bound,0.0205266
+flow_name,15,BK - BK Bound,0.0203686
+flow_name,16,Departing Whitehall,0.0176504
+flow_name,17,Departing St. George,0.0173364
+flow_name,18,Pulaski Bridge  Cyclists BK bound / SB,0.0152092
+flow_name,19,Pulaski Bridge  Cyclists Q bound / NB,0.0151582
+flow_name,20,111th St at 50th Ave  Cyclist IN,0.0145492
+flow_name,21,111th St at 50th Ave  Cyclist OUT,0.0143011
+flow_name,22,Fountain Ave Cyclist OUT,0.0136231
+flow_name,23,Fountain Ave Cyclist IN,0.0133681
+flow_name,24,50th St. and 8th Ave IN,0.013024
+flow_name,25,50th St. and 8th Ave OUT,0.012822
+flow_name,26,87th ST. and Columbus OUT,0.0115289
+flow_name,27,86th St. and Amsterdam OUT,0.0115119
+flow_name,28,87th ST. and Columbus IN,0.0114679
+flow_name,29,86th St. and Amsterdam IN,0.0112049
+flow_name,30,Ed Koch Queensboro Bridge Shared Path [Bike IN],0.0102908
+flow_name,31,Ocean Pkwy at Avenue J Cyclist IN,0.0102538
+flow_name,32,Ed Koch Queensboro Bridge Shared Path [Bike OUT],0.0101808
+flow_name,33,Ocean Pkwy at Avenue J Cyclist OUT,0.0101538
+flow_name,34,Staten Island Ferry [Bike IN],0.00975778
+flow_name,35,Kent Ave btw North 8th St and North 9th St [Bike IN],0.00960377
+flow_name,36,Manhattan Bridge 2012 to 2019 Bike Counter OUT,0.00959377
+flow_name,37,Pulaski Bridge [Bike OUT],0.00955476
+flow_name,38,Staten Island Ferry [Bike OUT],0.00953276
+flow_name,39,Kent Ave btw North 8th St and North 9th St [Bike OUT],0.00943375
+flow_name,40,Williamsburg Bridge Bike Path [Bike OUT],0.00943275
+flow_name,41,Pelham Pkwy Cyclist IN,0.00941175
+flow_name,42,Manhattan Bridge Ped Path [Bike IN],0.00940475
+flow_name,43,Manhattan Bridge 2012 to 2019 Bike Counter IN,0.00938675
+flow_name,44,Williamsburg Bridge Bike Path [Bike IN],0.00936575
+flow_name,45,Pulaski Bridge [Bike IN],0.00930874
+flow_name,46,Pelham Pkwy Cyclist OUT,0.00929674
+flow_name,47,Manhattan Bridge Ped Path [Bike OUT],0.00925474
+flow_name,48,Brooklyn Bridge Bicycle Path (Roadway) Cyclist IN,0.00900972
+flow_name,49,Brooklyn Bridge Bicycle Path (Roadway) Cyclist OUT,0.00888071
+flow_name,50,Manhattan Bridge 2013 to 2018 Bike Counter IN (MN Bound),0.00779362
+flow_name,51,Manhattan Bridge 2013 to 2018 Bike Counter OUT (BK Bound),0.00771662
+flow_name,52,8th Ave at 50th St. [Bike OUT],0.00705056
+flow_name,53,8th Ave at 50th St. [Bike IN],0.00703556
+flow_name,54,Willis Ave Cyclist IN,0.00506641
+flow_name,55,Willis Ave Pedestrian OUT,0.0050404
+flow_name,56,Willis Ave Pedestrian IN,0.0049964
+flow_name,57,Willis Ave Cyclist OUT,0.0049564
+flow_name,58,Emmons Ave [Pedestrian OUT],0.00467937
+flow_name,59,Emmons Ave [Bike IN],0.00464937
+flow_name,60,Emmons Ave [Pedestrian IN],0.00459737
+flow_name,61,Emmons Ave [Bike OUT],0.00459237
+flow_name,62,Concrete Plant Park [Pedestrian OUT],0.00423734
+flow_name,63,Concrete Plant Park [Bike OUT],0.00417733
+flow_name,64,P-102DELV - Hunts Point Ave Station Cyclist Southbound,0.00413833
+flow_name,65,Concrete Plant Park [Pedestrian IN],0.00413633
+flow_name,66,Concrete Plant Park [Bike IN],0.00410433
+flow_name,67,P-102DELV - Hunts Point Ave Station Cyclist Northbound,0.00406433
+flow_name,68,High Bridge [Bike IN],0.00403632
+flow_name,69,High Bridge [Bike OUT],0.00398432
+flow_name,70,High Bridge [Pedestrian IN],0.00397532
+flow_name,71,High Bridge [Pedestrian OUT],0.00391131
+flow_name,72,Kent Ave btw South 6th St. and Broadway_IN,0.0037013
+flow_name,73,Kent Ave btw South 6th St. and Broadway_OUT,0.00368129
+flow_name,74,Manhattan Bridge 2012 Test Bike Counter OUT (Brooklyn bound),0.00177414
+flow_name,75,Manhattan Bridge 2012 Test Bike Counter IN (Manhattan bound),0.00175114
+flow_name,76,Emmons Ave Bikes OUT,0.00145712
+flow_name,77,Concrete Plant Park Bikes IN,0.00145112
+flow_name,78,Manhattan Bridge Display Bike Counter [Bike IN],0.00143111
+flow_name,79,Emmons Ave Peds IN,0.00141511
+flow_name,80,Concrete Plant Park Peds OUT,0.00140511
+flow_name,81,Manhattan Bridge Display Bike Counter IN,0.00140311
+flow_name,82,Emmons Ave Peds OUT,0.00140211
+flow_name,83,Manhattan Bridge Display Bike Counter OUT,0.00138811
+flow_name,84,Manhattan Bridge Display Bike Counter [Bike OUT],0.00138411
+flow_name,85,Concrete Plant Park Peds IN,0.00136811
+flow_name,86,Concrete Plant Park Bikes OUT,0.00135311
+flow_name,87,Emmons Ave Bikes IN,0.00133011
+flow_name,88,Comprehensive Brooklyn Bridge IN,0.0012811
+flow_name,89,Comprehensive Brooklyn Bridge OUT,0.0012151
+flow_name,90,50th St and Broadway OUT,0.000926074
+flow_name,91,50th St and Broadway IN,0.000925074
+flow_name,92,High Bridge Bikes OUT,0.000893071
+flow_name,93,High Bridge Peds OUT,0.000885071
+flow_name,94,High Bridge Bikes IN,0.000840067
+flow_name,95,High Bridge Peds IN,0.000832067
+flow_name,96,Channel 1 IN,0.000734059
+flow_name,97,Channel 2 OUT,0.000704056
+flow_name,98,Channel 3 IN,0.000688055
+flow_name,99,Channel 4 OUT,0.000676054
+flow_name,100,Flatlands Ave & 76th St Cyclist IN,0.000514041
+flow_name,101,Flatlands Ave & 76th St [E-Scooter OUT],0.000508041
+flow_name,102,Flatlands Ave & 76th St [Bike OUT],0.00050304
+flow_name,103,Flatlands Ave & 76th St Scooter IN,0.000477038
+flow_name,104,Flatlands Ave & 76th St [E-Scooter IN],0.000236019
+flow_name,105,Flatlands Ave & 76th St Scooter OUT,0.000234019
+flow_name,106,Flatlands Ave & 76th St [Bike IN],0.000234019
+flow_name,107,Flatlands Ave & 76th St Cyclist OUT,0.000214017
+status,1,raw,0.885419
+status,2,modified,0.114581

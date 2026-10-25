@@ -1,26 +1,26 @@
 column,kind,class,n,na_share,n_distinct,min,q001,q01,q05,q10,q25,median,q75,q90,q95,q99,q999,max,mean,sd,whole,format,nchar_min,nchar_max,id_pattern,example,values_kept,values_share
-UNIQUE_ID,integer,integer,1000000,0,1000000,123423,8394800,8616429,9799801,11314035,14665986,17733460,19738560,20549030,20827034,21144248,21188263,21192934,16902452,3430890,TRUE,,,,,,,
-COLLISION_ID,integer,integer,1000000,0,878366,28,2388,23973,117359,232387,3206383,3775945,4341819,4677776,4791334,4883021,4903453,4905771,3308489,1505930,TRUE,,,,,,,
-CRASH_DATE,Date,character,1000000,0,5094,2012-07-01,2012-07-05,2012-08-10,2013-01-28,2013-08-19,2015-04-19,2017-10-18,2020-08-23,2023-11-05,2025-02-05,2026-03-03,2026-05-31,2026-06-11,2018-03-22,1330.1,TRUE,%m/%d/%Y,,,,,,
-CRASH_TIME,ITime,character,1000000,0,1440,00:00:00,00:00:00,00:00:00,01:48:00,05:20:00,09:30:00,14:11:00,18:00:00,20:53:00,22:15:00,23:30:00,23:55:00,23:59:00,13:31:31,21014.7,TRUE,%H:%M,,,,,,
-VEHICLE_ID,character,character,1000000,0,663305,,,,,,,,,,,,,,,,,,1,36,alnum,1,,
-STATE_REGISTRATION,character,character,1000000,0.080881,74,,,,,,,,,,,,,,,,,,2,2,alnum,NY,74,1
-VEHICLE_TYPE,character,character,1000000,0.061408,1281,,,,,,,,,,,,,,,,,,1,38,alnum,PASSENGER VEHICLE,400,0.998941
-VEHICLE_MAKE,character,character,1000000,0.430083,5250,,,,,,,,,,,,,,,,,,1,52,alnum,FRHT-TRUCK/BUS,400,0.985638
-VEHICLE_MODEL,character,character,1000000,0.986459,1806,,,,,,,,,,,,,,,,,,1,25,alnum,deliv,400,0.851636
-VEHICLE_YEAR,integer,integer,1000000,0.435821,216,1000,1987,1997,2002,2004,2009,2014,2017,2020,2022,2024,2026,20015,2015.587,145.267,TRUE,,,,,,,
-TRAVEL_DIRECTION,character,character,1000000,0.372467,15,,,,,,,,,,,,,,,,,,1,9,alnum,East,15,1
-VEHICLE_OCCUPANTS,integer,integer,1000000,0.40268,87,0,0,0,0,0,1,1,1,2,3,5,12,456817715,1057.699,629732,TRUE,,,,,,,
-DRIVER_SEX,character,character,1000000,0.516438,3,,,,,,,,,,,,,,,,,,1,1,alnum,M,3,1
-DRIVER_LICENSE_STATUS,character,character,1000000,0.539961,14,,,,,,,,,,,,,,,,,,3,10,alnum,Licensed,14,1
-DRIVER_LICENSE_JURISDICTION,character,character,1000000,0.539202,66,,,,,,,,,,,,,,,,,,2,3,alnum,NY,66,1
-PRE_CRASH,character,character,1000000,0.209673,19,,,,,,,,,,,,,,,,,,6,26,alnum,Parked,19,1
-POINT_OF_IMPACT,character,character,1000000,0.380447,19,,,,,,,,,,,,,,,,,,4,25,alnum,Left Front Quarter Panel,19,1
-VEHICLE_DAMAGE,character,character,1000000,0.38679,19,,,,,,,,,,,,,,,,,,4,25,alnum,Left Front Quarter Panel,19,1
-VEHICLE_DAMAGE_1,character,character,1000000,0.600337,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
-VEHICLE_DAMAGE_2,character,character,1000000,0.694566,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
-VEHICLE_DAMAGE_3,character,character,1000000,0.761773,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
-PUBLIC_PROPERTY_DAMAGE,character,character,1000000,0.336716,3,,,,,,,,,,,,,,,,,,1,11,alnum,N,3,1
-PUBLIC_PROPERTY_DAMAGE_TYPE,character,character,1000000,0.993302,5274,,,,,,,,,,,,,,,,,,3,866,alnum,PASSENGER FRONT SIDE DAMAGED,,
-CONTRIBUTING_FACTOR_1,character,character,1000000,0.0372940000000001,65,,,,,,,,,,,,,,,,,,1,53,alnum,Unspecified,65,1
-CONTRIBUTING_FACTOR_2,character,character,1000000,0.377573,60,,,,,,,,,,,,,,,,,,1,53,alnum,Unspecified,60,1
+UNIQUE_ID,integer,integer,1000000,0,1000000,111711,8394868,8616213,9798852,11314151,14665957,17732333,19736052,20546832,20827162,21143844,21188311,21192934,16900062,3430390,TRUE,,,,,,,
+COLLISION_ID,integer,integer,1000000,0,877897,22,2362,23591,117159,231897,3206422,3775550,4340777,4676804,4791392,4882796,4903471,4905771,3307442,1506370,TRUE,,,,,,,
+CRASH_DATE,Date,character,1000000,0,5094,2012-07-01,2012-07-05,2012-08-10,2013-01-27,2013-08-18,2015-04-20,2017-10-17,2020-08-20,2023-11-01,2025-02-06,2026-03-02,2026-05-31,2026-06-11,2018-03-21,1329.44,TRUE,%m/%d/%Y,,,,,,
+CRASH_TIME,ITime,character,1000000,0,1440,00:00:00,00:00:00,00:00:00,01:50:00,05:22:00,09:30:00,14:12:00,18:00:00,20:54:00,22:15:00,23:30:00,23:55:00,23:59:00,13:31:50,21006.6,TRUE,%H:%M,,,,,,
+VEHICLE_ID,character,character,1000000,0,663200,,,,,,,,,,,,,,,,,,1,36,alnum,1,,
+STATE_REGISTRATION,character,character,1000000,0.081054,75,,,,,,,,,,,,,,,,,,2,2,alnum,NY,75,1
+VEHICLE_TYPE,character,character,1000000,0.061629,1267,,,,,,,,,,,,,,,,,,1,38,alnum,PASSENGER VEHICLE,400,0.998956
+VEHICLE_MAKE,character,character,1000000,0.430325,5238,,,,,,,,,,,,,,,,,,1,53,alnum,FRHT-TRUCK/BUS,400,0.985497
+VEHICLE_MODEL,character,character,1000000,0.986589,1841,,,,,,,,,,,,,,,,,,1,25,alnum,TOYT 4RN,400,0.84729
+VEHICLE_YEAR,integer,integer,1000000,0.435854,201,1000,1987,1997,2002,2004,2009,2014,2017,2020,2022,2024,2026,20015,2015.772,150.558,TRUE,,,,,,,
+TRAVEL_DIRECTION,character,character,1000000,0.372742,15,,,,,,,,,,,,,,,,,,1,9,alnum,East,15,1
+VEHICLE_OCCUPANTS,integer,integer,1000000,0.402906,84,0,0,0,0,0,1,1,1,2,3,5,12,456817715,768.2084,591184,TRUE,,,,,,,
+DRIVER_SEX,character,character,1000000,0.516663,3,,,,,,,,,,,,,,,,,,1,1,alnum,M,3,1
+DRIVER_LICENSE_STATUS,character,character,1000000,0.540276,14,,,,,,,,,,,,,,,,,,3,10,alnum,Licensed,14,1
+DRIVER_LICENSE_JURISDICTION,character,character,1000000,0.539432,66,,,,,,,,,,,,,,,,,,2,3,alnum,NY,66,1
+PRE_CRASH,character,character,1000000,0.210057,19,,,,,,,,,,,,,,,,,,6,26,alnum,Parked,19,1
+POINT_OF_IMPACT,character,character,1000000,0.380633,19,,,,,,,,,,,,,,,,,,4,25,alnum,Left Front Quarter Panel,19,1
+VEHICLE_DAMAGE,character,character,1000000,0.386958,19,,,,,,,,,,,,,,,,,,4,25,alnum,Left Front Quarter Panel,19,1
+VEHICLE_DAMAGE_1,character,character,1000000,0.600636,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
+VEHICLE_DAMAGE_2,character,character,1000000,0.695088,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
+VEHICLE_DAMAGE_3,character,character,1000000,0.762415,19,,,,,,,,,,,,,,,,,,4,25,alnum,No Damage,19,1
+PUBLIC_PROPERTY_DAMAGE,character,character,1000000,0.336822,3,,,,,,,,,,,,,,,,,,1,11,alnum,N,3,1
+PUBLIC_PROPERTY_DAMAGE_TYPE,character,character,1000000,0.993219,5332,,,,,,,,,,,,,,,,,,3,611,alnum,PASSENGER FRONT SIDE DAMAGED,,
+CONTRIBUTING_FACTOR_1,character,character,1000000,0.0374640000000001,66,,,,,,,,,,,,,,,,,,1,53,alnum,Unspecified,66,1
+CONTRIBUTING_FACTOR_2,character,character,1000000,0.377723,60,,,,,,,,,,,,,,,,,,1,53,alnum,Unspecified,60,1

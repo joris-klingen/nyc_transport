@@ -1,212 +1,244 @@
 column,rank,value,share
-state_code,1,36,0.677982
-state_code,2,34,0.281695
-state_code,3,09,0.0403226
-county_code,1,005,0.158852
-county_code,2,061,0.0965866
-county_code,3,119,0.0965866
-county_code,4,103,0.0952738
-county_code,5,081,0.0849587
-county_code,6,017,0.0847712
-county_code,7,023,0.0847712
-county_code,8,087,0.0789572
-county_code,9,085,0.0667667
-county_code,10,003,0.0562641
-county_code,11,031,0.0496999
-county_code,12,001,0.0403226
-county_code,13,013,0.00618905
-site_num,1,0006,0.141035
-site_num,2,0135,0.0965866
-site_num,3,2004,0.0965866
-site_num,4,0002,0.0952738
-site_num,5,0124,0.0849587
-site_num,6,0011,0.0847712
-site_num,7,0133,0.079895
-site_num,8,0110,0.0789572
-site_num,9,0005,0.0789572
-site_num,10,0111,0.0667667
-site_num,11,5001,0.0496999
-site_num,12,0017,0.0465116
+state_code,1,36,0.623262
+state_code,2,34,0.333571
+state_code,3,09,0.0431671
+county_code,1,005,0.155123
+county_code,2,119,0.0822011
+county_code,3,081,0.0819477
+county_code,4,061,0.0817894
+county_code,5,103,0.0812668
+county_code,6,087,0.0810135
+county_code,7,023,0.0808393
+county_code,8,017,0.0787015
+county_code,9,013,0.0624386
+county_code,10,085,0.0599208
+county_code,11,031,0.0561203
+county_code,12,003,0.0554711
+county_code,13,001,0.0431671
+site_num,1,0006,0.134173
+site_num,2,2004,0.0822011
+site_num,3,0124,0.0819477
+site_num,4,0135,0.0817894
+site_num,5,0002,0.0812668
+site_num,6,0005,0.0810135
+site_num,7,0011,0.0808393
+site_num,8,0133,0.0792399
+site_num,9,0110,0.0758828
+site_num,10,0003,0.0619161
+site_num,11,5001,0.0561203
+site_num,12,0017,0.0436896
+site_num,13,0111,0.0328266
+site_num,14,0067,0.0270942
 parameter_code,1,44201,1
-poc,1,1,0.933233
-poc,2,2,0.0667667
-latitude,1,40.81976,0.0965866
-latitude,2,41.05192,0.0965866
-latitude,3,40.74529,0.0952738
-latitude,4,40.73614,0.0849587
-latitude,5,40.67025,0.0847712
-latitude,6,40.462182,0.0847712
-latitude,7,40.8679,0.079895
-latitude,8,40.816,0.0789572
-latitude,9,41.18208,0.0789572
-latitude,10,40.58027,0.0667667
-latitude,11,40.870436,0.0562641
-latitude,12,41.058617,0.0496999
-latitude,13,41.004657,0.0403226
-latitude,14,40.727369,0.00618905
-longitude,1,-73.94825,0.0965866
-longitude,2,-73.76366,0.0965866
-longitude,3,-73.41919,0.0952738
-longitude,4,-73.82153,0.0849587
-longitude,5,-74.126081,0.0847712
-longitude,6,-74.429439,0.0847712
-longitude,7,-73.87809,0.079895
-longitude,8,-73.902,0.0789572
-longitude,9,-74.02819,0.0789572
-longitude,10,-74.19832,0.0667667
-longitude,11,-73.991994,0.0562641
-longitude,12,-74.255544,0.0496999
-longitude,13,-73.585128,0.0403226
-longitude,14,-74.174479,0.00618905
-datum,1,WGS84,0.874906
-datum,2,NAD83,0.125094
+poc,1,1,0.967173
+poc,2,2,0.0328266
+latitude,1,41.05192,0.0822011
+latitude,2,40.73614,0.0819477
+latitude,3,40.81976,0.0817894
+latitude,4,40.74529,0.0812668
+latitude,5,41.18208,0.0810135
+latitude,6,40.462182,0.0808393
+latitude,7,40.8679,0.0792399
+latitude,8,40.67025,0.0787015
+latitude,9,40.816,0.0758828
+latitude,10,40.720989,0.0619161
+latitude,11,41.058617,0.0561203
+latitude,12,40.870436,0.0554711
+latitude,13,41.004657,0.0431671
+latitude,14,40.58027,0.0328266
+latitude,15,40.59664,0.0270942
+latitude,16,40.727369,0.000522565
+longitude,1,-73.76366,0.0822011
+longitude,2,-73.82153,0.0819477
+longitude,3,-73.94825,0.0817894
+longitude,4,-73.41919,0.0812668
+longitude,5,-74.02819,0.0810135
+longitude,6,-74.429439,0.0808393
+longitude,7,-73.87809,0.0792399
+longitude,8,-74.126081,0.0787015
+longitude,9,-73.902,0.0758828
+longitude,10,-74.192892,0.0619161
+longitude,11,-74.255544,0.0561203
+longitude,12,-73.991994,0.0554711
+longitude,13,-73.585128,0.0431671
+longitude,14,-74.19832,0.0328266
+longitude,15,-74.12525,0.0270942
+longitude,16,-74.174479,0.000522565
+datum,1,WGS84,0.875994
+datum,2,NAD83,0.124006
 parameter_name,1,Ozone,1
 sample_duration,1,8-HR RUN AVG BEGIN HOUR,1
 pollutant_standard,1,Ozone 8-hour 2015,1
 units_of_measure,1,Parts per million,1
-event_type,1,None,1
-observation_count,1,17,0.932858
-observation_count,2,14,0.0271943
-observation_count,3,11,0.0146287
-observation_count,4,12,0.00675169
-observation_count,5,15,0.00525131
-observation_count,6,13,0.00243811
-observation_count,7,10,0.00243811
-observation_count,8,16,0.00168792
-observation_count,9,8,0.00150038
-observation_count,10,9,0.00150038
-observation_count,11,2,0.000937734
-observation_count,12,1,0.000562641
-observation_count,13,6,0.000562641
-observation_count,14,5,0.000562641
-observation_count,15,7,0.000375094
-observation_count,16,3,0.000375094
-observation_count,17,4,0.000375094
-observation_percent,1,100,0.932858
-observation_percent,2,82,0.0271943
-observation_percent,3,65,0.0146287
-observation_percent,4,71,0.00675169
-observation_percent,5,88,0.00525131
-observation_percent,6,76,0.00243811
-observation_percent,7,59,0.00243811
-observation_percent,8,94,0.00168792
-observation_percent,9,47,0.00150038
-observation_percent,10,53,0.00150038
-observation_percent,11,12,0.000937734
-observation_percent,12,6,0.000562641
-observation_percent,13,35,0.000562641
-observation_percent,14,29,0.000562641
-observation_percent,15,41,0.000375094
-observation_percent,16,18,0.000375094
-observation_percent,17,24,0.000375094
-1st_max_hour,1,10,0.23162
-1st_max_hour,2,9,0.197862
-1st_max_hour,3,11,0.155101
-1st_max_hour,4,8,0.0973368
-1st_max_hour,5,7,0.0843961
-1st_max_hour,6,12,0.0626407
-1st_max_hour,7,13,0.0328207
-1st_max_hour,8,23,0.0253188
-1st_max_hour,9,22,0.0191298
-1st_max_hour,10,21,0.0174419
-1st_max_hour,11,14,0.0172543
-1st_max_hour,12,20,0.0125656
-1st_max_hour,13,19,0.0114404
-1st_max_hour,14,18,0.0105026
-1st_max_hour,15,15,0.0103151
-1st_max_hour,16,16,0.00750188
-1st_max_hour,17,17,0.00675169
-method_code,1,087,0.803076
-method_code,2,047,0.196924
-method_name,1,INSTRUMENTAL - ULTRA VIOLET ABSORPTION,0.803076
-method_name,2,INSTRUMENTAL - ULTRA VIOLET,0.196924
-local_site_name,1,CCNY,0.0965866
-local_site_name,2,WHITE PLAINS,0.0965866
-local_site_name,3,BABYLON,0.0952738
-local_site_name,4,QUEENS COLLEGE 2,0.0849587
-local_site_name,5,Bayonne,0.0847712
-local_site_name,6,Rutgers University,0.0847712
-local_site_name,7,PFIZER LAB SITE,0.079895
-local_site_name,8,IS 52,0.0789572
-local_site_name,9,Rockland County,0.0789572
-local_site_name,10,FRESHKILLS WEST,0.0667667
-local_site_name,11,Leonia,0.0562641
-local_site_name,12,Ramapo,0.0496999
-local_site_name,13,Greenwich Point Park,0.0403226
-local_site_name,14,Newark Chestnut,0.00618905
-address,1,160 CONVENT AVENUE,0.0965866
-address,2,"WHITE PLAINS PUMP STATION,  240 ORCHARD STREET",0.0965866
-address,3,"EAST FARMINGDALE WATER DIST., 72 GAZZA BLVD.",0.0952738
-address,4,Queens College   65-30 Kissena Blvd  Parking Lot#6,0.0849587
-address,5,"Veterans Park, Park Road at end of W. 25th St.",0.0847712
-address,6,"Vegetable Farm 3, 67 Ryders Lane",0.0847712
-address,7,200TH STREET AND SOUTHERN BOULDVARD Pfizer Lab,0.079895
-address,8,IS 52    681 KELLY ST,0.0789572
-address,9,2 South Mountain Road,0.0789572
-address,10,FRESHKILLS WEST   310 West Service Road,0.0667667
-address,11,"Overpeck Park, 40 Fort Lee Road",0.0562641
-address,12,"Ramapo Station Fire Tower, Ramapo Park Drive",0.0496999
-address,13,Tods Driftway (see coordinates),0.0403226
-address,14,42 Chestnut Street,0.00618905
-state_name,1,New York,0.677982
-state_name,2,New Jersey,0.281695
-state_name,3,Connecticut,0.0403226
-county_name,1,Bronx,0.158852
-county_name,2,New York,0.0965866
-county_name,3,Westchester,0.0965866
-county_name,4,Suffolk,0.0952738
-county_name,5,Queens,0.0849587
-county_name,6,Hudson,0.0847712
-county_name,7,Middlesex,0.0847712
-county_name,8,Rockland,0.0789572
-county_name,9,Richmond,0.0667667
-county_name,10,Bergen,0.0562641
-county_name,11,Passaic,0.0496999
-county_name,12,Fairfield,0.0403226
-county_name,13,Essex,0.00618905
-city_name,1,New York,0.407164
-city_name,2,White Plains,0.0965866
-city_name,3,East Farmingdale,0.0952738
-city_name,4,Bayonne,0.0847712
-city_name,5,East Brunswick (Township of),0.0847712
-city_name,6,Not in a city,0.0789572
-city_name,7,Leonia,0.0562641
-city_name,8,Wanaque (Wanaque-Midvale),0.0496999
-city_name,9,Greenwich (Town of),0.0403226
-city_name,10,Newark,0.00618905
-cbsa_name,1,"New York-Newark-Jersey City, NY-NJ-PA",0.959677
-cbsa_name,2,"Bridgeport-Stamford-Norwalk, CT",0.0403226
-date_of_last_change,1,2026-01-05,0.479745
-date_of_last_change,2,2026-06-15,0.198237
-date_of_last_change,3,2026-03-19,0.135784
-date_of_last_change,4,2026-03-24,0.0992123
-date_of_last_change,5,2026-06-23,0.0466992
-date_of_last_change,6,2025-12-31,0.0403226
-site_id,1,36-061-0135,0.0965866
-site_id,2,36-119-2004,0.0965866
-site_id,3,36-103-0002,0.0952738
-site_id,4,36-081-0124,0.0849587
-site_id,5,34-017-0006,0.0847712
-site_id,6,34-023-0011,0.0847712
-site_id,7,36-005-0133,0.079895
-site_id,8,36-005-0110,0.0789572
-site_id,9,36-087-0005,0.0789572
-site_id,10,36-085-0111,0.0667667
-site_id,11,34-003-0006,0.0562641
-site_id,12,34-031-5001,0.0496999
-site_id,13,09-001-0017,0.0403226
-site_id,14,34-013-0017,0.00618905
-.cell:longitude:latitude,1,-3698 2040,0.0965866
-.cell:longitude:latitude,2,-3689 2052,0.0965866
-.cell:longitude:latitude,3,-3671 2037,0.0952738
-.cell:longitude:latitude,4,-3692 2036,0.0849587
-.cell:longitude:latitude,5,-3707 2033,0.0847712
-.cell:longitude:latitude,6,-3722 2023,0.0847712
-.cell:longitude:latitude,7,-3694 2043,0.079895
-.cell:longitude:latitude,8,-3696 2040,0.0789572
-.cell:longitude:latitude,9,-3702 2059,0.0789572
-.cell:longitude:latitude,10,-3710 2029,0.0667667
-.cell:longitude:latitude,11,-3700 2043,0.0562641
-.cell:longitude:latitude,12,-3713 2052,0.0496999
-.cell:longitude:latitude,13,-3680 2050,0.0403226
-.cell:longitude:latitude,14,-3709 2036,0.00618905
+event_type,1,None,0.998401
+event_type,2,Included,0.000902613
+event_type,3,Excluded,0.000696754
+observation_count,1,17,0.954537
+observation_count,2,14,0.0104671
+observation_count,3,12,0.00684086
+observation_count,4,13,0.00676168
+observation_count,5,15,0.00601742
+observation_count,6,11,0.00530483
+observation_count,7,16,0.00267617
+observation_count,8,10,0.00182106
+observation_count,9,7,0.000934283
+observation_count,10,8,0.000918448
+observation_count,11,9,0.000886778
+observation_count,12,2,0.000696754
+observation_count,13,1,0.000680918
+observation_count,14,6,0.000475059
+observation_count,15,3,0.000380048
+observation_count,16,5,0.000300871
+observation_count,17,4,0.000300871
+observation_percent,1,100,0.954885
+observation_percent,2,82,0.0104671
+observation_percent,3,71,0.00684086
+observation_percent,4,76,0.00676168
+observation_percent,5,88,0.00601742
+observation_percent,6,65,0.00530483
+observation_percent,7,94,0.00267617
+observation_percent,8,59,0.00182106
+observation_percent,9,47,0.000918448
+observation_percent,10,53,0.000886778
+observation_percent,11,12,0.000696754
+observation_percent,12,6,0.000680918
+observation_percent,13,41,0.000585907
+observation_percent,14,35,0.000475059
+observation_percent,15,18,0.000380048
+observation_percent,16,29,0.000300871
+observation_percent,17,24,0.000300871
+1st_max_hour,1,10,0.228171
+1st_max_hour,2,9,0.204244
+1st_max_hour,3,11,0.143294
+1st_max_hour,4,8,0.101409
+1st_max_hour,5,7,0.0845606
+1st_max_hour,6,12,0.0655265
+1st_max_hour,7,13,0.0313856
+1st_max_hour,8,23,0.028947
+1st_max_hour,9,14,0.0166271
+1st_max_hour,10,22,0.0163262
+1st_max_hour,11,21,0.0159145
+1st_max_hour,12,20,0.0144735
+1st_max_hour,13,19,0.0127316
+1st_max_hour,14,15,0.0104038
+1st_max_hour,15,18,0.00999208
+1st_max_hour,16,17,0.00804434
+1st_max_hour,17,16,0.00794933
+method_code,1,087,0.552146
+method_code,2,047,0.412193
+method_code,3,056,0.0356611
+method_name,1,INSTRUMENTAL - ULTRA VIOLET ABSORPTION,0.552146
+method_name,2,INSTRUMENTAL - ULTRA VIOLET,0.447854
+local_site_name,1,WHITE PLAINS,0.0822011
+local_site_name,2,QUEENS COLLEGE 2,0.0819477
+local_site_name,3,CCNY,0.0817894
+local_site_name,4,BABYLON,0.0812668
+local_site_name,5,Rockland County,0.0810135
+local_site_name,6,Rutgers University,0.0808393
+local_site_name,7,PFIZER LAB SITE,0.0792399
+local_site_name,8,Bayonne,0.0787015
+local_site_name,9,IS 52,0.0758828
+local_site_name,10,Newark Firehouse,0.0619161
+local_site_name,11,Ramapo,0.0561203
+local_site_name,12,Leonia,0.0554711
+local_site_name,13,Greenwich Point Park,0.0431671
+local_site_name,14,FRESHKILLS WEST,0.0328266
+local_site_name,15,SUSAN WAGNER HS,0.0270942
+local_site_name,16,Newark Chestnut,0.000522565
+address,1,"WHITE PLAINS PUMP STATION,  240 ORCHARD STREET",0.0822011
+address,2,Queens College   65-30 Kissena Blvd  Parking Lot#6,0.0819477
+address,3,160 CONVENT AVENUE,0.0817894
+address,4,"EAST FARMINGDALE WATER DIST., 72 GAZZA BLVD.",0.0812668
+address,5,2 South Mountain Road,0.0810135
+address,6,"Vegetable Farm 3, 67 Ryders Lane",0.0808393
+address,7,200TH STREET AND SOUTHERN BOULDVARD Pfizer Lab,0.0792399
+address,8,"Veterans Park, Park Road at end of W. 25th St.",0.0787015
+address,9,IS 52    681 KELLY ST,0.0758828
+address,10,360 Clinton Avenue,0.0619161
+address,11,"Ramapo Station Fire Tower, Ramapo Park Drive",0.0561203
+address,12,"Overpeck Park, 40 Fort Lee Road",0.0554711
+address,13,Tods Driftway (see coordinates),0.0431671
+address,14,FRESHKILLS WEST   310 West Service Road,0.0328266
+address,15,"SUSAN WAGNER HS,   1200 MANOR RD, near Brielle Ave",0.0270942
+address,16,42 Chestnut Street,0.000522565
+state_name,1,New York,0.623262
+state_name,2,New Jersey,0.333571
+state_name,3,Connecticut,0.0431671
+county_name,1,Bronx,0.155123
+county_name,2,Westchester,0.0822011
+county_name,3,Queens,0.0819477
+county_name,4,New York,0.0817894
+county_name,5,Suffolk,0.0812668
+county_name,6,Rockland,0.0810135
+county_name,7,Middlesex,0.0808393
+county_name,8,Hudson,0.0787015
+county_name,9,Essex,0.0624386
+county_name,10,Richmond,0.0599208
+county_name,11,Passaic,0.0561203
+county_name,12,Bergen,0.0554711
+county_name,13,Fairfield,0.0431671
+city_name,1,New York,0.378781
+city_name,2,White Plains,0.0822011
+city_name,3,East Farmingdale,0.0812668
+city_name,4,Not in a city,0.0810135
+city_name,5,East Brunswick (Township of),0.0808393
+city_name,6,Bayonne,0.0787015
+city_name,7,Newark,0.0624386
+city_name,8,Wanaque (Wanaque-Midvale),0.0561203
+city_name,9,Leonia,0.0554711
+city_name,10,Greenwich (Town of),0.0431671
+cbsa_name,1,"New York-Newark-Jersey City, NY-NJ-PA",0.956833
+cbsa_name,2,"Bridgeport-Stamford-Norwalk, CT",0.0431671
+date_of_last_change,1,2024-05-27,0.141362
+date_of_last_change,2,2024-05-25,0.136453
+date_of_last_change,3,2024-05-26,0.0762154
+date_of_last_change,4,2024-05-31,0.0743943
+date_of_last_change,5,2024-06-02,0.07365
+date_of_last_change,6,2024-05-28,0.0713222
+date_of_last_change,7,2024-05-29,0.0711956
+date_of_last_change,8,2024-05-30,0.0692795
+date_of_last_change,9,2024-06-01,0.0687411
+date_of_last_change,10,2024-06-03,0.0657324
+date_of_last_change,11,2026-01-05,0.0405067
+date_of_last_change,12,2025-03-08,0.0320507
+date_of_last_change,13,2025-03-09,0.0171813
+date_of_last_change,14,2026-06-15,0.0167379
+date_of_last_change,15,2026-03-19,0.0114648
+date_of_last_change,16,2025-07-12,0.00984956
+date_of_last_change,17,2026-03-24,0.00837688
+date_of_last_change,18,2025-03-03,0.00419636
+date_of_last_change,19,2025-01-08,0.00394299
+date_of_last_change,20,2026-06-23,0.00394299
+date_of_last_change,21,2025-12-31,0.00340459
+site_id,1,36-119-2004,0.0822011
+site_id,2,36-081-0124,0.0819477
+site_id,3,36-061-0135,0.0817894
+site_id,4,36-103-0002,0.0812668
+site_id,5,36-087-0005,0.0810135
+site_id,6,34-023-0011,0.0808393
+site_id,7,36-005-0133,0.0792399
+site_id,8,34-017-0006,0.0787015
+site_id,9,36-005-0110,0.0758828
+site_id,10,34-013-0003,0.0619161
+site_id,11,34-031-5001,0.0561203
+site_id,12,34-003-0006,0.0554711
+site_id,13,09-001-0017,0.0431671
+site_id,14,36-085-0111,0.0328266
+site_id,15,36-085-0067,0.0270942
+site_id,16,34-013-0017,0.000522565
+.cell:longitude:latitude,1,-3689 2052,0.0822011
+.cell:longitude:latitude,2,-3692 2036,0.0819477
+.cell:longitude:latitude,3,-3698 2040,0.0817894
+.cell:longitude:latitude,4,-3671 2037,0.0812668
+.cell:longitude:latitude,5,-3702 2059,0.0810135
+.cell:longitude:latitude,6,-3722 2023,0.0808393
+.cell:longitude:latitude,7,-3694 2043,0.0792399
+.cell:longitude:latitude,8,-3707 2033,0.0787015
+.cell:longitude:latitude,9,-3696 2040,0.0758828
+.cell:longitude:latitude,10,-3710 2036,0.0619161
+.cell:longitude:latitude,11,-3713 2052,0.0561203
+.cell:longitude:latitude,12,-3700 2043,0.0554711
+.cell:longitude:latitude,13,-3680 2050,0.0431671
+.cell:longitude:latitude,14,-3710 2029,0.0328266
+.cell:longitude:latitude,15,-3707 2029,0.0270942
+.cell:longitude:latitude,16,-3709 2036,0.000522565

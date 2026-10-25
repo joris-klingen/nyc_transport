@@ -1,22 +1,22 @@
 column,kind,class,n,na_share,n_distinct,min,q001,q01,q05,q10,q25,median,q75,q90,q95,q99,q999,max,mean,sd,whole,format,nchar_min,nchar_max,id_pattern,example,values_kept,values_share
-UNIQUE_ID,integer,integer,1000000,0,1000000,79660,1301702,1724844,5923859,6229141,7143032,9657774,12020996,13004441,13607005,13853853,13913455,13919670,9502363,2828420,TRUE,,,,,,,
-COLLISION_ID,integer,integer,1000000,0,744935,39,33689,224670,3430834,3500223,3715798,4081188,4475162,4730417,4816838,4888083,4903890,4905769,4039890,671843,TRUE,,,,,,,
-CRASH_DATE,Date,character,1000000,0,5094,2012-07-01,2012-08-07,2013-07-31,2016-04-22,2016-08-07,2017-07-15,2019-02-13,2021-11-05,2024-06-02,2025-05-28,2026-03-26,2026-06-02,2026-06-11,2019-10-09,1072.54,TRUE,%m/%d/%Y,,,,,,
-CRASH_TIME,ITime,character,1000000,0,1440,00:00:00,00:00:00,00:00:00,01:30:00,05:15:00,09:30:00,14:22:00,18:00:00,21:00:00,22:19:00,23:35:00,23:55:00,23:59:00,13:34:16,21252.3,TRUE,%H:%M,,,,,,
-PERSON_ID,character,character,1000000,1.99999999994649e-06,967259,,,,,,,,,,,,,,,,,,1,36,alnum,ae48c136-1383-45db-83f4-2a5eecfb7cff,,
+UNIQUE_ID,integer,integer,1000000,0,1000000,79660,1301823,1709953,5919481,6228818,7142938,9656967,12022012,13006908,13607490,13853859,13913507,13919673,9502131,2829390,TRUE,,,,,,,
+COLLISION_ID,integer,integer,1000000,0,744712,39,34041,224807,3430698,3500232,3715665,4081013,4475406,4731018,4816992,4888027,4903944,4905771,4039746,672357,TRUE,,,,,,,
+CRASH_DATE,Date,character,1000000,0,5094,2012-07-01,2012-08-07,2013-08-02,2016-04-22,2016-08-07,2017-07-15,2019-02-13,2021-11-05,2024-06-04,2025-05-28,2026-03-26,2026-06-02,2026-06-11,2019-10-09,1072.93,TRUE,%m/%d/%Y,,,,,,
+CRASH_TIME,ITime,character,1000000,0,1440,00:00:00,00:00:00,00:00:00,01:30:00,05:13:00,09:30:00,14:22:00,18:00:00,21:00:00,22:20:00,23:35:00,23:55:00,23:59:00,13:34:11,21252.3,TRUE,%H:%M,,,,,,
+PERSON_ID,character,character,1000000,2.99999999997524e-06,967220,,,,,,,,,,,,,,,,,,1,36,alnum,e038e18f-40fb-4471-99cf-345eae36e064,,
 PERSON_TYPE,character,character,1000000,0,4,,,,,,,,,,,,,,,,,,8,15,alnum,Occupant,4,1
 PERSON_INJURY,character,character,1000000,0,3,,,,,,,,,,,,,,,,,,6,11,alnum,Unspecified,3,1
-VEHICLE_ID,integer,integer,1000000,0.041883,843995,602947,8993815,11969941,17048088,17190594,17620967,18847620,20097105,20661732,20881034,21155035,21189271,21192934,18772944,1652810,TRUE,,,,,,,
-PERSON_AGE,integer,integer,1000000,0.113522,441,-999,0,0,0,0,24,36,51,62,68,80,95,9999,37.61046,111.025,TRUE,,,,,,,
-EJECTION,character,character,1000000,0.485326,6,,,,,,,,,,,,,,,,,,7,17,alnum,Not Ejected,6,1
-EMOTIONAL_STATUS,character,character,1000000,0.46826,8,,,,,,,,,,,,,,,,,,5,14,alnum,Does Not Apply,8,1
-BODILY_INJURY,character,character,1000000,0.468253,14,,,,,,,,,,,,,,,,,,3,20,alnum,Does Not Apply,14,1
-POSITION_IN_VEHICLE,character,character,1000000,0.485267,14,,,,,,,,,,,,,,,,,,2,86,alnum,Right rear passenger or motorcycle sidecar passenger,14,1
-SAFETY_EQUIPMENT,character,character,1000000,0.485263,25,,,,,,,,,,,,,,,,,,1,40,alnum,Lap Belt,25,1
-PED_LOCATION,character,character,1000000,0.982159,4,,,,,,,,,,,,,,,,,,7,57,alnum,Pedestrian/Bicyclist/Other Pedestrian Not at Intersection,4,1
-PED_ACTION,character,character,1000000,0.982043,18,,,,,,,,,,,,,,,,,,2,47,alnum,Unknown,18,1
-COMPLAINT,character,character,1000000,0.468252,21,,,,,,,,,,,,,,,,,,7,34,alnum,Does Not Apply,21,1
-PED_ROLE,character,character,1000000,0.0327730000000001,10,,,,,,,,,,,,,,,,,,5,15,alnum,Registrant,10,1
-CONTRIBUTING_FACTOR_1,character,character,1000000,0.982216,48,,,,,,,,,,,,,,,,,,5,53,alnum,Unspecified,48,1
-CONTRIBUTING_FACTOR_2,character,character,1000000,0.982238,45,,,,,,,,,,,,,,,,,,5,53,alnum,Unspecified,45,1
-PERSON_SEX,character,character,1000000,0.110365,3,,,,,,,,,,,,,,,,,,1,1,alnum,M,3,1
+VEHICLE_ID,integer,integer,1000000,0.0421200000000001,843308,602947,8995251,11968677,17047835,17190498,17621057,18847126,20097402,20662905,20881515,21154922,21189345,21192935,18772632,1653660,TRUE,,,,,,,
+PERSON_AGE,integer,integer,1000000,0.113345,446,-999,0,0,0,0,24,36,51,62,68,80,95,9999,37.57195,110.114,TRUE,,,,,,,
+EJECTION,character,character,1000000,0.48547,6,,,,,,,,,,,,,,,,,,7,17,alnum,Not Ejected,6,1
+EMOTIONAL_STATUS,character,character,1000000,0.468213,8,,,,,,,,,,,,,,,,,,5,14,alnum,Does Not Apply,8,1
+BODILY_INJURY,character,character,1000000,0.468207,14,,,,,,,,,,,,,,,,,,3,20,alnum,Does Not Apply,14,1
+POSITION_IN_VEHICLE,character,character,1000000,0.485408,14,,,,,,,,,,,,,,,,,,2,86,alnum,Right rear passenger or motorcycle sidecar passenger,14,1
+SAFETY_EQUIPMENT,character,character,1000000,0.485406,23,,,,,,,,,,,,,,,,,,1,40,alnum,Lap Belt,23,1
+PED_LOCATION,character,character,1000000,0.981984,4,,,,,,,,,,,,,,,,,,7,57,alnum,Pedestrian/Bicyclist/Other Pedestrian at Intersection,4,1
+PED_ACTION,character,character,1000000,0.981838,18,,,,,,,,,,,,,,,,,,2,47,alnum,Crossing With Signal,18,1
+COMPLAINT,character,character,1000000,0.468209,21,,,,,,,,,,,,,,,,,,7,34,alnum,Does Not Apply,21,1
+PED_ROLE,character,character,1000000,0.032816,10,,,,,,,,,,,,,,,,,,5,15,alnum,Passenger,10,1
+CONTRIBUTING_FACTOR_1,character,character,1000000,0.982039,46,,,,,,,,,,,,,,,,,,5,53,alnum,Unspecified,46,1
+CONTRIBUTING_FACTOR_2,character,character,1000000,0.982059,44,,,,,,,,,,,,,,,,,,5,53,alnum,Unspecified,44,1
+PERSON_SEX,character,character,1000000,0.110364,3,,,,,,,,,,,,,,,,,,1,1,alnum,F,3,1

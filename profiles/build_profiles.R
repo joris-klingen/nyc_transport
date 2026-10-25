@@ -181,17 +181,24 @@ for (nm in c("persons", "vehicles")) local({
 })
 
 # Citi Bike: old (to 2019-12, with rider gender and birth year) and new format (2020 on)
+# random trips of two months from the monthly parquet files; rows_total from the parquet metadata
+citibike_months <- function(ym) file.path(citibike_dir(), sprintf("citibike_tripdata_%s.parquet", ym))
+citibike_rows <- function(old) {
+  f <- citibike_files()
+  f <- f[(substr(basename(f), 19, 22) < "2020") == old]
+  sum(vapply(f, function(x) arrow::ParquetFileReader$create(x)$num_rows, numeric(1)))
+}
 sources$citibike_trips_2013_2019 <- function() {
-  x <- rbindlist(lapply(c("2014-06", "2019-06"), citibike_read, nrows = 2e5), fill = TRUE)
-  run_profile("citibike_trips_2013_2019", x, reader = "citibike_read('YYYY-MM')", files = "raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet (2013-06 to 2019-12)",
-              rows_total = NA, sample = "first 200,000 trips of each csv part of 2014-06 and 2019-06",
+  x <- rbindlist(lapply(citibike_months(c("2014-06", "2019-06")), parquet_sample, n = 2e5), use.names = TRUE, fill = TRUE)
+  run_profile("citibike_trips_2013_2019", x, reader = "citibike_read('YYYY-MM') / citibike_open()", files = "raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet (2013-06 to 2019-12)",
+              rows_total = citibike_rows(TRUE), sample = "200,000 random trips from each of 2014-06 and 2019-06",
               notes = "station ids are numbers stored as text; gender 0 unknown, 1 male, 2 female", xy = list(c("start_lng", "start_lat"), c("end_lng", "end_lat")), cell = 0.005, time_col = "started_at")
   citibike_station_table(x, "citibike_trips_2013_2019")
 }
 sources$citibike_trips_2020_on <- function() {
-  x <- rbindlist(lapply(c("2021-06", "2025-06"), citibike_read, nrows = 1e5), fill = TRUE)
-  run_profile("citibike_trips_2020_on", x, reader = "citibike_read('YYYY-MM')", files = "raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet (2020-01 on)",
-              rows_total = NA, sample = "first 100,000 trips of each csv part of 2021-06 and 2025-06",
+  x <- rbindlist(lapply(citibike_months(c("2021-06", "2025-06")), parquet_sample, n = 2e5), use.names = TRUE, fill = TRUE)
+  run_profile("citibike_trips_2020_on", x, reader = "citibike_read('YYYY-MM') / citibike_open()", files = "raw/citibike/trips/citibike_tripdata_YYYY-MM.parquet (2020-01 on)",
+              rows_total = citibike_rows(FALSE), sample = "200,000 random trips from each of 2021-06 and 2025-06",
               notes = "station ids like 5329.03 (text); ride_id 16 hex characters", xy = list(c("start_lng", "start_lat"), c("end_lng", "end_lat")), cell = 0.005, time_col = "started_at")
   citibike_station_table(x, "citibike_trips_2020_on")
 }

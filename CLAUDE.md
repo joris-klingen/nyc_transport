@@ -13,7 +13,9 @@ all raw NYC data, and builds the street network history, into one store: `../nyc
 and [`streets/README.md`](streets/README.md) (segment key, spells, bike-lane classification).
 
 **Find a dataset and how to read it.** [`nyc_data_catalog.md`](nyc_data_catalog.md): every dataset in
-the store with the exact reader call. Regenerate: `Rscript scripts/50_build_catalog.R`.
+the store with the exact reader call, coverage, keys, known issues (breaks, gaps) and columns. Read its
+known issues before counting anything. Generated from the profiles and the hand-written
+[`dataset_notes.md`](dataset_notes.md): edit the notes, then `Rscript scripts/50_build_catalog.R`.
 
 **Big picture.** [`../NYC_DATA.md`](../NYC_DATA.md).
 

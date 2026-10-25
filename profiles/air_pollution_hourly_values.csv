@@ -1,187 +1,186 @@
 column,rank,value,share
-state_code,1,36,0.684182
-state_code,2,34,0.275934
-state_code,3,09,0.0398843
-county_code,1,005,0.15898
-county_code,2,061,0.0983613
-county_code,3,119,0.0979735
-county_code,4,103,0.0956383
-county_code,5,081,0.0856672
-county_code,6,023,0.0851258
-county_code,7,017,0.0815947
-county_code,8,087,0.08031
-county_code,9,085,0.0672522
-county_code,10,003,0.0547601
-county_code,11,031,0.0482151
-county_code,12,001,0.0398843
-county_code,13,013,0.00623798
-site_num,1,0006,0.136355
-site_num,2,0135,0.0983613
-site_num,3,2004,0.0979735
-site_num,4,0002,0.0956383
-site_num,5,0124,0.0856672
-site_num,6,0011,0.0851258
-site_num,7,0133,0.0809806
-site_num,8,0005,0.08031
-site_num,9,0110,0.077999
-site_num,10,0111,0.0672522
-site_num,11,5001,0.0482151
-site_num,12,0017,0.0461223
+state_code,1,36,0.627677
+state_code,2,34,0.329758
+state_code,3,09,0.042565
+county_code,1,005,0.156398
+county_code,2,119,0.08321
+county_code,3,061,0.082598
+county_code,4,081,0.082295
+county_code,5,087,0.081593
+county_code,6,103,0.081528
+county_code,7,023,0.080326
+county_code,8,017,0.078022
+county_code,9,013,0.062826
+county_code,10,085,0.060055
+county_code,11,031,0.054729
+county_code,12,003,0.053855
+county_code,13,001,0.042565
+site_num,1,0006,0.131877
+site_num,2,2004,0.08321
+site_num,3,0135,0.082598
+site_num,4,0124,0.082295
+site_num,5,0005,0.081593
+site_num,6,0002,0.081528
+site_num,7,0011,0.080326
+site_num,8,0133,0.080157
+site_num,9,0110,0.076241
+site_num,10,0003,0.062298
+site_num,11,5001,0.054729
+site_num,12,0017,0.043093
+site_num,13,0111,0.032905
+site_num,14,0067,0.02715
 parameter_code,1,44201,1
-poc,1,1,0.932748
-poc,2,2,0.0672522
-latitude,1,40.81976,0.0983613
-latitude,2,41.05192,0.0979735
-latitude,3,40.74529,0.0956383
-latitude,4,40.73614,0.0856672
-latitude,5,40.462182,0.0851258
-latitude,6,40.67025,0.0815947
-latitude,7,40.8679,0.0809806
-latitude,8,41.18208,0.08031
-latitude,9,40.816,0.077999
-latitude,10,40.58027,0.0672522
-latitude,11,40.870436,0.0547601
-latitude,12,41.058617,0.0482151
-latitude,13,41.004657,0.0398843
-latitude,14,40.727369,0.00623798
-longitude,1,-73.94825,0.0983613
-longitude,2,-73.76366,0.0979735
-longitude,3,-73.41919,0.0956383
-longitude,4,-73.82153,0.0856672
-longitude,5,-74.429439,0.0851258
-longitude,6,-74.126081,0.0815947
-longitude,7,-73.87809,0.0809806
-longitude,8,-74.02819,0.08031
-longitude,9,-73.902,0.077999
-longitude,10,-74.19832,0.0672522
-longitude,11,-73.991994,0.0547601
-longitude,12,-74.255544,0.0482151
-longitude,13,-73.585128,0.0398843
-longitude,14,-74.174479,0.00623798
-datum,1,WGS84,0.87499
-datum,2,NAD83,0.12501
+poc,1,1,0.967095
+poc,2,2,0.032905
+latitude,1,41.05192,0.08321
+latitude,2,40.81976,0.082598
+latitude,3,40.73614,0.082295
+latitude,4,41.18208,0.081593
+latitude,5,40.74529,0.081528
+latitude,6,40.462182,0.080326
+latitude,7,40.8679,0.080157
+latitude,8,40.67025,0.078022
+latitude,9,40.816,0.076241
+latitude,10,40.720989,0.062298
+latitude,11,41.058617,0.054729
+latitude,12,40.870436,0.053855
+latitude,13,41.004657,0.042565
+latitude,14,40.58027,0.032905
+latitude,15,40.59664,0.02715
+latitude,16,40.727369,0.000528
+longitude,1,-73.76366,0.08321
+longitude,2,-73.94825,0.082598
+longitude,3,-73.82153,0.082295
+longitude,4,-74.02819,0.081593
+longitude,5,-73.41919,0.081528
+longitude,6,-74.429439,0.080326
+longitude,7,-73.87809,0.080157
+longitude,8,-74.126081,0.078022
+longitude,9,-73.902,0.076241
+longitude,10,-74.192892,0.062298
+longitude,11,-74.255544,0.054729
+longitude,12,-73.991994,0.053855
+longitude,13,-73.585128,0.042565
+longitude,14,-74.19832,0.032905
+longitude,15,-74.12525,0.02715
+longitude,16,-74.174479,0.000528
+datum,1,WGS84,0.877109
+datum,2,NAD83,0.122891
 parameter_name,1,Ozone,1
-time_local,1,20:00:00,0.0429063
-time_local,2,19:00:00,0.0428982
-time_local,3,18:00:00,0.0428659
-time_local,4,07:00:00,0.0428013
-time_local,5,06:00:00,0.042769
-time_local,6,17:00:00,0.0427528
-time_local,7,16:00:00,0.0427366
-time_local,8,15:00:00,0.0427124
-time_local,9,08:00:00,0.042575
-time_local,10,22:00:00,0.0425265
-time_local,11,21:00:00,0.0425185
-time_local,12,23:00:00,0.0425185
-time_local,13,14:00:00,0.0424942
-time_local,14,13:00:00,0.0423973
-time_local,15,12:00:00,0.0423407
-time_local,16,09:00:00,0.0422761
-time_local,17,11:00:00,0.0421791
-time_local,18,10:00:00,0.0421629
-time_local,19,01:00:00,0.0416377
-time_local,20,05:00:00,0.0414599
-time_local,21,00:00:00,0.040757
-time_local,22,04:00:00,0.0394964
-time_local,23,03:00:00,0.0392702
-time_local,24,02:00:00,0.0309475
-time_gmt,1,01:00:00,0.0429063
-time_gmt,2,00:00:00,0.0428982
-time_gmt,3,23:00:00,0.0428659
-time_gmt,4,12:00:00,0.0428013
-time_gmt,5,11:00:00,0.042769
-time_gmt,6,22:00:00,0.0427528
-time_gmt,7,21:00:00,0.0427366
-time_gmt,8,20:00:00,0.0427124
-time_gmt,9,13:00:00,0.042575
-time_gmt,10,03:00:00,0.0425265
-time_gmt,11,02:00:00,0.0425185
-time_gmt,12,04:00:00,0.0425185
-time_gmt,13,19:00:00,0.0424942
-time_gmt,14,18:00:00,0.0423973
-time_gmt,15,17:00:00,0.0423407
-time_gmt,16,14:00:00,0.0422761
-time_gmt,17,16:00:00,0.0421791
-time_gmt,18,15:00:00,0.0421629
-time_gmt,19,06:00:00,0.0416377
-time_gmt,20,10:00:00,0.0414599
-time_gmt,21,05:00:00,0.040757
-time_gmt,22,09:00:00,0.0394964
-time_gmt,23,08:00:00,0.0392702
-time_gmt,24,07:00:00,0.0309475
+time_local,1,22:00:00,0.042628
+time_local,2,19:00:00,0.042584
+time_local,3,18:00:00,0.042578
+time_local,4,23:00:00,0.042527
+time_local,5,17:00:00,0.042519
+time_local,6,16:00:00,0.042512
+time_local,7,20:00:00,0.042436
+time_local,8,06:00:00,0.042395
+time_local,9,15:00:00,0.042279
+time_local,10,13:00:00,0.042236
+time_local,11,21:00:00,0.042184
+time_local,12,14:00:00,0.042167
+time_local,13,01:00:00,0.042048
+time_local,14,12:00:00,0.041927
+time_local,15,07:00:00,0.041915
+time_local,16,09:00:00,0.041792
+time_local,17,08:00:00,0.041693
+time_local,18,05:00:00,0.041621
+time_local,19,11:00:00,0.041527
+time_local,20,10:00:00,0.041279
+time_local,21,00:00:00,0.041091
+time_local,22,04:00:00,0.040212
+time_local,23,03:00:00,0.03806
+time_local,24,02:00:00,0.03779
+time_gmt,1,03:00:00,0.042628
+time_gmt,2,00:00:00,0.042584
+time_gmt,3,23:00:00,0.042578
+time_gmt,4,04:00:00,0.042527
+time_gmt,5,22:00:00,0.042519
+time_gmt,6,21:00:00,0.042512
+time_gmt,7,01:00:00,0.042436
+time_gmt,8,11:00:00,0.042395
+time_gmt,9,20:00:00,0.042279
+time_gmt,10,18:00:00,0.042236
+time_gmt,11,02:00:00,0.042184
+time_gmt,12,19:00:00,0.042167
+time_gmt,13,06:00:00,0.042048
+time_gmt,14,17:00:00,0.041927
+time_gmt,15,12:00:00,0.041915
+time_gmt,16,14:00:00,0.041792
+time_gmt,17,13:00:00,0.041693
+time_gmt,18,10:00:00,0.041621
+time_gmt,19,16:00:00,0.041527
+time_gmt,20,15:00:00,0.041279
+time_gmt,21,05:00:00,0.041091
+time_gmt,22,09:00:00,0.040212
+time_gmt,23,08:00:00,0.03806
+time_gmt,24,07:00:00,0.03779
 units_of_measure,1,Parts per million,1
-mdl,1,0.005,0.632816
-mdl,2,1,0.367184
-qualifier,1,"",0.820925
-qualifier,2,XS,0.171213
-qualifier,3,2,0.0068036
-qualifier,4,3,0.000953474
-qualifier,5,1,6.46423e-05
-qualifier,6,6,4.04014e-05
+mdl,1,0.005,0.947163
+mdl,2,1,0.052837
+qualifier,1,"",0.983381
+qualifier,2,XS,0.014389
+qualifier,3,2,0.000813
+qualifier,4,RF,0.000526
+qualifier,5,IL,0.000478
+qualifier,6,1,0.000205
+qualifier,7,5,0.000105
+qualifier,8,3,8.3e-05
+qualifier,9,IJ,1.5e-05
+qualifier,10,6,3e-06
+qualifier,11,1V,1e-06
+qualifier,12,IP,1e-06
 method_type,1,FEM,1
-method_code,1,087,0.809192
-method_code,2,047,0.190808
-method_name,1,INSTRUMENTAL - ULTRA VIOLET ABSORPTION,0.809192
-method_name,2,INSTRUMENTAL - ULTRA VIOLET,0.190808
-state_name,1,New York,0.684182
-state_name,2,New Jersey,0.275934
-state_name,3,Connecticut,0.0398843
-county_name,1,Bronx,0.15898
-county_name,2,New York,0.0983613
-county_name,3,Westchester,0.0979735
-county_name,4,Suffolk,0.0956383
-county_name,5,Queens,0.0856672
-county_name,6,Middlesex,0.0851258
-county_name,7,Hudson,0.0815947
-county_name,8,Rockland,0.08031
-county_name,9,Richmond,0.0672522
-county_name,10,Bergen,0.0547601
-county_name,11,Passaic,0.0482151
-county_name,12,Fairfield,0.0398843
-county_name,13,Essex,0.00623798
-date_of_last_change,1,2025-09-02,0.148742
-date_of_last_change,2,2025-06-04,0.127499
-date_of_last_change,3,2026-02-26,0.123047
-date_of_last_change,4,2026-01-05,0.116558
-date_of_last_change,5,2025-10-15,0.0909436
-date_of_last_change,6,2026-06-15,0.0819826
-date_of_last_change,7,2026-05-12,0.0575882
-date_of_last_change,8,2025-08-14,0.0481666
-date_of_last_change,9,2026-06-23,0.045694
-date_of_last_change,10,2026-03-11,0.0351169
-date_of_last_change,11,2026-03-19,0.0336867
-date_of_last_change,12,2026-04-01,0.0257519
-date_of_last_change,13,2025-12-31,0.0173161
-date_of_last_change,14,2025-10-10,0.0168555
-date_of_last_change,15,2026-03-24,0.0137284
-date_of_last_change,16,2025-12-23,0.0116114
-date_of_last_change,17,2025-07-03,0.00552692
-date_of_last_change,18,2025-07-07,0.000185847
-site_id,1,36-061-0135,0.0983613
-site_id,2,36-119-2004,0.0979735
-site_id,3,36-103-0002,0.0956383
-site_id,4,36-081-0124,0.0856672
-site_id,5,34-023-0011,0.0851258
-site_id,6,34-017-0006,0.0815947
-site_id,7,36-005-0133,0.0809806
-site_id,8,36-087-0005,0.08031
-site_id,9,36-005-0110,0.077999
-site_id,10,36-085-0111,0.0672522
-site_id,11,34-003-0006,0.0547601
-site_id,12,34-031-5001,0.0482151
-site_id,13,09-001-0017,0.0398843
-site_id,14,34-013-0017,0.00623798
-.cell:longitude:latitude,1,-3698 2040,0.0983613
-.cell:longitude:latitude,2,-3689 2052,0.0979735
-.cell:longitude:latitude,3,-3671 2037,0.0956383
-.cell:longitude:latitude,4,-3692 2036,0.0856672
-.cell:longitude:latitude,5,-3722 2023,0.0851258
-.cell:longitude:latitude,6,-3707 2033,0.0815947
-.cell:longitude:latitude,7,-3694 2043,0.0809806
-.cell:longitude:latitude,8,-3702 2059,0.08031
-.cell:longitude:latitude,9,-3696 2040,0.077999
-.cell:longitude:latitude,10,-3710 2029,0.0672522
-.cell:longitude:latitude,11,-3700 2043,0.0547601
-.cell:longitude:latitude,12,-3713 2052,0.0482151
-.cell:longitude:latitude,13,-3680 2050,0.0398843
-.cell:longitude:latitude,14,-3709 2036,0.00623798
+method_code,1,087,0.553611
+method_code,2,047,0.410651
+method_code,3,056,0.035738
+method_name,1,INSTRUMENTAL - ULTRA VIOLET ABSORPTION,0.553611
+method_name,2,INSTRUMENTAL - ULTRA VIOLET,0.446389
+state_name,1,New York,0.627677
+state_name,2,New Jersey,0.329758
+state_name,3,Connecticut,0.042565
+county_name,1,Bronx,0.156398
+county_name,2,Westchester,0.08321
+county_name,3,New York,0.082598
+county_name,4,Queens,0.082295
+county_name,5,Rockland,0.081593
+county_name,6,Suffolk,0.081528
+county_name,7,Middlesex,0.080326
+county_name,8,Hudson,0.078022
+county_name,9,Essex,0.062826
+county_name,10,Richmond,0.060055
+county_name,11,Passaic,0.054729
+county_name,12,Bergen,0.053855
+county_name,13,Fairfield,0.042565
+site_id,1,36-119-2004,0.08321
+site_id,2,36-061-0135,0.082598
+site_id,3,36-081-0124,0.082295
+site_id,4,36-087-0005,0.081593
+site_id,5,36-103-0002,0.081528
+site_id,6,34-023-0011,0.080326
+site_id,7,36-005-0133,0.080157
+site_id,8,34-017-0006,0.078022
+site_id,9,36-005-0110,0.076241
+site_id,10,34-013-0003,0.062298
+site_id,11,34-031-5001,0.054729
+site_id,12,34-003-0006,0.053855
+site_id,13,09-001-0017,0.042565
+site_id,14,36-085-0111,0.032905
+site_id,15,36-085-0067,0.02715
+site_id,16,34-013-0017,0.000528
+.cell:longitude:latitude,1,-3689 2052,0.08321
+.cell:longitude:latitude,2,-3698 2040,0.082598
+.cell:longitude:latitude,3,-3692 2036,0.082295
+.cell:longitude:latitude,4,-3702 2059,0.081593
+.cell:longitude:latitude,5,-3671 2037,0.081528
+.cell:longitude:latitude,6,-3722 2023,0.080326
+.cell:longitude:latitude,7,-3694 2043,0.080157
+.cell:longitude:latitude,8,-3707 2033,0.078022
+.cell:longitude:latitude,9,-3696 2040,0.076241
+.cell:longitude:latitude,10,-3710 2036,0.062298
+.cell:longitude:latitude,11,-3713 2052,0.054729
+.cell:longitude:latitude,12,-3700 2043,0.053855
+.cell:longitude:latitude,13,-3680 2050,0.042565
+.cell:longitude:latitude,14,-3710 2029,0.032905
+.cell:longitude:latitude,15,-3707 2029,0.02715
+.cell:longitude:latitude,16,-3709 2036,0.000528
