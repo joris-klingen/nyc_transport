@@ -185,8 +185,11 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
       yellow/              yellow_tripdata_YYYY-MM.parquet   2012-01 onward
       green/               green_tripdata_YYYY-MM.parquet    2014-01 onward
       fhvhv/               fhvhv_tripdata_YYYY-MM.parquet    2019-02 onward
-      yellow_csv_legacy/   yellow_tripdata_YYYY-MM.csv       2012-01 to 2016-06, with pickup/dropoff
-                                                             coordinates; no longer published this way, keep
+      yellow_csv_legacy/   yellow_tripdata_YYYY-MM.csv.gz    2012-01 to 2016-06, with pickup/dropoff
+                                                             coordinates; no longer published this way, keep.
+                                                             Gzipped 2026-10-25 (123 GB to 26 GB), byte-identical
+                                                             once unzipped (md5 in _meta/yellow_csv_legacy_md5.csv);
+                                                             fread() reads them directly
       zones/               taxi_zones_YYYYMMDD.zip (shapefile), taxi_zone_lookup_YYYYMMDD.csv;
                            taxi_zones_20250923.zip is the 2025 version used by nyc_res_bikelanes (same
                            polygons, but ids 56 and 103 duplicated where the trips use 57, 104, 105)

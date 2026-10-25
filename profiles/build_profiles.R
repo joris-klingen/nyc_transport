@@ -138,7 +138,7 @@ sources$taxi_yellow_csv_legacy <- function() {
     Find(file.exists, file.path(tlc_data_dir(), "yellow_csv_legacy", paste0(b, c("", ".gz")))), character(1))
   x <- rbindlist(lapply(files, fread, nrows = 2e5, header = TRUE, blank.lines.skip = TRUE), use.names = TRUE, fill = TRUE)
   run_profile("taxi_yellow_csv_legacy", x, reader = "data.table::fread(file.path(tlc_data_dir(), 'yellow_csv_legacy', ...))",
-              files = "raw/taxi/yellow_csv_legacy/yellow_tripdata_YYYY-MM.csv (2012-01 to 2016-06)", rows_total = NA,
+              files = "raw/taxi/yellow_csv_legacy/yellow_tripdata_YYYY-MM.csv.gz (2012-01 to 2016-06)", rows_total = NA,
               sample = "first 200,000 rows of 2012-06 and of 2015-06 (files are in time order, so early days of the month)",
               notes = "2012-2014 files use vendor_id/pickup_datetime/rate_code; 2015-16 use VendorID/tpep_pickup_datetime/RateCodeID (both sets in the profile, NA where absent). Coordinates as lon/lat.",
               raw = TRUE)

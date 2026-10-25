@@ -72,7 +72,10 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
   - Sorted by pickup time, row groups of about 250,000 trips (as the Citi Bike months).
   - A reader `tlc_legacy_open()`, a check that row counts match the CSVs, and a line in the README
     and the catalog. Expected size 15-25 GB, a few hours to build.
-- [ ] Gzip the CSVs in place for storage (`yellow_tripdata_YYYY-MM.csv.gz`, about 25-30 GB instead of
+- [x] Gzipped 2026-10-25 (`scripts/03_gzip_yellow_legacy.sh`): 123 GB to 26 GB, all 54 md5-checked
+      (`_meta/yellow_csv_legacy_md5.csv`); readers, checks, profiles and the tips import take `.csv.gz`.
+      Plan as written:
+- Gzip the CSVs in place for storage (`yellow_tripdata_YYYY-MM.csv.gz`, about 25-30 GB instead of
       123 GB). The files stay byte-for-byte as published once unzipped; `fread()` reads `.csv.gz`.
       Check the md5 of each unzipped file against the CSV before deleting the CSV, and update the
       readers and scripts that list `*.csv` (the tips import, `checks/store.R`).

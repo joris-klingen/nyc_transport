@@ -1,6 +1,6 @@
 # Simulated legacy yellow taxi CSV (trips with coordinates, 2012-01 to 2016-06)
 #
-# Real data: raw/taxi/yellow_csv_legacy/yellow_tripdata_YYYY-MM.csv (54 months, 115 GB), read with
+# Real data: raw/taxi/yellow_csv_legacy/yellow_tripdata_YYYY-MM.csv.gz (54 months, 26 GB gzipped), read with
 # data.table::fread(f, header = TRUE, blank.lines.skip = TRUE) (a blank line follows the header in
 # the 2012-2014 files). The only TLC trips with pickup and dropoff coordinates (lon/lat). Two
 # column sets:
