@@ -287,12 +287,34 @@ datasets carry their download date. Files the
 publisher replaced are kept as `*.superseded_YYYYMMDD.*`, damaged downloads as
 `*.corrupt_YYYYMMDD.*`. Anything computed from the raw data goes to `derived/`.
 
+## Backup
+
+The store sits in Dropbox, which is its only second copy (all files in sync, 2026-10-26). Most of
+it can be downloaded again by the scripts below; 471 files (37.7 GB) cannot (2026-10-26):
+
+- the legacy yellow CSVs 2012-01 to 2016-06 (27 GB): TLC no longer serves them (403), and its
+  parquet files of those years hold other trips;
+- the monthly Citi Bike zips 2014-2019 (3 GB): S3 now has yearly zips only;
+- LION 12a-16d: no longer in DCP's archive (404);
+- every older snapshot (crashes 2019-2026, persons and vehicles 2020, bike counts 2020, SRTS,
+  closures, speed limits, traffic counts 2025, CRZ entries 2026-03, ...): the portals serve only the
+  current state, and the crash tables are revised in place;
+- manual downloads (bike route archives, legacy counts, NYC_Streets), the DOT presentations and
+  `_archive/`.
+
+`checks/irreplaceable.R` lists them, keeps their md5 in `_meta/irreplaceable_md5.csv` and reports
+files that are missing, changed or not in sync with Dropbox; `scripts/00_update.R` runs it last.
+Dropbox keeps deleted and overwritten files for a limited time only (30 or 180 days by plan), so
+an offline copy of these files (one external disk, refreshed after each update) guards against
+damage noticed late.
+
 ## Scripts
 
 Run from the repo root.
 
 | Script | Purpose |
 |---|---|
+| `scripts/00_update.R` | Refresh the whole store: runs the scripts below in order, then the catalog and the checks; logs to `_meta/update_logs/` and `_meta/update_log.csv` |
 | `scripts/01_download_tlc.R` | New TLC months (and re-check the most recent ones), taxi zones; writes `_meta/taxi_manifest.csv` |
 | `scripts/10_download_opendata.R` | New dated snapshots of the NYC Open Data sets listed in `nyc_opendata` (`R/config.R`: crashes, LION, bike routes, street layout sets, counts, boundaries, ...) when they were updated; a download identical to the latest snapshot is dropped; logs to `opendata_download_log.csv` |
 | `scripts/21_snapshot_citibike_stations.R` | Citi Bike station list (GBFS) when it changed |
@@ -303,21 +325,24 @@ Run from the repo root.
 | `scripts/30_crashes_parquet.R` | Parquet copies of the crash snapshots in `derived/crashes_parquet/` |
 | `scripts/31_vehicle_lookup.R` | Classify vehicle type codes not yet in `reference/NYC_vehicle_lookup_table.csv` (review without `--write`); re-run after a new crash snapshot. E-bikes are Bike as in the 2020 hand-made table; e-scooters and standing scooters Scooter (since 2026-10-18); mopeds and motor scooters Motorcycle |
 
+A refresh is one command (30-90 minutes; `--dry-run` lists the steps, `tlc,opendata` runs a subset,
+`--profiles` also rebuilds `profiles/`):
+
 ```bash
-Rscript scripts/01_download_tlc.R yellow,green,fhvhv 3
-Rscript scripts/10_download_opendata.R
-Rscript scripts/20_download_citibike.R
-Rscript scripts/21_snapshot_citibike_stations.R
-Rscript scripts/30_crashes_parquet.R
-Rscript scripts/40_download_epa_aqs.R
-Rscript scripts/41_air_pollution_nyc.R
+Rscript scripts/00_update.R
 ```
+
+Every step runs as its own Rscript and a failure does not stop the next one. The vehicle lookup
+(`31_vehicle_lookup.R --write`) runs only after a new crash snapshot, the NYC air extract only after
+new EPA files. It does not rebuild the street network history in `streets/` (bike lane dating needs
+manual review) or the profiles unless asked. The log ends with the problems the checks found.
 
 ## Checks
 
 | Script | Checks |
 |---|---|
 | `checks/store.R` | every dataset present and its age, failed downloads, TLC missing months and trip-count drops, zone ids, Citi Bike months, traffic count years, boundary feature counts and geometry validity |
+| `checks/irreplaceable.R [--verify]` | files that cannot be downloaded again (see Backup): md5 in `_meta/irreplaceable_md5.csv` (new files added, missing or resized ones flagged; `--verify` recomputes all), files not in sync with Dropbox |
 | `checks/crash_geocoding.R <borough>` | position of house-number crashes along their block, original vs relocated (padded LION ranges: 25% of Brooklyn segments, 64% of Queens) |
 | `checks/crash_locations.R` | missing crash coordinates, placement of intersection and street-only crashes, accuracy of the intersection nodes |
 

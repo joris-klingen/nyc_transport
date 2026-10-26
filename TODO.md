@@ -17,6 +17,14 @@ nyc_streets archived (both 2026-10-23).
 - [x] `checks/store.R` run on the new layout 2026-10-13: only flags the real COVID drops (2020-04 to
       2020-06); the IDate warning is fixed. 85% of traffic count SegmentIDs are in current LION.
 
+## Backup and updates
+
+- [x] Irreplaceable files listed and md5-checked (`checks/irreplaceable.R`, 471 files, 37.7 GB,
+      2026-10-26); all in sync with Dropbox. See the README, Backup.
+- [x] One refresh command, `scripts/00_update.R` (2026-10-26).
+- [ ] Offline copy of the irreplaceable files on an external disk (Dropbox is the only other copy).
+- [ ] Schedule `scripts/00_update.R` (monthly, after TLC publishes) or run it by hand.
+
 ## Bicycle and pedestrian counts
 
 - [x] Readers tested on the full file 2026-10-13 (17 min, 21.4M rows, 41 sensors with counts):
@@ -95,13 +103,14 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
 
 - [x] Profiles of every source in `profiles/` and simulators in `sim/` (2026-10-16); see the README.
 - [ ] Re-run `profiles/build_profiles.R` after refreshing the store (new snapshots, new months), so
-      that the profiles and reference tables follow the data.
+      that the profiles and reference tables follow the data (`scripts/00_update.R --profiles`).
 
 ## Crash vehicle types
 
 - [x] `crashes/reference/NYC_vehicle_lookup_table.csv` extended to all 3,148 codes (2026-10-16,
       `scripts/31_vehicle_lookup.R`): e-bikes (12k vehicles, from 2020) and NYPD's 2026 four-letter
       codes were unclassified, so bike crashes were undercounted by 13-33% a year from 2020.
-- [ ] Re-run `scripts/31_vehicle_lookup.R --write` after each new crash snapshot (new codes).
+- [x] Re-run `scripts/31_vehicle_lookup.R --write` after each new crash snapshot (new codes):
+      `scripts/00_update.R` does this since 2026-10-26.
 - [x] E-scooters and standing scooters are their own class Scooter (decided 2026-10-18; 9,326 vehicles),
       instead of Motorcycle as in the 2020 table: they ride in bike lanes.
