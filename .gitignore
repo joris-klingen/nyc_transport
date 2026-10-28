@@ -16,3 +16,9 @@ migration_logs/
 
 # streets/ tracks its manual inputs, profiles and review outputs as CSV
 !streets/**/*.csv
+
+# exploratory taxi-bike congestion-pricing tests (scripts + outputs, all ignored)
+explore/taxi_bike/
+
+# shared literature library (PDFs + abstracts for papers cited across nyc_res_* projects)
+literature/
