@@ -190,6 +190,16 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
                                                              Gzipped 2026-10-25 (123 GB to 26 GB), byte-identical
                                                              once unzipped (md5 in _meta/yellow_csv_legacy_md5.csv);
                                                              fread() reads them directly
+      foil_2013/           trip_data.7z, trip_fare.7z: the 2013 yellow trips of the Freedom of Information
+                                                             Law release (Chris Whong, archive.org), with hashed
+                                                             medallion and hack licence ids; as published (md5 in
+                                                             _meta/foil_2013_md5.csv; scripts/04_download_foil_2013.sh)
+      foil_2010_2013/      FOIL2010.zip .. FOIL2013.zip: the 2010-2013 yellow trips of Donovan and Work's Freedom
+                                                             of Information Law release (Illinois Data Bank,
+                                                             doi:10.13012/J8PN93H8), medallion and hack licence pseudonyms
+                                                             drawn anew each year; nested monthly zips whose outer offsets
+                                                             wrapped at 4 GB (scripts/zipfix.py reads them); downloaded by
+                                                             hand, the site refuses non-browser downloads
       zones/               taxi_zones_YYYYMMDD.zip (shapefile), taxi_zone_lookup_YYYYMMDD.csv;
                            taxi_zones_20250923.zip is the 2025 version used by nyc_res_bikelanes (same
                            polygons, but ids 56 and 103 duplicated where the trips use 57, 104, 105)
@@ -254,6 +264,10 @@ nyc_transport_data/           top level is by KIND: raw / derived / reference / 
     crashes_parquet/       parquet copies of the crash snapshots (scripts/30_crashes_parquet.R)
     taxi_yellow_legacy/    yellow_tripdata_YYYY-MM.parquet: the legacy yellow CSVs in one schema (TLC parquet
                            names and codes, sorted by pickup; scripts/02_yellow_legacy_parquet.R, tlc_legacy_open())
+    taxi_foil/             foil_tripdata_YYYY-MM.parquet: the FOIL trips with driver ids in the same schema plus
+                           medallion, hack_license and trip_time_in_secs; 2013 from Whong's release
+                           (scripts/06_foil_2013_parquet.R), 2010-2012 from Donovan and Work's
+                           (scripts/07_foil_donovan_parquet.R); tlc_foil_open()
     air_pollution/         {hourly,daily}_<param>.parquet: NYC-area monitors (scripts/41_air_pollution_nyc.R)
     streets/               street network history built in streets/ (see streets/README.md):
       spine/               segment key across the 57 LION releases (lion_segment_releases, segment_versions,

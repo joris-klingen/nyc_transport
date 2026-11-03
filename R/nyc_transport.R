@@ -47,6 +47,26 @@ tlc_legacy_open <- function(years = NULL) {
   arrow::open_dataset(f)
 }
 
+# the yellow trips with driver ids of the Freedom of Information Law releases (raw/taxi/foil_2013,
+# raw/taxi/foil_2010_2013): the taxi_yellow_legacy schema plus medallion, hack_license and
+# trip_time_in_secs, sorted by pickup. 2013 from Chris Whong's release (hashed ids;
+# scripts/06_foil_2013_parquet.R), 2010-2012 from Donovan and Work's (pseudonyms drawn anew each year;
+# scripts/07_foil_donovan_parquet.R): an id never links across years
+tlc_foil_dir <- function() file.path(nyc_data_root(), "derived", "taxi_foil")
+
+tlc_foil_files <- function(years = NULL, months = NULL) {
+  f <- list.files(tlc_foil_dir(), pattern = "^foil_tripdata_\\d{4}-\\d{2}\\.parquet$", full.names = TRUE)
+  if (!is.null(years)) f <- f[as.integer(substr(basename(f), 15, 18)) %in% years]
+  if (!is.null(months)) f <- f[as.integer(substr(basename(f), 20, 21)) %in% months]
+  f
+}
+
+tlc_foil_open <- function(years = NULL, months = NULL) {
+  f <- tlc_foil_files(years, months)
+  if (length(f) == 0) stop("no FOIL parquet in ", tlc_foil_dir(), "; run scripts/06_foil_2013_parquet.R or scripts/07_foil_donovan_parquet.R")
+  arrow::open_dataset(f)
+}
+
 # Dated snapshots ----
 nyc_snapshots <- c(
   setNames(lapply(seq_len(nrow(nyc_opendata)), function(i)
