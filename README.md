@@ -126,7 +126,9 @@ zones <- merge(taxi_zones_read(), trips, by.x = "LocationID", by.y = "PULocation
 
 `crashes_read()` harmonizes the snapshots: snake_case names, squished text, numeric coordinates
 (the 2026-02 to 2026-05 snapshots write `40,717175` and pad text fields), coordinates at 0,0 or
-outside NYC as NA, `crash_date` as IDate. It reads a parquet copy when
+outside NYC as NA, `crash_date` as IDate. From the 2026-11 snapshots (NYPD's new system) it swaps
+`off_street_name` and `cross_street_name` back, so `off_street_name` holds the house address in every
+snapshot, and keeps their hashed `collision_id` as text. It reads a parquet copy when
 `scripts/30_crashes_parquet.R` has made one.
 
 `crashes_relocate()` returns the best available location in `longitude_ap`, `latitude_ap`, with

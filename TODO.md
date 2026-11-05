@@ -27,15 +27,15 @@ when a paper or review names a source).
       bikelanes re-run that verifies the fix was stopped on 2026-11-05 after 17 of 37 scripts,
       all reproducing the paper's outputs; the rest is item 21 in
       `../nyc_res_bikelanes_repo/notes/todo.md`.
-- [ ] Crashes in NYPD's new format (snapshot 2026-11-04; `dataset_notes.md`, crashes): make
-      `crashes_read()` swap `off_street_name` and `cross_street_name` back for snapshots from
-      2026-11 (also for the parquet copy of `30_crashes_parquet.R`), keep `collision_id` as
-      character (hashes; persons and vehicles join within a snapshot only), re-test
-      `crashes_relocate()` on 20261104 (2019 with 20261010: 46,531 address points, 2,080 nearest,
-      4,661 intersection nodes; with 20261104: none), and add a `checks/store.R` line that the
-      address column holds house numbers. Moving the bikelanes pin to 20261104 was tried on
-      2026-11-04 and reverted: without the swap the relocation and the intersection fill are lost
-      and 396 of 1,649 paper values moved (BCR 0.99 to 0.90).
+- [x] Crashes in NYPD's new format (snapshot 2026-11-04; `dataset_notes.md`, crashes): since
+      2026-11-05 `crashes_read()` swaps `off_street_name` and `cross_street_name` back for snapshots
+      from 2026-11 (the parquet copy of 20261104 rebuilt with it) and reads their hashed
+      `collision_id` as character. `crashes_relocate()` on 2019 crashes: 46,531 address points,
+      2,080 nearest, 4,662 intersection nodes with 20261104 (4,661 with 20261010, one crash fewer;
+      none before the swap). `checks/store.R` flags a newest snapshot whose `off_street_name` does
+      not start with a house number (95% in both snapshots, 26% for `cross_street_name`). Moving
+      the bikelanes pin to 20261104 was tried on 2026-11-04 and reverted (without the swap 396 of
+      1,649 paper values moved, BCR 0.99 to 0.90); try again after the cyclist item below.
 - [ ] Cyclist recoding in the new format: in 2025, 975 of 6,515 Bicyclist persons became Other
       Motorized and `number_of_cyclist_injured` fell by 753 (11%); 2024 and earlier unchanged. Find
       which riders moved (vehicle ids are not shared across snapshots; 1,018 Standing Scooter

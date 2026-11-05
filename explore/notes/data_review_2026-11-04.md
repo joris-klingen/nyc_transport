@@ -191,8 +191,9 @@ series when the congestion pricing paper is next revised.
 ## 6. Actions, in order
 
 1. Done 2026-11-04: store refreshed, profiles and catalog rebuilt, the "stopped publishing" lines
-   replaced. Still open: adapt `crashes_read()` to the new format, then move the bikelanes crash pin
-   (its todo items 7 and 20 say what was found).
+   replaced. `crashes_read()` adapted to the new format on 2026-11-05. Still open: move the
+   bikelanes crash pin once the cyclist recoding is understood (its todo items 7 and 20 say what
+   was found).
 2. Document the station status archive (3a).
 3. Snapshot the DMV crash cases before the window rolls (3c).
 4. Weather, elevation and ACS into the store with readers (3b), reusing the effort scripts.

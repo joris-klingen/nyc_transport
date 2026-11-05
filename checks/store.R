@@ -5,6 +5,7 @@
 # - TLC: missing months per type, rows per month from parquet metadata (sudden drops), zone ids
 #   and pickup months in the latest months
 # - Citi Bike: months covered by the archives
+# - crashes: the address column of the newest snapshot holds house numbers
 # - traffic counts: rows per year, SegmentID found in current LION
 # - boundaries and taxi zones: feature counts and valid geometries
 # Ends with a list of problems.
@@ -72,6 +73,17 @@ exp <- tlc_months("2013-06", max(have))
 cat(sprintf("\nCiti Bike: %d monthly parquets, %s to %s\n", length(cb), min(have), max(have)))
 if (length(setdiff(exp, have))) flag("Citi Bike missing months: ", paste(setdiff(exp, have), collapse = ", "))
 if (length(citibike_files("zip"))) flag("Citi Bike: ", length(citibike_files("zip")), " zips not converted (run scripts/20_download_citibike.R)")
+
+# Crashes ----
+# the address column holds house numbers (NYPD swapped it with the cross street in 2026-11;
+# crashes_read() swaps snapshots from then back)
+cr <- crashes_read(select = c("CROSS STREET NAME", "OFF STREET NAME"))
+hn <- cr[, .(off = mean(grepl("^[0-9]", off_street_name[!is.na(off_street_name)])),
+             cross = mean(grepl("^[0-9]", cross_street_name[!is.na(cross_street_name)])))]
+cat(sprintf("\ncrashes %s: off_street_name starts with a house number %.3f, cross_street_name %.3f\n",
+            basename(nyc_latest("crashes")), hn$off, hn$cross))
+if (hn$off < .9) flag("crashes: off_street_name starts with a house number for only ", round(100 * hn$off), "% (address and cross street swapped? see crashes_read())")
+rm(cr)
 
 # Traffic counts ----
 tc <- fread(nyc_latest("traffic_counts"), select = c("Yr", "SegmentID"))

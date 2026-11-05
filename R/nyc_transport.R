@@ -103,6 +103,12 @@ crashes_parquet_dir <- function() file.path(nyc_data_root(), "derived", "crashes
 # coordinates (some 2026 snapshots write "40,717175" and pad text fields), coordinates at 0/0 or
 # outside NYC as NA, crash_date as IDate. `select` takes the original column names. Uses the
 # parquet copy from scripts/30_crashes_parquet.R when there is one (much faster).
+# Snapshots from 2026-11 on (NYPD's new system) hold the house address in CROSS STREET NAME and
+# the nearest cross street in OFF STREET NAME, in every year; they are swapped back here, so
+# off_street_name is the address in every snapshot. Their COLLISION_ID is a 32-character hash
+# (character; persons and vehicles join within the same snapshot only).
+crashes_new_format <- function(file) sub("^.*_(\\d{8})\\.(csv|parquet)$", "\\1", basename(file)) >= "20261101"
+
 crashes_read <- function(file = nyc_latest("crashes"), select = NULL, use_parquet = TRUE) {
   stopifnot(requireNamespace("data.table", quietly = TRUE))
   snake <- function(x) gsub("^_|_$", "", gsub("[^a-z0-9]+", "_", tolower(x)))
@@ -114,8 +120,20 @@ crashes_read <- function(file = nyc_latest("crashes"), select = NULL, use_parque
                                     else arrow::read_parquet(pq, col_select = tidyselect::all_of(cols)))
     return(cr[])
   }
-  chr <- intersect(c("LATITUDE", "LONGITUDE", "ZIP CODE"), if (is.null(select)) c("LATITUDE", "LONGITUDE", "ZIP CODE") else select)
+  swap <- crashes_new_format(file)
+  streets <- c("OFF STREET NAME" = "CROSS STREET NAME", "CROSS STREET NAME" = "OFF STREET NAME")
+  # read the column that holds what was asked for
+  if (swap && !is.null(select)) select <- ifelse(select %in% names(streets), streets[select], select)
+  chr <- c("LATITUDE", "LONGITUDE", "ZIP CODE", if (swap) "COLLISION_ID")
+  chr <- intersect(chr, if (is.null(select)) chr else select)
   cr <- data.table::fread(file, select = select, colClasses = list(character = chr), na.strings = "")
+  if (swap) {
+    s <- intersect(names(streets), names(cr))
+    data.table::setnames(cr, s, unname(streets[s]))
+    # and back to the column order of the older snapshots
+    nm <- names(cr); i <- match(s, nm); nm[i] <- nm[rev(i)]
+    data.table::setcolorder(cr, nm)
+  }
   data.table::setnames(cr, snake(names(cr)))
   for (v in names(cr)[vapply(cr, is.character, logical(1))])
     data.table::set(cr, j = v, value = gsub(" {2,}", " ", trimws(cr[[v]])))

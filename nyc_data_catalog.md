@@ -1532,7 +1532,7 @@ Rows: 2,303,048
 
 **Known issues**:
 
-- New publication format from the 2026-11-04 snapshot (NYPD resumed from a new system): `collision_id`, and the ids of the persons and vehicles tables, are 32-character hashes that match within a snapshot but not the integer ids of earlier snapshots; the content of `off_street_name` and `cross_street_name` is swapped (the house address is now in `cross_street_name`, the nearest cross street in `off_street_name`; the portal's column descriptions changed with it), so `crashes_relocate()` relocates nothing until the reader swaps them back (2019 crashes: 46,531 address points, 2,080 nearest, 4,661 intersection nodes with the 2026-10-10 snapshot, none with 2026-11-04); `person_type` is recoded for 2025-2026 (in 2025, 975 of 6,515 cyclists and 1,056 occupants became Other Motorized and 1,018 Standing Scooter vehicles appear; `number_of_cyclist_injured` in 2025 falls by 753, 11%; 2024 and earlier are unchanged); boroughs are filled in for 2025-2026; the 2026 vehicle type codes are spelled out ("Bicyclist", "E-Bike (must have pedals)", "E-Scooter (standing)" instead of BICY, EBIK, ESST), so `31_vehicle_lookup.R` keeps every code of every snapshot since 2026-11-05 (its rebuild on 2026-11-04 had dropped the four-letter codes and unclassified 1,785 crashes, 888 of them bike crashes of 2026, in the pinned 2026-10-10 snapshot). Coordinates and all counts before 2025 are the same. Projects keep the 2026-10-10 pin until `crashes_read()` handles the new format (`TODO.md`).
+- New publication format from the 2026-11-04 snapshot (NYPD resumed from a new system): `collision_id`, and the ids of the persons and vehicles tables, are 32-character hashes that match within a snapshot but not the integer ids of earlier snapshots; the content of `off_street_name` and `cross_street_name` is swapped in every year (the house address is in the raw `CROSS STREET NAME`, the nearest cross street in `OFF STREET NAME`; the portal's column descriptions changed with it): `crashes_read()` swaps them back for snapshots from 2026-11 since 2026-11-05 (also in the parquet copy), so `crashes_relocate()` gives the same result as before (2019 crashes: 46,531 address points, 2,080 nearest, 4,661 intersection nodes with the 2026-10-10 snapshot, 46,531, 2,080 and 4,662 with 2026-11-04, which has one more 2019 crash; none without the swap), and `checks/store.R` flags a newest snapshot whose address column does not hold house numbers; `person_type` is recoded for 2025-2026 (in 2025, 975 of 6,515 cyclists and 1,056 occupants became Other Motorized and 1,018 Standing Scooter vehicles appear; `number_of_cyclist_injured` in 2025 falls by 753, 11%; 2024 and earlier are unchanged); boroughs are filled in for 2025-2026; the 2026 vehicle type codes are spelled out ("Bicyclist", "E-Bike (must have pedals)", "E-Scooter (standing)" instead of BICY, EBIK, ESST), so `31_vehicle_lookup.R` keeps every code of every snapshot since 2026-11-05 (its rebuild on 2026-11-04 had dropped the four-letter codes and unclassified 1,785 crashes, 888 of them bike crashes of 2026, in the pinned 2026-10-10 snapshot). Coordinates and all counts before 2025 are the same. Projects keep the 2026-10-10 pin until the cyclist recoding is understood (`TODO.md`).
 - Property-damage-only crashes are under-reported from 2019: NYPD stopped attending them (Staten Island pilot from 2019-03-18, citywide from 2020-04-06), and about two thirds were missing by 2024. Injury and fatal crashes are not affected. Never compare totals or PDO counts across 2019-2020; use injury crashes (`explore/notes/crash_reporting.md`).
 - Coordinate coverage jumps in 2017 and in 2024-11 (house-number crashes geocoded to address points from then); reported borough is blank for about a third of crashes in 2016-2023 (use the coordinates).
 - `crash_time` is text H:MM; coordinates at 0,0 or outside NYC are NA after `crashes_read()`.
@@ -1547,31 +1547,31 @@ Profile note: crash_time is text H:MM; coordinates NA outside NYC; house-number 
 | `crash_time` | character |  | 1,440 | 00:00:00 to 23:59:00 |
 | `borough` | character | 29.3% | 5 | e.g. BRONX |
 | `zip_code` | character | 30.4% | 230 | e.g. 10458 |
-| `latitude` | numeric | 10.8% | 109,705 | 40.49895 to 40.91288 |
-| `longitude` | numeric | 10.8% | 85,175 | -74.25496 to -73.70055 |
-| `location` | character | 10.5% | 221,752 | e.g. (40.86564, -73.88323) |
-| `on_street_name` | character | 22.2% | 13,370 | e.g. BOLTON AVENUE |
-| `cross_street_name` | character | 81.8% | 129,709 | e.g. 2900 SOUTHERN BOULEVARD |
-| `off_street_name` | character | 38.5% | 14,552 | e.g. SOUND VIEW AVENUE |
-| `number_of_persons_injured` | integer | <0.1% | 26 | 0 to 40 |
-| `number_of_persons_killed` | integer | <0.1% | 5 | 0 to 4 |
-| `number_of_pedestrians_injured` | integer |  | 13 | 0 to 19 |
-| `number_of_pedestrians_killed` | integer |  | 4 | 0 to 3 |
+| `latitude` | numeric | 10.8% | 109,496 | 40.49895 to 40.91288 |
+| `longitude` | numeric | 10.8% | 85,255 | -74.25496 to -73.70055 |
+| `location` | character | 10.5% | 221,188 | e.g. (40.86564, -73.88323) |
+| `on_street_name` | character | 22% | 13,337 | e.g. FDR DRIVE |
+| `cross_street_name` | character | 38.4% | 14,652 | e.g. EAST HOUSTON STREET |
+| `off_street_name` | character | 82% | 128,662 | e.g. 2900 SOUTHERN BOULEVARD |
+| `number_of_persons_injured` | integer | <0.1% | 27 | 0 to 40 |
+| `number_of_persons_killed` | integer | <0.1% | 6 | 0 to 5 |
+| `number_of_pedestrians_injured` | integer |  | 12 | 0 to 15 |
+| `number_of_pedestrians_killed` | integer |  | 4 | 0 to 4 |
 | `number_of_cyclist_injured` | integer |  | 5 | 0 to 4 |
 | `number_of_cyclist_killed` | integer |  | 2 | 0 to 1 |
-| `number_of_motorist_injured` | integer |  | 25 | 0 to 40 |
-| `number_of_motorist_killed` | integer |  | 5 | 0 to 4 |
-| `contributing_factor_vehicle_1` | character | 0.3% | 70 | e.g. Unspecified |
+| `number_of_motorist_injured` | integer |  | 26 | 0 to 40 |
+| `number_of_motorist_killed` | integer |  | 6 | 0 to 5 |
+| `contributing_factor_vehicle_1` | character | 0.4% | 70 | e.g. Unspecified |
 | `contributing_factor_vehicle_2` | character | 16.2% | 70 | e.g. Unspecified |
-| `contributing_factor_vehicle_3` | character | 92.7% | 54 | e.g. Unspecified |
-| `contributing_factor_vehicle_4` | character | 98.3% | 39 | e.g. Unspecified |
-| `contributing_factor_vehicle_5` | character | 99.5% | 28 | e.g. Unspecified |
-| `collision_id` | character |  | 1,000,000 | e.g. 78f4d4c9599edacb46911f6538c2d822 |
-| `vehicle_type_code_1` | character | 0.8% | 1,224 | e.g. Sedan |
-| `vehicle_type_code_2` | character | 20.6% | 1,418 | e.g. Sedan |
-| `vehicle_type_code_3` | character | 93% | 199 | e.g. Sedan |
-| `vehicle_type_code_4` | character | 98.4% | 92 | e.g. subn |
-| `vehicle_type_code_5` | character | 99.6% | 56 | e.g. Station Wagon/Sport Utility Vehicle |
+| `contributing_factor_vehicle_3` | character | 92.7% | 55 | e.g. Unspecified |
+| `contributing_factor_vehicle_4` | character | 98.3% | 41 | e.g. Unspecified |
+| `contributing_factor_vehicle_5` | character | 99.5% | 30 | e.g. Unspecified |
+| `collision_id` | character |  | 1,000,000 | e.g. 1bf99231c9b820a151eff6e436e980fc |
+| `vehicle_type_code_1` | character | 0.8% | 1,236 | e.g. PASSENGER VEHICLE |
+| `vehicle_type_code_2` | character | 20.6% | 1,379 | e.g. Sedan |
+| `vehicle_type_code_3` | character | 93% | 200 | e.g. Sedan |
+| `vehicle_type_code_4` | character | 98.4% | 84 | e.g. Sedan |
+| `vehicle_type_code_5` | character | 99.6% | 60 | e.g. Sedan |
 
 **See**: README "Crash locations"; `explore/notes/crash_reporting.md`.
 
