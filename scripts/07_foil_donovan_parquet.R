@@ -18,6 +18,13 @@
 # vendor_id and pickup_datetime agree on every row, else by these keys with a within-key sequence
 # number. Rows, join checks and the taxi_yellow_legacy row count of the month go to
 # _meta/foil_donovan_parquet_log.csv. The archives in raw/ stay the source.
+#
+# 2010-2011 are coded differently and are mapped to the 2012 coding: vendor DDS (Digital Dispatch
+# Systems, a third TPEP vendor until 2011) becomes VendorID 3 (not a TLC code); payment_type is
+# truncated text in mixed case (CAS/Cas cash, CRE/Cre card, No no charge, Dis dispute, NA the text "NA")
+# and maps to 2, 1, 3, 4, 5 (unknown); store_and_fwd_flag 0/1 becomes N/Y (other values NA, counted in the log);
+# trip_time_in_secs holds minutes (decimals for CMT and DDS) and becomes seconds. The unit is taken
+# per month from whichever of seconds or minutes x 60 matches dropoff minus pickup on more trips.
 
 library(data.table)
 source("R/nyc_transport.R")
@@ -50,8 +57,9 @@ cols <- c("VendorID", "tpep_pickup_datetime", "tpep_dropoff_datetime", "passenge
           "improvement_surcharge", "total_amount", "medallion", "hack_license", "trip_time_in_secs")
 renames <- c(vendor_id = "VendorID", pickup_datetime = "tpep_pickup_datetime", dropoff_datetime = "tpep_dropoff_datetime",
              rate_code = "RatecodeID", surcharge = "extra")
-vendor_codes <- c(CMT = 1L, VTS = 2L)
-payment_codes <- c(CRD = 1L, CSH = 2L, NOC = 3L, DIS = 4L, UNK = 5L)
+vendor_codes <- c(CMT = 1L, VTS = 2L, DDS = 3L)
+payment_codes <- c(CRD = 1L, CSH = 2L, NOC = 3L, DIS = 4L, UNK = 5L, CRE = 1L, CAS = 2L, NO = 3L, "NA" = 5L)
+flag_codes <- c(N = "N", Y = "Y", "0" = "N", "1" = "Y")
 key_cols <- c("medallion", "hack_license", "vendor_id", "pickup_datetime")
 
 # text code to TLC number; stops on a value the map does not know
@@ -124,12 +132,21 @@ for (m in months) {
   setcolorder(x, cols)
   x[, VendorID := recode(VendorID, vendor_codes, "VendorID")]
   x[, payment_type := recode(payment_type, payment_codes, "payment_type")]
-  for (v in c("passenger_count", "RatecodeID", "trip_time_in_secs")) set(x, j = v, value = as.integer(x[[v]]))
+  flag <- toupper(trimws(x[, store_and_fwd_flag]))
+  flag_other <- sum(!is.na(flag) & flag != "" & !flag %in% names(flag_codes))
+  x[, store_and_fwd_flag := unname(flag_codes[flag])]
+  for (v in c("tpep_pickup_datetime", "tpep_dropoff_datetime"))
+    if (!inherits(x[[v]], "POSIXct")) set(x, j = v, value = as.POSIXct(x[[v]], tz = "UTC"))
+  tt <- as.numeric(x[, trip_time_in_secs])
+  dur <- as.numeric(x[, tpep_dropoff_datetime] - x[, tpep_pickup_datetime], units = "secs")
+  near <- function(s) mean(abs(s - dur) <= 60, na.rm = TRUE)
+  tt_unit <- if (near(tt * 60) > near(tt)) "min" else "sec"
+  x[, trip_time_in_secs := as.integer(if (tt_unit == "min") round(tt * 60) else tt)]
+  rm(tt, dur)
+  for (v in c("passenger_count", "RatecodeID")) set(x, j = v, value = as.integer(x[[v]]))
   for (v in c("trip_distance", "pickup_longitude", "pickup_latitude", "dropoff_longitude", "dropoff_latitude",
               "fare_amount", "extra", "mta_tax", "tip_amount", "tolls_amount", "total_amount"))
     set(x, j = v, value = as.numeric(x[[v]]))
-  for (v in c("tpep_pickup_datetime", "tpep_dropoff_datetime"))
-    if (!inherits(x[[v]], "POSIXct")) set(x, j = v, value = as.POSIXct(x[[v]], tz = "UTC"))
 
   setorder(x, tpep_pickup_datetime, na.last = TRUE)
   arrow::write_parquet(x, paste0(out, ".part"), chunk_size = 250000)
@@ -138,8 +155,10 @@ for (m in months) {
   secs <- round(as.numeric(Sys.time() - t0, units = "secs"))
   row <- data.table(time = format(Sys.time()), ym, trip_rows = n_trip, fare_rows = n_fare, aligned, unmatched,
                     rows = nrow(x), legacy_rows = legacy_rows(ym), medallions = uniqueN(x[, medallion]),
-                    drivers = uniqueN(x[, hack_license]), secs)
-  fwrite(row, log_file, append = file.exists(log_file))
+                    drivers = uniqueN(x[, hack_license]), trip_time_unit = tt_unit, flag_other, secs)
+  if (file.exists(log_file)) row <- rbind(fread(log_file, colClasses = list(character = c("time", "ym"))), row, fill = TRUE)
+  fwrite(row, log_file)
+  row <- row[.N]
   message(basename(out), ": ", nrow(x), " trips (legacy ", row[, legacy_rows], "), ",
           if (aligned) "joined by position" else paste("joined by key,", unmatched, "without fare"), ", ",
           row[, drivers], " drivers, ", secs, " s")

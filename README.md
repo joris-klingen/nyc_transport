@@ -359,5 +359,6 @@ manual review) or the profiles unless asked. The log ends with the problems the 
 | `checks/irreplaceable.R [--verify]` | files that cannot be downloaded again (see Backup): md5 in `_meta/irreplaceable_md5.csv` (new files added, missing or resized ones flagged; `--verify` recomputes all), files not in sync with Dropbox |
 | `checks/crash_geocoding.R <borough>` | position of house-number crashes along their block, original vs relocated (padded LION ranges: 25% of Brooklyn segments, 64% of Queens) |
 | `checks/crash_locations.R` | missing crash coordinates, placement of intersection and street-only crashes, accuracy of the intersection nodes |
+| `checks/taxi_foil_months.R [year ...]` | the FOIL trips with driver ids per month and per vendor-day: gaps, duplicated rows, coordinates that cannot belong to the trip, ids, card and tip shares, vendor shares, trip time, fare schedule, whole-mile distances; writes `_meta/foil_*_check.csv` |
 
 Each project keeps its own cleaning filters and spatial aggregation.

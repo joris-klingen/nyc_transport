@@ -159,12 +159,12 @@ sources$taxi_yellow_legacy <- function() {
 sources$taxi_foil <- function() {
   all_files <- tlc_foil_files()
   yrs <- range(as.integer(substr(basename(all_files), 15, 18)))
-  x <- rbindlist(lapply(tlc_foil_files(c(2012, 2013), 6), parquet_sample, n = 1e5), use.names = TRUE, fill = TRUE)
+  x <- rbindlist(lapply(tlc_foil_files(c(2010, 2012, 2013), 6), parquet_sample, n = 1e5), use.names = TRUE, fill = TRUE)
   rows <- sum(vapply(all_files, function(f) arrow::ParquetFileReader$create(f)$num_rows, numeric(1)))
   run_profile("taxi_foil", x, reader = "tlc_foil_open(2013) / arrow::read_parquet(tlc_foil_files(2013, 6))",
               files = sprintf("derived/taxi_foil/foil_tripdata_YYYY-MM.parquet (%d months, %d-01 to %d-12)", length(all_files), yrs[1], yrs[2]),
-              rows_total = rows, sample = "100,000 random trips from each of 2012-06, 2013-06",
-              notes = "the FOIL releases with driver ids (2013: Chris Whong, hashed medallion and hack_license; 2010-2012: Donovan and Work, pseudonyms drawn anew each year) in the taxi_yellow_legacy schema plus medallion, hack_license and trip_time_in_secs; sorted by pickup time",
+              rows_total = rows, sample = "100,000 random trips from each of 2010-06, 2012-06, 2013-06",
+              notes = "the FOIL releases with driver ids (2013: Chris Whong, hashed medallion and hack_license; 2010-2012: Donovan and Work, pseudonyms drawn anew each year) in the taxi_yellow_legacy schema plus medallion, hack_license and trip_time_in_secs (2010-2011 recoded to the 2012 coding; VendorID 3 is DDS); sorted by pickup time",
               time_col = "tpep_pickup_datetime")
 }
 
