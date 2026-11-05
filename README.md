@@ -337,7 +337,7 @@ Run from the repo root.
 | `scripts/40_download_epa_aqs.R` | EPA AQS hourly and daily files from 2012 that are new or revised, site and monitor lists, converted to parquet (zips deleted); writes `_meta/epa_aqs_manifest.csv` |
 | `scripts/41_air_pollution_nyc.R` | NYC-area monitor extract per parameter in `derived/air_pollution/` |
 | `scripts/30_crashes_parquet.R` | Parquet copies of the crash snapshots in `derived/crashes_parquet/` |
-| `scripts/31_vehicle_lookup.R` | Classify vehicle type codes not yet in `reference/NYC_vehicle_lookup_table.csv` (review without `--write`); re-run after a new crash snapshot. E-bikes are Bike as in the 2020 hand-made table; e-scooters and standing scooters Scooter (since 2026-10-18); mopeds and motor scooters Motorcycle |
+| `scripts/31_vehicle_lookup.R` | Classify vehicle type codes not yet in `reference/NYC_vehicle_lookup_table.csv` (review without `--write`); re-run after a new crash snapshot; keeps every code of every snapshot (union with the superseded tables, since 2026-11-05). E-bikes are Bike as in the 2020 hand-made table; e-scooters and standing scooters Scooter (since 2026-10-18); mopeds and motor scooters Motorcycle |
 
 A refresh is one command (30-90 minutes; `--dry-run` lists the steps, `tlc,opendata` runs a subset,
 `--profiles` also rebuilds `profiles/`):

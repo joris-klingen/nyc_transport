@@ -92,7 +92,7 @@ The missing reports cannot be recovered: they were never filed with the police. 
 
 ## The stale download
 
-The NYC Open Data crash dataset (`h9gi-nx95`) was last updated on 2026-06-15 and its latest crash is on 2026-06-11 (checked 2026-10-24). Nothing can be downloaded until NYPD resumes publication; check again before using 2026.
+The NYC Open Data crash dataset (`h9gi-nx95`) was last updated on 2026-06-15 and its latest crash was on 2026-06-11 when checked on 2026-10-24. NYPD resumed in late October 2026: the snapshot of 2026-11-04 is complete to 2026-10-31 with normal monthly counts (June 2026 has 7,451 crashes against 2,322 in the October snapshot), so 2026 is available from that snapshot on. The snapshot is in a new format, though (hashed ids, address and cross-street columns swapped, cyclists recoded from 2025; `dataset_notes.md`), so the reader has to be adapted before it is used.
 
 ## A possible paper angle
 

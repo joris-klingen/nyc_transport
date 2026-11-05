@@ -11,7 +11,7 @@ of `- ` lines) and `See:`. Source names are those in `profiles/index.csv` and
 they were checked; update a note when a check changes it.
 
 ## taxi_yellow
-Coverage: 2012-01 to the latest month TLC published (2026-08 on 2026-10-25), monthly parquet as TLC republished them.
+Coverage: 2012-01 to the latest month TLC published (2026-09 on 2026-11-04), monthly parquet as TLC republished them.
 One row: one yellow taxi trip (TPEP); pickup and dropoff as TLC taxi zones, times in NYC clock time stored without a time zone.
 Keys: `PULocationID`, `DOLocationID` -> `taxi_zones_read()` `LocationID` (one numbering for all years).
 Issues:
@@ -93,10 +93,11 @@ Issues:
 See: issue #1 (closed).
 
 ## crashes
-Coverage: 2012-07-01 to 2026-06-11 (snapshot 2026-10-10; NYPD stopped publishing after 2026-06-15, so newer snapshots add nothing yet).
+Coverage: 2012-07-01 to 2026-11-01 (snapshot 2026-11-04). NYPD paused publication from 2026-06-15 to late October 2026: the 2026-10-10 snapshot ends 2026-06-11 and holds a third of June; the 2026-11-04 snapshot is complete to 2026-10-31 with normal monthly counts.
 One row: one police-reported motor vehicle crash (MV-104AN).
 Keys: `collision_id` -> crash_persons, crash_vehicles; lon/lat; `crashes_relocate()` adds LION `segment_id` and `node_id`.
 Issues:
+- New publication format from the 2026-11-04 snapshot (NYPD resumed from a new system): `collision_id`, and the ids of the persons and vehicles tables, are 32-character hashes that match within a snapshot but not the integer ids of earlier snapshots; the content of `off_street_name` and `cross_street_name` is swapped (the house address is now in `cross_street_name`, the nearest cross street in `off_street_name`; the portal's column descriptions changed with it), so `crashes_relocate()` relocates nothing until the reader swaps them back (2019 crashes: 46,531 address points, 2,080 nearest, 4,661 intersection nodes with the 2026-10-10 snapshot, none with 2026-11-04); `person_type` is recoded for 2025-2026 (in 2025, 975 of 6,515 cyclists and 1,056 occupants became Other Motorized and 1,018 Standing Scooter vehicles appear; `number_of_cyclist_injured` in 2025 falls by 753, 11%; 2024 and earlier are unchanged); boroughs are filled in for 2025-2026; the 2026 vehicle type codes are spelled out ("Bicyclist", "E-Bike (must have pedals)", "E-Scooter (standing)" instead of BICY, EBIK, ESST), so `31_vehicle_lookup.R` keeps every code of every snapshot since 2026-11-05 (its rebuild on 2026-11-04 had dropped the four-letter codes and unclassified 1,785 crashes, 888 of them bike crashes of 2026, in the pinned 2026-10-10 snapshot). Coordinates and all counts before 2025 are the same. Projects keep the 2026-10-10 pin until `crashes_read()` handles the new format (`TODO.md`).
 - Property-damage-only crashes are under-reported from 2019: NYPD stopped attending them (Staten Island pilot from 2019-03-18, citywide from 2020-04-06), and about two thirds were missing by 2024. Injury and fatal crashes are not affected. Never compare totals or PDO counts across 2019-2020; use injury crashes (`explore/notes/crash_reporting.md`).
 - Coordinate coverage jumps in 2017 and in 2024-11 (house-number crashes geocoded to address points from then); reported borough is blank for about a third of crashes in 2016-2023 (use the coordinates).
 - `crash_time` is text H:MM; coordinates at 0,0 or outside NYC are NA after `crashes_read()`.
@@ -107,6 +108,7 @@ Coverage: 2012-07 on, but only injured and killed persons before 2016; every per
 One row: one person in a crash (driver, passenger, pedestrian, cyclist).
 Keys: `COLLISION_ID` -> crashes `collision_id`; `VEHICLE_ID` -> crash_vehicles.
 Issues:
+- From the 2026-11-04 snapshot the ids are hashes (join to crashes within the same snapshot only) and `person_type` is recoded for 2025-2026: 975 of 6,515 cyclists and 1,056 occupants in 2025 became Other Motorized (see crashes).
 - The 2016 change in who is recorded makes person counts (and uninjured shares) incomparable across 2016.
 See: README "Sources".
 
@@ -148,7 +150,7 @@ See: README "Sources".
 
 ## Bicycle and pedestrian counters
 Sources: bike_ped_counts, bike_ped_sensors
-Coverage: DOT automated counters, 2012-08-31 to the snapshot (2026-10-11), 15 minutes (21.4M rows, 41 sensors with counts, checked 2026-10-13).
+Coverage: DOT automated counters, 2012-08-31 to the snapshot (2026-11-04), 15 minutes (21.5M rows, 41 sensors with counts, checked 2026-10-13).
 One row: one sensor, flow (direction) and 15 minutes; time in NYC local time.
 Keys: sensor id; `segment_id` = nearest LION centerline.
 Issues:
@@ -169,7 +171,7 @@ Issues:
 See: README "Sources"; `scripts/41_air_pollution_nyc.R`.
 
 ## crz_entries
-Coverage: 2025-01-05 (start of congestion pricing) to the snapshot (2026-10-17 in the 2026-10-25 snapshot).
+Coverage: 2025-01-05 (start of congestion pricing) to the snapshot (2026-10-24 in the 2026-11-04 snapshot).
 One row: one 10-minute block, vehicle class and detection group (crossing into the congestion relief zone).
 Keys: `Detection Group`, `Detection Region`; time as text MM/DD/YYYY HH:MM:SS AM.
 Issues:

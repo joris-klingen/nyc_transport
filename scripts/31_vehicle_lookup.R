@@ -15,6 +15,12 @@
 # The Source column says hand (2020 table) or rule (this script, with its date).
 # Without --write it prints the classification for review; with --write it saves the new table
 # and keeps the old one as NYC_vehicle_lookup_table.superseded_YYYYMMDD.csv.
+# A code is never dropped once seen: snapshots spell the same vehicles differently (the 2026-10-10
+# snapshot has NYPD's four-letter codes BICY, EBIK, ESST; the 2026-11-04 one, from NYPD's new
+# system, writes "Bicyclist", "E-Bike (must have pedals)", "E-Scooter (standing)"), and projects
+# pin older snapshots. Until 2026-11-05 the rule rows came from the newest snapshot alone, so the
+# refresh of 2026-11-04 silently unclassified 1,785 crashes of the 2026-10-10 snapshot (888 bike
+# crashes of 2026) in nyc_res_bikelanes.
 
 library(data.table)
 source("R/nyc_transport.R")
@@ -22,12 +28,17 @@ source("R/nyc_transport.R")
 f <- file.path(nyc_data_root(), "reference", "NYC_vehicle_lookup_table.csv")
 lk <- fread(f, encoding = "UTF-8")
 if (!"Source" %in% names(lk)) lk[, Source := "hand"]
+seen <- lk[!Source %like% "^hand", VehicleTypeRaw]   # codes classified by rule in earlier runs
+for (s in list.files(dirname(f), "^NYC_vehicle_lookup_table\\.superseded_[0-9]{8}\\.csv$", full.names = TRUE))
+  seen <- union(seen, fread(s, encoding = "UTF-8")[, VehicleTypeRaw])   # and in the superseded tables
 lk <- lk[Source %like% "^hand"]   # rules are re-derived each run
 lk[VehicleTypeRaw == "E-Sco", `:=`(VehicleType = "Scooter", Source = "hand, changed 20261018")]
 
-# all codes in the newest crash snapshot ----
+# all codes in the newest crash snapshot, plus every code classified before (N = 0 when it no
+# longer occurs) ----
 cr <- crashes_read(select = paste("VEHICLE TYPE CODE", 1:5))
 codes <- melt(cr[, lapply(.SD, as.character)], measure.vars = names(cr), value.name = "raw")[!is.na(raw) & raw != "", .N, raw]
+codes <- rbind(codes, data.table(raw = setdiff(seen, codes[, raw]), N = 0L))
 # codes that read back as missing ("NA") would match every empty vehicle slot in a merge: leave them out
 new <- codes[!raw %in% lk[, VehicleTypeRaw] & !raw %in% c("NA", "N/A", "na", "n/a")]
 

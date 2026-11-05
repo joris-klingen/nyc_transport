@@ -1,26 +1,26 @@
 column,kind,class,n,na_share,n_distinct,nchar_min,nchar_max,id_pattern,example,values_kept,values_share,format,min,q001,q01,q05,q10,q25,median,q75,q90,q95,q99,q999,max,mean,sd,whole
-order_number,character,character,441509,0,88093,8,10,alnum,P-01667780,400,0.0355463,,,,,,,,,,,,,,,,,
-record_type,character,character,441509,0,1,7,7,alnum,Current,1,1,,,,,,,,,,,,,,,,,
-order_type,character,character,441509,0,2,2,2,alnum,P-,2,1,,,,,,,,,,,,,,,,,
-borough,character,character,441509,0,5,5,13,alnum,Manhattan,5,1,,,,,,,,,,,,,,,,,
-on_street,character,character,441509,0,5719,3,32,alnum,3 AVENUE,400,0.505301,,,,,,,,,,,,,,,,,
-on_street_suffix,character,character,441509,0.971051552742979,27,1,8,alnum,E RDWY,27,1,,,,,,,,,,,,,,,,,
-from_street,character,character,441509,0,6893,3,32,alnum,EAST   85 STREET,400,0.482579,,,,,,,,,,,,,,,,,
-from_street_suffix,character,character,441509,0.99289935199509,27,1,8,alnum,S S/R,27,1,,,,,,,,,,,,,,,,,
-to_street,character,character,441509,0,6954,3,32,alnum,EAST   86 STREET,400,0.47973,,,,,,,,,,,,,,,,,
-to_street_suffix,character,character,441509,0.992385206190587,27,1,8,alnum,N LEG,27,1,,,,,,,,,,,,,,,,,
-side_of_street,character,character,441509,0,4,1,1,alnum,W,4,1,,,,,,,,,,,,,,,,,
-order_completed_on_date,Date,character,441509,0,4127,,,,,,,%m/%d/%Y,1957-03-10,1972-07-10,2013-09-27,2015-10-26,2016-12-06,2019-01-02,2021-12-03,2024-12-18,2025-12-08,2026-05-28,2026-09-17,2026-10-08,2026-10-10,2021-08-16,1686.67,TRUE
-sign_code,character,character,441509,0,3829,2,10,alnum,PS-127C,400,0.946189,,,,,,,,,,,,,,,,,
-sign_description,character,character,441509,0,3792,7,171,alnum,2 HMP SATURDAY 8AM-7PM <->,400,0.946484,,,,,,,,,,,,,,,,,
-sign_size,character,character,441509,0,77,3,15,alnum,018 X 018,77,1,,,,,,,,,,,,,,,,,
-sign_design_voided_on_date,Date,character,441509,0.990131571496844,34,,,,,,,%m/%d/%Y,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2019-05-22,2019-05-22,2025-11-07,2025-11-07,2026-02-09,2026-08-04,2026-08-31,2019-11-25,1093.02,TRUE
-sign_location,logical,logical,441509,1,0,,,,,,,,,,,,,,,,,,,,,,,
-distance_from_intersection,integer,integer,441509,0,3641,,,,,,,,0,0,10,30,47,96,192,386,640,803,1895,4688,8789,300.9835,396.581,TRUE
-arrow_direction,character,character,441509,0.756659547143999,4,4,5,alnum,West,4,1,,,,,,,,,,,,,,,,,
-facing_direction,character,character,441509,0.995408927111339,6,2,5,alnum,South,6,1,,,,,,,,,,,,,,,,,
-sheeting_type,character,character,441509,0.0042490640054903,5,4,4,alnum,PNTD,5,1,,,,,,,,,,,,,,,,,
-support,character,character,441509,0,55,1,7,alnum,SAME,55,1,,,,,,,,,,,,,,,,,
-sign_notes,character,character,441509,0.729525332439429,52256,1,195,alnum,FACING SIDEWALK,400,0.355427,,,,,,,,,,,,,,,,,
-sign_x_coord,integer,integer,441509,0.0838759798780999,82562,,,,,,,,913788,916958,934543,960928,982351,990074,1002631,1017330,1032843,1041357,1055007,1063363,1067214,1003586,22882.6,TRUE
-sign_y_coord,integer,integer,441509,0.0838759798780999,104452,,,,,,,,120939,124805,138519,154036,161032,175869,198911,219148,245082,253607,262304,269091,271703,200175.7,30496,TRUE
+order_number,character,character,441586,0,88097,8,10,alnum,P-01863203,400,0.0354744,,,,,,,,,,,,,,,,,
+record_type,character,character,441586,0,1,7,7,alnum,Current,1,1,,,,,,,,,,,,,,,,,
+order_type,character,character,441586,0,2,2,2,alnum,P-,2,1,,,,,,,,,,,,,,,,,
+borough,character,character,441586,0,5,5,13,alnum,Queens,5,1,,,,,,,,,,,,,,,,,
+on_street,character,character,441586,0,5722,3,32,alnum,LIBERTY AVENUE,400,0.505392,,,,,,,,,,,,,,,,,
+on_street_suffix,character,character,441586,0.971040748574457,27,1,8,alnum,W S/R,27,1,,,,,,,,,,,,,,,,,
+from_street,character,character,441586,0,6895,3,32,alnum,111 STREET,400,0.482515,,,,,,,,,,,,,,,,,
+from_street_suffix,character,character,441586,0.992873415370958,27,1,8,alnum,S S/R,27,1,,,,,,,,,,,,,,,,,
+to_street,character,character,441586,0,6956,3,32,alnum,112 STREET,400,0.479886,,,,,,,,,,,,,,,,,
+to_street_suffix,character,character,441586,0.992391063122472,27,1,8,alnum,W RDWY,27,1,,,,,,,,,,,,,,,,,
+side_of_street,character,character,441586,0,4,1,1,alnum,S,4,1,,,,,,,,,,,,,,,,,
+order_completed_on_date,Date,character,441586,0,4127,,,,,,,%m/%d/%Y,1957-03-10,1972-07-10,2014-01-16,2015-10-29,2016-12-09,2019-01-07,2022-01-06,2025-01-06,2025-12-30,2026-06-24,2026-10-08,2026-10-29,2026-10-31,2021-08-30,1685.92,TRUE
+sign_code,character,character,441586,0,3825,2,10,alnum,PS-9A,400,0.946232,,,,,,,,,,,,,,,,,
+sign_description,character,character,441586,0,3788,7,171,alnum,PAY-BY-CELL LOCATOR NUMBER,400,0.946525,,,,,,,,,,,,,,,,,
+sign_size,character,character,441586,0,77,3,15,alnum,018 X 006,77,1,,,,,,,,,,,,,,,,,
+sign_design_voided_on_date,Date,character,441586,0.990375600675746,33,,,,,,,%m/%d/%Y,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2017-06-02,2019-05-22,2019-05-22,2025-11-07,2025-11-07,2026-02-09,2026-08-04,2026-08-31,2019-11-18,1097.02,TRUE
+sign_location,logical,logical,441586,1,0,,,,,,,,,,,,,,,,,,,,,,,
+distance_from_intersection,integer,integer,441586,0,3637,,,,,,,,0,0,10,30,47,96,192,386,640,802,1885,4681,8789,300.742,395.625,TRUE
+arrow_direction,character,character,441586,0.756391733433578,4,4,5,alnum,West,4,1,,,,,,,,,,,,,,,,,
+facing_direction,character,character,441586,0.995411992228014,6,2,5,alnum,South,6,1,,,,,,,,,,,,,,,,,
+sheeting_type,character,character,441586,0.00421661918629668,5,4,4,alnum,PNTD,5,1,,,,,,,,,,,,,,,,,
+support,character,character,441586,0,55,1,7,alnum,SAME,55,1,,,,,,,,,,,,,,,,,
+sign_notes,character,character,441586,0.729176196709135,52349,1,195,alnum,409278,400,0.355417,,,,,,,,,,,,,,,,,
+sign_x_coord,integer,integer,441586,0.083970053398432,82537,,,,,,,,913788,916958,934561,960965,982373,990082,1002627,1017328,1032843,1041357,1055007,1063363,1067214,1003594,22873.8,TRUE
+sign_y_coord,integer,integer,441586,0.083970053398432,104443,,,,,,,,120939,124817,138519,154073,161059,175869,198916,219157,245079,253605,262304,269091,271703,200181.5,30490.4,TRUE

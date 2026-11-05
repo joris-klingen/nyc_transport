@@ -9,6 +9,45 @@ in `streets/`, history kept), and the two stores into one, `nyc_transport_data` 
 `derived/streets/`). Store root `NYC_TRANSPORT_DATA`. GitHub: nyc_traffic renamed to nyc_transport,
 nyc_streets archived (both 2026-10-23).
 
+## Review of 2026-11-04
+
+Findings and actions in `explore/notes/data_review_2026-11-04.md`; open datasets we do not hold, with
+ids and the project each serves, in `explore/notes/dataset_candidates.md` (a living list: add to it
+when a paper or review names a source).
+
+- [x] Store refreshed 2026-11-04 (`00_update.R --profiles`, run `20261104_1713`, 105 min): crashes,
+      persons and vehicles to 2026-10-31 (NYPD had paused from mid-June to late October; the
+      2026-10-10 snapshot ends 2026-06-11), TLC 2026-09, CRZ entries, bike counts, boundaries, eight
+      street layout sets. Vehicles and CRZ entries were reset mid-download and re-run with
+      `10_download_opendata.R vehicles,crz_entries`; profiles, catalog and `checks/store.R` rebuilt
+      afterwards. The "stopped publishing" lines are gone from `dataset_notes.md`, `../NYC_DATA.md`
+      and the explore notes. The crash tables came back in a new format (next item); the projects
+      keep the `20261010` pin. The refresh also rebuilt the vehicle lookup from the new snapshot
+      alone and dropped 136 codes of the old one (fixed 2026-11-05, see Crash vehicle types). The
+      bikelanes re-run that verifies the fix was stopped on 2026-11-05 after 17 of 37 scripts,
+      all reproducing the paper's outputs; the rest is item 21 in
+      `../nyc_res_bikelanes_repo/notes/todo.md`.
+- [ ] Crashes in NYPD's new format (snapshot 2026-11-04; `dataset_notes.md`, crashes): make
+      `crashes_read()` swap `off_street_name` and `cross_street_name` back for snapshots from
+      2026-11 (also for the parquet copy of `30_crashes_parquet.R`), keep `collision_id` as
+      character (hashes; persons and vehicles join within a snapshot only), re-test
+      `crashes_relocate()` on 20261104 (2019 with 20261010: 46,531 address points, 2,080 nearest,
+      4,661 intersection nodes; with 20261104: none), and add a `checks/store.R` line that the
+      address column holds house numbers. Moving the bikelanes pin to 20261104 was tried on
+      2026-11-04 and reverted: without the swap the relocation and the intersection fill are lost
+      and 396 of 1,649 paper values moved (BCR 0.99 to 0.90).
+- [ ] Cyclist recoding in the new format: in 2025, 975 of 6,515 Bicyclist persons became Other
+      Motorized and `number_of_cyclist_injured` fell by 753 (11%); 2024 and earlier unchanged. Find
+      which riders moved (vehicle ids are not shared across snapshots; 1,018 Standing Scooter
+      vehicles appear) and decide how the bikelanes cyclist outcomes treat 2025 before the pin moves.
+- [ ] Document `raw/citibike/stock_panel/` (21 GB Kaggle station status archive, used by nyc_res_effort):
+      README, `dataset_notes.md`, a reader, a profile, `checks/store.R`, a manifest in `_meta/`.
+- [ ] Snapshot the NYS DMV crash cases (data.ny.gov `e8ky-4vqe`, rolling three-year window) into
+      `raw/crashes_dmv/` before 2021-2022 roll off.
+- [ ] Weather (ASOS), elevation (USGS 3DEP) and ACS tables into the store with readers; the effort
+      project's scripts 030, 011 and 012 are the templates.
+- [ ] Settle `nyc_res_cc/scripts/data_import/109_import_speed_cameras.R` (stub, source never found).
+
 ## After the rename
 
 - [x] Folder rename verified 2026-10-13 (`nyc_data_root()` and 176 yellow months; `NYC_DATA` unset).
@@ -111,6 +150,13 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
       `scripts/31_vehicle_lookup.R`): e-bikes (12k vehicles, from 2020) and NYPD's 2026 four-letter
       codes were unclassified, so bike crashes were undercounted by 13-33% a year from 2020.
 - [x] Re-run `scripts/31_vehicle_lookup.R --write` after each new crash snapshot (new codes):
-      `scripts/00_update.R` does this since 2026-10-26.
+      `scripts/00_update.R` does this since 2026-10-26. Since 2026-11-05 the table keeps every code
+      of every snapshot (union with the superseded tables): the 2026-11-04 rebuild had taken the
+      codes of the newest snapshot only, which spells the 2026 codes out ("Bicyclist" for BICY), so
+      1,785 crashes of the pinned 2026-10-10 snapshot lost their class in nyc_res_bikelanes (888
+      bike crashes of 2026; cyclist risk, rerouting and welfare values moved, the area estimates not).
+      Verified 2026-11-05: with the repaired table the first 17 scripts of the bikelanes chain
+      (import to 267) reproduce the paper's outputs file for file; the remaining 20 are its todo
+      item 21.
 - [x] E-scooters and standing scooters are their own class Scooter (decided 2026-10-18; 9,326 vehicles),
       instead of Motorcycle as in the 2020 table: they ride in bike lanes.
