@@ -176,6 +176,29 @@ converted from the published zips by `scripts/20_download_citibike.R`, which del
 Months are by file, as Citi Bike publishes them: a trip starting late on the last day of a month can sit
 in the next month's file.
 
+**Pseudo-cyclist panel** (`citibike_panel()`, DuckDB). Citi Bike has no rider id, so a pseudo-cyclist
+is a slot of start station x end station x period x departure-time bin (NYC time), and to 2019-12 also
+birth year x gender, whose trips recur: no date with two trips, at least `min_trips`, and departure
+times within the bin more regular than uniform (p < `p_max`), the method of Klingen and van Ommeren
+(2020). The panel is a query, not a file: `scripts/60_citibike_keyed_trips.R` writes every cleaned trip
+with its keys (`derived/citibike_panel/citibike_keyed_trips_YYYY.parquet`: all riders and bikes,
+local `date` and `dep_s` (second of the day), stations, straight-line `dist_km`, `duration_s`,
+`member`, `ebike`, `label` = birth year x 10 + gender; 323M trips, 1.9 GB for 2013-06 to 2026-09), and
+`citibike_panel()` forms the sets with the cutoffs given as arguments (period, bin width and offset,
+minimum trips, p-value, sd in minutes, thin filter, members only, bikes, label, weekdays, distance).
+
+```r
+p <- citibike_panel(years = 2021:2025, bikes = "any")    # year-month x clock hour, members, defaults
+attr(p, "sets")                                           # one row per pseudo-cyclist: n, n_ebike, sd_min, p_regular
+s <- citibike_panel(years = 2019, period = "pooled_month", trips = FALSE)  # the London 2020 definition
+```
+
+Defaults: year-month, 60-minute bins, at least 4 trips, p < 0.05, thin, members, any bike, label to
+2019. Before 2020 e-bikes are not flagged (Citi Bike ran its first e-bikes from about 2018-08 to
+2019-04), so `ebike` is NA. On 2017-2019, with birth year x gender as a check, 0.89 of the trip pairs
+within a year-month set built without the label share one (0.81 when the calendar month is pooled over
+years as in the 2020 paper; 0.02 for two random members).
+
 ## Data layout
 
 ```

@@ -508,6 +508,82 @@ citibike_open <- function() {
   arrow::open_dataset(f, unify_schemas = TRUE)
 }
 
+# Citi Bike pseudo-cyclist panel ----
+# Citi Bike has no rider id. A pseudo-cyclist is a slot of start station x end station x period x
+# departure-time bin [x birth year x gender, to 2019] whose trips recur: at most one trip a date
+# (`thin`), at least `min_trips`, and departure times within the bin more regular than uniform
+# (chi-square test of the variance against bin^2/12, p < `p_max`; optionally sd <= `sd_max` minutes).
+# Klingen and van Ommeren (2020) used calendar month x clock hour pooled over years
+# (period = "pooled_month"); year-month sets are purer (README "Citi Bike"). The query runs in DuckDB
+# over the keyed trips of scripts/60_citibike_keyed_trips.R, so every cutoff is an argument.
+#   period       "month" (year-month), "week" (ISO week), "year", "pooled_month", "all"
+#   bin_min      width of the departure-time bin in minutes (60 = clock hour); bin_offset shifts it
+#   bikes        "any", "classic" (also all trips before 2020) or "electric", applied before slots form
+#   use_label    add birth year x gender to the slot to 2019 (members with a known gender only)
+# Returns the panel trips (data.table, one row per trip, `cyclist_set` id) with the slot table as
+# attr(, "sets"): n, n_ebike, sd_min, p_regular. trips = FALSE returns only the slot table.
+citibike_keyed_files <- function(years = NULL) {
+  d <- file.path(nyc_data_root(), "derived", "citibike_panel")
+  f <- list.files(d, pattern = "^citibike_keyed_trips_\\d{4}\\.parquet$", full.names = TRUE)
+  if (!is.null(years)) f <- f[as.integer(substr(basename(f), 22, 25)) %in% years]
+  if (length(f) == 0) stop("no keyed Citi Bike trips in ", d, ": run scripts/60_citibike_keyed_trips.R")
+  f
+}
+
+citibike_panel <- function(years = NULL, period = c("month", "week", "year", "pooled_month", "all"),
+                           bin_min = 60, bin_offset = 0, min_trips = 4, p_max = 0.05, sd_max = Inf,
+                           thin = TRUE, members_only = TRUE, bikes = c("any", "classic", "electric"),
+                           use_label = TRUE, weekdays_only = FALSE, min_dist_km = 0, trips = TRUE) {
+  period <- match.arg(period); bikes <- match.arg(bikes)
+  stopifnot(requireNamespace("duckdb", quietly = TRUE), requireNamespace("DBI", quietly = TRUE))
+  f <- citibike_keyed_files(years)
+  con <- DBI::dbConnect(duckdb::duckdb(shared_home = FALSE))
+  on.exit(DBI::dbDisconnect(con, shutdown = TRUE))
+
+  width <- bin_min
+  period_sql <- switch(period, month = "year(date) * 100 + month(date)", week = "CAST(date_trunc('week', date) AS DATE)",
+                       year = "year(date)", pooled_month = "month(date)", all = "0")
+  where <- c(sprintf("dist_km >= %f", min_dist_km),
+             if (members_only) "member",
+             switch(bikes, any = NULL, classic = "ebike IS NOT TRUE", electric = "ebike"),
+             if (weekdays_only) "dayofweek(date) BETWEEN 1 AND 5",
+             if (use_label) "lab IS NOT NULL")
+  # pos_min: minutes since the start of the trip's departure bin
+  src <- sprintf(
+    "SELECT * FROM (SELECT *, CAST(%s AS VARCHAR) AS period,
+            CAST(floor((dep_s / 60.0 - %f) / %f) AS INTEGER) AS bin,
+            (dep_s / 60.0 - %f) - floor((dep_s / 60.0 - %f) / %f) * %f AS pos_min,
+            %s AS lab
+      FROM read_parquet([%s])) WHERE %s",
+    period_sql, bin_offset, width, bin_offset, bin_offset, width, width,
+    if (use_label) "CASE WHEN year(date) <= 2019 THEN label ELSE 0 END" else "0",
+    paste0("'", gsub("\\\\", "/", f), "'", collapse = ", "), paste(where, collapse = " AND "))
+  keys <- "start_station_id, end_station_id, period, bin, lab"
+
+  sets <- data.table::as.data.table(DBI::dbGetQuery(con, sprintf(
+    "SELECT %s, count(*) AS n, count(DISTINCT date) AS n_dates, sum(CAST(ebike AS INTEGER)) AS n_ebike,
+            stddev_samp(pos_min) AS sd_min
+     FROM (%s) GROUP BY %s HAVING count(*) >= %d", keys, src, keys, as.integer(min_trips))))
+  if (thin) sets <- sets[n == n_dates]
+  sets[, p_regular := stats::pchisq((n - 1) * sd_min^2 / (width^2 / 12), n - 1)]
+  sets <- sets[p_regular < p_max & sd_min <= sd_max]
+  data.table::setorder(sets, start_station_id, end_station_id, period, bin, lab)
+  sets[, cyclist_set := .I]
+  if (!trips) return(sets[])
+
+  duckdb::duckdb_register(con, "keep_sets", sets[, .(start_station_id, end_station_id, period, bin, lab, cyclist_set)])
+  x <- data.table::as.data.table(DBI::dbGetQuery(con, sprintf(
+    "SELECT t.* EXCLUDE (pos_min), k.cyclist_set, year(t.date) AS year, month(t.date) AS month,
+            t.dep_s // 3600 AS hour, t.dist_km * 1.3 / (t.duration_s / 3600.0) AS speed_kmh
+     FROM (%s) t JOIN keep_sets k USING (%s)", src, keys)))
+  # local start time from date and second of the day (handles the DST change days)
+  x[, started_at := as.POSIXct(sprintf("%s %02d:%02d:%02d", date, dep_s %/% 3600L, dep_s %% 3600L %/% 60L, dep_s %% 60L),
+                               tz = "America/New_York")]
+  data.table::setorder(x, cyclist_set, date, dep_s)
+  data.table::setattr(x, "sets", sets[])
+  x[]
+}
+
 # Trips of one month ("2016-07") in one schema across the format change:
 #   started_at, ended_at (POSIXct, NYC time), start/end_station_id, _name, _lat, _lng,
 #   member (TRUE for members/subscribers), rideable_type and ride_id (from 2020),
