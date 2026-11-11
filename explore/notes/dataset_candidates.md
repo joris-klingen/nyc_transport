@@ -63,6 +63,18 @@ or camera tickets, 311 or signal data; those are additions the literature has no
 | Non-high-volume FHV trips 2015-2019 | TLC CloudFront (`fhv_tripdata`, still published, to 2026-08) | monthly | zone (often missing before 2017); no fares | tens of GB | dispatch idea (ride-hail before 2019-02), cc | `01_download_tlc.R` type `fhv`, 2015-01 to 2019-01 only |
 | Other cities | Chicago taxi trips (City of Chicago portal; Conlisk 2020), Capital Bikeshare and Bluebikes trip feeds (Weschke 2026 design), London TfL (already used in `ozone_cycling`) | | | | second-city checks for tips and effort | out of the NYC store's scope; note only |
 
+## Tier 5: price-of-effort designs (hub idea note of 2026-11-11)
+
+Named by `../.00_research_hub/ideas/2026-11-11_price_of_effort_designs.md` (pointer in the effort
+repo: `nyc_res_effort_repo/notes/new_designs_2026-11-11.md`). Nothing here was downloaded or checked
+against the portals; "unverified" marks what comes from memory.
+
+| Source | Where | Coverage, cadence | Location key | Size | For | Action |
+|---|---|---|---|---|---|---|
+| Citi Bike overtime charges, 2013-2019 | archived pricing pages (Wayback); a 2014 blog post quotes $2.50 once past 45 minutes for annual members, then $6.50 and $9 per further half hour | by year, dates unverified | system | tiny | overtime-notch design (the store already has the trips: `citibike_trips_2013_2019`, with `bikeid`, `birth_year`, `gender`) | date the schedule per year from the captures; a tracked input file with sources, next to the e-bike price steps (row "Citi Bike operating reports and prices" above) |
+| Bike Angels points by station | Citi Bike's station map feed for the app (endpoint unverified; whether the `station_status` archive in `raw/citibike/stock_panel/` carries points was not checked) | live only; no public archive found on 2026-11-11 | station id | small per poll | Bike Angels as a wage for effort (10 points are valued at $2.70 of e-bike credit from January 2026, citibikenyc.com/pricechange2026) | find the feed and poll it from now (history is lost otherwise); or ask Lyft or the Cornell group (Chung, Freund and Shmoys 2018) |
+| Divvy trips (Chicago, not NYC) | divvybikes.com/system-data (unverified: monthly files with bike type and member flag from 2020); the 2020 ozone paper's folder holds 2017 Q3-Q4 only | monthly | station | a few GB | e-bike fee waiver zone that ended on 10 May 2022 (members paid no e-bike fee west of Western Avenue or south of Pershing Road) | only if that design is taken up: 2021-2022 first; outside this store (`raw/non_nyc/` or its own folder) |
+
 ## Not available or not open
 
 - Speed camera and red light camera sites: DOT does not publish them (discovery API finds nothing); infer from DOF tickets, violation codes 36 (school-zone speed), 5 (bus lane camera), 7 (red light). The `nyc_res_cc` stub `109_import_speed_cameras.R` cannot be filled as written.
