@@ -22,11 +22,11 @@ the data store. An `NYC_TRANSPORT_DATA` environment variable takes precedence. I
 including the street network history:
 
 ```r
-source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_transport/R/nyc_transport.R")))
+source("../nyc_transport/R/nyc_transport.R")
 # needs data.table, arrow, sf
 ```
 
-Locally the repo is `nyc_transport_repo` and the data `data/`, next to the research
+Locally the repo is `nyc_transport` and the data `data/`, next to the research
 projects (`nyc_res_*_repo`); the `Find()` above tries both the local name and the plain GitHub name,
 so a fresh clone works too. Scripts at the repo root run from the repo root; scripts in `streets/`
 run from `streets/`.
@@ -37,7 +37,7 @@ To write and test code without the data (in a cloud session, for example), every
 profile and a simulator:
 
 ```r
-source("sim/sim.R")              # from the repo root; ../nyc_transport_repo/sim/sim.R from a project
+source("sim/sim.R")              # from the repo root; ../nyc_transport/sim/sim.R from a project
 sim_list()                       # the simulators
 cr  <- sim_crashes(5000, from = "2018-01-01", to = "2019-12-31")
 per <- sim_crash_persons(cr)     # persons and vehicles linked to the simulated crashes
@@ -108,7 +108,7 @@ Coverage is checked by `checks/store.R`.
 
 ```r
 library(data.table); library(sf)
-source("../nyc_transport_repo/R/nyc_transport.R")
+source("../nyc_transport/R/nyc_transport.R")
 
 cr  <- crashes_relocate(crashes_read())                   # best location per crash
 pts <- nyc_points_sf(cr, "longitude_ap", "latitude_ap")   # sf points, EPSG 2263

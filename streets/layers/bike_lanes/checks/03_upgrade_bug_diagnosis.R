@@ -1,7 +1,7 @@
 library(data.table)
 library(sf)
 source("../R/nyc_transport.R")
-setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes_repo")
+setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes")
 S <- "C:/Users/admin/AppData/Local/Temp/claude/C--Users-admin-Dropbox-1-research-5-NYC-bikelanes/229146a7-b4e1-44e3-bc9b-8e236e87a233/scratchpad"
 mm <- fread(file.path(S, "date_comparison.csv"))
 tw <- setDT(bikelane_windows_read())

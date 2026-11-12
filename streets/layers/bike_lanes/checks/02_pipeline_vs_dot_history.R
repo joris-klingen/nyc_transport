@@ -1,6 +1,6 @@
 library(data.table)
 library(sf)
-setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes_repo")
+setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes")
 source("../R/nyc_transport.R")
 R <- file.path(nyc_data_root(), "raw/street_layout/bike_routes")
 

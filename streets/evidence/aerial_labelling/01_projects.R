@@ -9,7 +9,7 @@
 library(data.table)
 library(sf)
 
-bl_root <- "../nyc_res_bikelanes_repo"
+bl_root <- "../nyc_res_bikelanes"
 source("../R/nyc_transport.R")
 nyc_data <- nyc_data_root()
 out <- "evidence/aerial_labelling/out"
