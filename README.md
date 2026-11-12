@@ -185,7 +185,8 @@ with its keys (`derived/citibike_panel/citibike_keyed_trips_YYYY.parquet`: all r
 local `date` and `dep_s` (second of the day), stations, straight-line `dist_km`, `duration_s`,
 `member`, `ebike`, `label` = birth year x 10 + gender; 323M trips, 1.9 GB for 2013-06 to 2026-09), and
 `citibike_panel()` forms the sets with the cutoffs given as arguments (period, bin width and offset,
-minimum trips, p-value, sd in minutes, thin filter, members only, bikes, label, weekdays, distance).
+minimum trips, p-value, sd in minutes, thin filter, members only, bikes, label, weekdays, distance,
+stray-trip trim).
 
 ```r
 p <- citibike_panel(years = 2021:2025, bikes = "any")    # year-month x clock hour, members, defaults
@@ -198,6 +199,18 @@ Defaults: year-month, 60-minute bins, at least 4 trips, p < 0.05, thin, members,
 2019-04), so `ebike` is NA. On 2017-2019, with birth year x gender as a check, 0.89 of the trip pairs
 within a year-month set built without the label share one (0.81 when the calendar month is pooled over
 years as in the 2020 paper; 0.02 for two random members).
+
+Is a set one person? Checked on Citi Bike 2019 members, whose birth year x gender is a marker, with
+sets formed without it (as from 2020 and in London; `explore/22_panel_identity.R`): 0.88 of the trip
+pairs in a set share the label, against 0.075 for random member trips on the same route and month.
+The errors are small sets (4 trips: 0.69; 10+: 0.95) and single stray trips, which depart far from the
+set's usual time or fall on the other day type (weekend vs weekday). `trim = TRUE` drops those (departure
+more than `trim_min` = 15 minutes from the set's median, or the set's minority day type) and the sets
+left below `min_trips`: 0.92, keeping 90% of trips (`trim_min = 10`: 0.93, 85%). Stricter cutoffs also
+help (`min_trips = 8` or `p_max = 0.01`: 0.93); the one-a-date rule matters most (0.48 without it). A
+speed trim would raise purity too but must not be used for e-bike work. In 2024, 10% of sets formed
+from members and casual riders mix the two, mostly one casual weekend trip: strays again, so the
+default keeps members only. Details and the e-bike tests: `london_res_effort/notes/panel_2026-11-12.md`.
 
 ## Data layout
 

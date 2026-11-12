@@ -519,6 +519,12 @@ citibike_open <- function() {
 #   period       "month" (year-month), "week" (ISO week), "year", "pooled_month", "all"
 #   bin_min      width of the departure-time bin in minutes (60 = clock hour); bin_offset shifts it
 #   bikes        "any", "classic" (also all trips before 2020) or "electric", applied before slots form
+#   trim         drop stray trips after the sets form: departure more than trim_min minutes from the set's
+#                median, or on the set's minority day type (weekend vs weekday); sets left with fewer than
+#                min_trips go. On Citi Bike 2019 (birth year x gender, sets formed without it) this raises
+#                the share of trip pairs in a set with the same label from 0.88 to 0.92 and keeps 90% of
+#                trips (trim_min 10: 0.93, 85%; london_res_effort/notes/panel_2026-11-12.md). Adds n_kept
+#                to the slot table.
 #   use_label    add birth year x gender to the slot to 2019 (members with a known gender only)
 # Returns the panel trips (data.table, one row per trip, `cyclist_set` id) with the slot table as
 # attr(, "sets"): n, n_ebike, sd_min, p_regular. trips = FALSE returns only the slot table.
@@ -533,7 +539,8 @@ citibike_keyed_files <- function(years = NULL) {
 citibike_panel <- function(years = NULL, period = c("month", "week", "year", "pooled_month", "all"),
                            bin_min = 60, bin_offset = 0, min_trips = 4, p_max = 0.05, sd_max = Inf,
                            thin = TRUE, members_only = TRUE, bikes = c("any", "classic", "electric"),
-                           use_label = TRUE, weekdays_only = FALSE, min_dist_km = 0, trips = TRUE) {
+                           use_label = TRUE, weekdays_only = FALSE, min_dist_km = 0, trim = FALSE, trim_min = 15,
+                           trips = TRUE) {
   period <- match.arg(period); bikes <- match.arg(bikes)
   stopifnot(requireNamespace("duckdb", quietly = TRUE), requireNamespace("DBI", quietly = TRUE))
   f <- citibike_keyed_files(years)
@@ -569,13 +576,26 @@ citibike_panel <- function(years = NULL, period = c("month", "week", "year", "po
   sets <- sets[p_regular < p_max & sd_min <= sd_max]
   data.table::setorder(sets, start_station_id, end_station_id, period, bin, lab)
   sets[, cyclist_set := .I]
-  if (!trips) return(sets[])
+  if (!trips && !trim) return(sets[])
 
   duckdb::duckdb_register(con, "keep_sets", sets[, .(start_station_id, end_station_id, period, bin, lab, cyclist_set)])
   x <- data.table::as.data.table(DBI::dbGetQuery(con, sprintf(
     "SELECT t.* EXCLUDE (pos_min), k.cyclist_set, year(t.date) AS year, month(t.date) AS month,
             t.dep_s // 3600 AS hour, t.dist_km * 1.3 / (t.duration_s / 3600.0) AS speed_kmh
      FROM (%s) t JOIN keep_sets k USING (%s)", src, keys)))
+  if (trim) {
+    # stray trips (another rider on the slot): departure more than trim_min minutes from the set's
+    # median, or on the set's minority day type (a weekend trip in a mostly weekday set, or the reverse);
+    # sets left with fewer than min_trips are dropped
+    x[, wkend_ := data.table::wday(date) %in% c(1L, 7L)]
+    x[, `:=`(dev_ = abs(dep_s - stats::median(dep_s)) / 60, wks_ = mean(wkend_)), by = cyclist_set]
+    x <- x[dev_ <= trim_min & !((wkend_ & wks_ < 0.5) | (!wkend_ & wks_ > 0.5))]
+    x[, nk_ := .N, by = cyclist_set]
+    x <- x[nk_ >= min_trips]
+    sets <- merge(sets, x[, .(n_kept = .N), by = cyclist_set], by = "cyclist_set")
+    x[, c("wkend_", "dev_", "wks_", "nk_") := NULL]
+    if (!trips) return(sets[])
+  }
   # local start time from date and second of the day (handles the DST change days)
   x[, started_at := as.POSIXct(sprintf("%s %02d:%02d:%02d", date, dep_s %/% 3600L, dep_s %% 3600L %/% 60L, dep_s %% 60L),
                                tz = "America/New_York")]
