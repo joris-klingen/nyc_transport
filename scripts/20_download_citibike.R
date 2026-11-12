@@ -1,5 +1,5 @@
 # Download Citi Bike (NYC, not Jersey City) trip data and store it as one parquet per month
-# in nyc_transport_data/raw/citibike/trips (citibike_tripdata_YYYY-MM.parquet)
+# in data/raw/citibike/trips (citibike_tripdata_YYYY-MM.parquet)
 #
 # Usage (from repo root):  Rscript scripts/20_download_citibike.R [pattern] [--keep-zips]
 #   pattern      regular expression on the zip names to process, default all (e.g. "^201[3-6]")

@@ -1,4 +1,4 @@
-# Readers for the shared NYC transport data store (nyc_transport_data); the one file to source.
+# Readers for the shared NYC transport data store (data/); the one file to source.
 # Also loads the street network history readers (streets/R/streets.R) at the end.
 #
 # source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_transport/R/nyc_transport.R")))

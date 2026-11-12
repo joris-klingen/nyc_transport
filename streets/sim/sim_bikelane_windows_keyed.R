@@ -1,6 +1,6 @@
 # Simulated bike lane windows on the segment key
 #
-# Real data: nyc_transport_data/derived/streets/bike_lanes/bike_lanes_windows_keyed.parquet, read with
+# Real data: data/derived/streets/bike_lanes/bike_lanes_windows_keyed.parquet, read with
 # bikelane_windows_keyed_read() (layers/bike_lanes/scripts/04_key_windows.R); 52,319 rows. The
 # windows of bikelane_windows_read() moved onto the key: key_id, SegmentID (the source segment),
 # time_window, date_from, date_to (Date), tf_facilit, ft_facilit (in the key segment's direction),

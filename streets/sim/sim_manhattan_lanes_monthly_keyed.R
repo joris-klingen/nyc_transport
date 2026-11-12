@@ -1,6 +1,6 @@
 # Simulated Manhattan monthly lane panel on the segment key
 #
-# Real data: nyc_transport_data/derived/streets/travel_lanes/manhattan_lanes_monthly_keyed.parquet (layers/
+# Real data: data/derived/streets/travel_lanes/manhattan_lanes_monthly_keyed.parquet (layers/
 # travel_lanes/03_key_panels.R): key_id, month, lanes, lanes_flag, source_id, key_cover,
 # n_sources, cover_total. The Manhattan lane panel on the key segments.
 #

@@ -22,3 +22,6 @@ explore/taxi_bike/
 
 # shared literature library (PDFs + abstracts for papers cited across nyc_res_* projects)
 literature/
+
+# the data store lives inside the repo and is never committed
+data/

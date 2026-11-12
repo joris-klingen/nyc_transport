@@ -18,7 +18,7 @@
 #   travel_lanes, parking_lanes, total_lanes, street_width, traffic_dir
 #                   LION release panel (layers/travel_lanes, keyed); travel_lanes also from the dated
 #                   Manhattan monthly panel, which takes priority
-# Writes nyc_transport_data/derived/streets/spells/street_spells.parquet and key_segments.parquet
+# Writes data/derived/streets/spells/street_spells.parquet and key_segments.parquet
 # (key_id, borough, street, street code, roadway and feature type, roadbed layer, length).
 # Run from repo root: Rscript build/01_street_spells.R
 

@@ -1,6 +1,6 @@
 # Simulated Manhattan monthly lane panel
 #
-# Real data: nyc_transport_data/derived/streets/travel_lanes/manhattan_lanes_monthly.parquet (layers/travel_lanes/
+# Real data: data/derived/streets/travel_lanes/manhattan_lanes_monthly.parquet (layers/travel_lanes/
 # 02_manhattan_lane_panel.R), 2.5M rows: one row per Manhattan SegmentID and month 2012-07 to
 # 2026-08 with lanes (moving lanes, dated with the bike lane projects and the reviews) and
 # lanes_flag ("" dated, "undated" where the change date is not known).

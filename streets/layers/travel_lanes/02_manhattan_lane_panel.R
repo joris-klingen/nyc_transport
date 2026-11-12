@@ -13,7 +13,7 @@
 # already reflect the project, so the pre-project count is unknown.
 #
 # Writes lanes/out/manhattan_lane_spells.csv (one row per segment), lanes/out/lane_review.csv
-# and nyc_transport_data/derived/streets/travel_lanes/manhattan_lanes_monthly.parquet (segment x month).
+# and data/derived/streets/travel_lanes/manhattan_lanes_monthly.parquet (segment x month).
 # Run from repo root: Rscript layers/travel_lanes/02_manhattan_lane_panel.R
 
 library(data.table)

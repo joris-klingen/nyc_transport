@@ -1,9 +1,9 @@
 # Citywide segment x release panel of lane counts from quarterly LION releases
 #
-# Reads every LION release in nyc_transport_data/raw/street_layout/lion (nyc_lion12a.zip ... nyclion_26c.zip),
+# Reads every LION release in data/raw/street_layout/lion (nyc_lion12a.zip ... nyclion_26c.zip),
 # attributes only, and stacks: release, release_date (latest file date inside the zip),
 # SegmentID, SegmentTyp, borough, street, roadway type, traffic direction, travel / parking /
-# total lanes, street width. Writes nyc_transport_data/derived/streets/travel_lanes/lion_lanes_panel.parquet and
+# total lanes, street width. Writes data/derived/streets/travel_lanes/lion_lanes_panel.parquet and
 # a per-release change summary lanes/out/release_changes.csv.
 # Run from repo root: Rscript layers/travel_lanes/01_lion_panel.R
 

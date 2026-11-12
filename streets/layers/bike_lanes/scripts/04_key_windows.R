@@ -6,7 +6,7 @@
 # set of windows per source (weight by key_cover, or keep main_source, the source covering most of
 # the key segment). Where the key segment is drawn the other way,
 # tf_facilit and ft_facilit are swapped. Retired segments (no key segment) are dropped and counted.
-# Writes nyc_transport_data/derived/streets/bike_lanes/bike_lanes_windows_keyed.parquet, read with
+# Writes data/derived/streets/bike_lanes/bike_lanes_windows_keyed.parquet, read with
 # bikelane_windows_keyed_read(). The unkeyed windows (bike_lanes_time_windows.RDS) stay as they are.
 # Run from repo root: Rscript layers/bike_lanes/scripts/04_key_windows.R
 

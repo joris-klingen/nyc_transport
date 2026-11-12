@@ -1,6 +1,6 @@
 # Simulated key segments
 #
-# Real data: nyc_transport_data/derived/streets/spells/key_segments.parquet, read with key_segments_read(). One row
+# Real data: data/derived/streets/spells/key_segments.parquet, read with key_segments_read(). One row
 # per key segment, the street segments the history is keyed on: the LION SegmentIDs of the last
 # release (26c), 180,800 rows. Columns: key_id, length_ft, boro (1 Manhattan, 2 Bronx, 3 Brooklyn,
 # 4 Queens, 5 Staten Island), street, street_code (borough + 5-digit street code), rw_type (1

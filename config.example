@@ -3,4 +3,4 @@
 
 # root of the data store (raw/, derived/, reference/, docs/, _meta/, _archive/);
 # the street network history is in derived/streets
-NYC_TRANSPORT_DATA=/path/to/nyc_transport_data
+NYC_TRANSPORT_DATA=/path/to/data

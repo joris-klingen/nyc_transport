@@ -1,6 +1,6 @@
 # Simulated DOT bike lane updates (Manhattan, 2025)
 #
-# Real data: nyc_transport_data/derived/streets/bike_lanes/bike_lane_updates.gpkg (818 rows), the 2025 DOT updates
+# Real data: data/derived/streets/bike_lanes/bike_lane_updates.gpkg (818 rows), the 2025 DOT updates
 # for Manhattan used by the time windows: DOT bike route columns (segmentid, street, fromstreet,
 # tostreet, facilitycl, allclasses, tf_facilit / ft_facilit with DOT facility names, bikeid,
 # prevbikeid, instdate, ret_date, status, ...), in_prev_streets_data, bike_lane_found, and

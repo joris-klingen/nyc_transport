@@ -1,6 +1,6 @@
 # Simulators
 
-Simulated data for code development without `nyc_transport_data`. `source("sim/sim.R")` loads all of them (see the repo README); profiles are in `../profiles/`.
+Simulated data for code development without `data/`. `source("sim/sim.R")` loads all of them (see the repo README); profiles are in `../profiles/`.
 
 Each script starts with what the real data are and what the simulation keeps and does not keep.
 This index is made from those headers.

@@ -1,6 +1,6 @@
 # Simulated LION records per release
 #
-# Real data: nyc_transport_data/derived/streets/spine/lion_segment_releases.parquet (spine/01_lion_segments.R),
+# Real data: data/derived/streets/spine/lion_segment_releases.parquet (spine/01_lion_segments.R),
 # 6.7M rows: the attributes of every LION record in each of the 57 releases 12a-26c, no geometry.
 # Columns: segment_id, legacy_id, feature_typ, segment_typ, rb_layer, rw_type, status,
 # street_code, street, boro, node_from, node_to, x_from, y_from, x_to, y_to (EPSG 2263),

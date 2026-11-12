@@ -5,7 +5,7 @@
 # the latest version of each id. Each key segment takes its values from the source segment that
 # covers most of it (key_cover); n_sources counts the sources, cover_total sums their cover.
 # TrafDir W (with) and A (against) swap where the key segment is drawn the other way.
-# Writes, in nyc_transport_data/derived/streets/travel_lanes/: lion_lanes_panel_keyed.parquet
+# Writes, in data/derived/streets/travel_lanes/: lion_lanes_panel_keyed.parquet
 # (key_id x release) and manhattan_lanes_monthly_keyed.parquet (key_id x month). The unkeyed
 # panels stay as they are.
 # Run from repo root: Rscript layers/travel_lanes/03_key_panels.R

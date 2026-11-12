@@ -3,12 +3,12 @@
 **Where you are.** The street network history part of the `nyc_transport` repo (see
 [`../CLAUDE.md`](../CLAUDE.md)). It builds what each street segment looked like at each date (segment
 key, spells, bike-lane and travel-lane panels) from raw LION and DOT releases, with manual review and
-evidence. Outputs go to `nyc_transport_data/derived/streets/`.
+evidence. Outputs go to `data/derived/streets/`.
 
 **Run scripts from `streets/`**, not the repo root: `Rscript spine/01_lion_segments.R`. Inside it,
 `source("R/streets.R")` loads these readers (and the raw-data readers in `../R/nyc_transport.R`).
 
-**Not to be confused with** `nyc_transport_data/raw/street_layout/`, the *raw* current-state street
+**Not to be confused with** `data/raw/street_layout/`, the *raw* current-state street
 layout as published. This folder produces the *dated history*.
 
 **Read this first.** [`README.md`](README.md): segment key, street spells, bike-lane classification,

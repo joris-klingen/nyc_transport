@@ -2,7 +2,7 @@
 #
 # Merges the two profile indexes (profiles/index.csv for the raw and derived sources,
 # streets/profiles/index.csv for the street network history in derived/streets) and the
-# hand-written dataset_notes.md into one catalog that lists every dataset in nyc_transport_data:
+# hand-written dataset_notes.md into one catalog that lists every dataset in data/:
 # the exact call to read it, coverage, what one row is, keys, known issues and its columns (from the
 # column profiles). Writes nyc_data_catalog.csv (machine-readable, one row per dataset) and
 # nyc_data_catalog.md (the manual every README and CLAUDE.md points to). File paths are relative to
@@ -110,7 +110,7 @@ lines <- c(
          " from the profiles and `dataset_notes.md`. Do not edit by hand: edit `dataset_notes.md`",
          " (coverage, keys, known issues) or rebuild the profiles, then re-run._"),
   "",
-  "Every dataset in `nyc_transport_data/`: how to read it, what one row is, coverage, keys, the",
+  "Every dataset in `data/`: how to read it, what one row is, coverage, keys, the",
   "breaks and gaps to know before using it, and its columns. Paths are relative to the store root.",
   "One source() loads every reader, including the street network history:",
   "",

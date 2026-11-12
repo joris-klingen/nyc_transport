@@ -1,6 +1,6 @@
 # Review of the NYC data repo, the store and the projects (2026-11-04)
 
-Second look at `nyc_transport_repo` and `nyc_transport_data` after the 2026-10-24 audit
+Second look at `nyc_transport_repo` and `data/` after the 2026-10-24 audit
 (`crash_reporting.md`, `idea_*.md`): how the five research projects read the store, where the
 store lags the portals, what is undocumented, and which open datasets the literature uses that we
 do not hold. Facts checked on 2026-11-04 unless dated otherwise. The candidate datasets are kept

@@ -1,6 +1,6 @@
 # Simulated links between segment versions
 #
-# Real data: nyc_transport_data/derived/streets/spine/segment_links.parquet (spine/03_segment_key.R, 66,903 rows).
+# Real data: data/derived/streets/spine/segment_links.parquet (spine/03_segment_key.R, 66,903 rows).
 # One row per link from a version in one release to a version in the next: release (of the new
 # version), old_id, old_version, new_id, new_version, share_old (of the old version's length),
 # share_new, method (overlap 96%, same_id 3%, legacy_id). Chained to 26c they give the key.

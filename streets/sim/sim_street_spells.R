@@ -1,6 +1,6 @@
 # Simulated street spells
 #
-# Real data: nyc_transport_data/derived/streets/spells/street_spells.parquet (build/01_street_spells.R), read with
+# Real data: data/derived/streets/spells/street_spells.parquet (build/01_street_spells.R), read with
 # streets_spells_read(); 997,002 rows. Every street attribute as spells on the key segments:
 # key_id, attribute (in_lion, bike_lane, travel_lanes, parking_lanes, total_lanes, street_width,
 # traffic_dir; see streets_attributes()), side (both, or tf / ft for bike lanes), value (text:

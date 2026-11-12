@@ -12,7 +12,7 @@ Shared NYC transport data for the `nyc_res_*` research projects, in two parts:
   manual review and evidence behind the dates. Was the separate `nyc_streets` repo until 2026-10-23
   (merged with its history; this repo was `nyc_traffic`).
 
-The data lives outside the repo, in one store: `nyc_transport_data/` (raw data under `raw/`, the
+The data lives outside the repo, in one store: `data/` (raw data under `raw/`, the
 street network history under `derived/streets/`).
 
 ## Setup
@@ -26,7 +26,7 @@ source(Find(file.exists, c("../nyc_transport_repo/R/nyc_transport.R", "../nyc_tr
 # needs data.table, arrow, sf
 ```
 
-Locally the repo is `nyc_transport_repo` and the data `nyc_transport_data`, next to the research
+Locally the repo is `nyc_transport_repo` and the data `data/`, next to the research
 projects (`nyc_res_*_repo`); the `Find()` above tries both the local name and the plain GitHub name,
 so a fresh clone works too. Scripts at the repo root run from the repo root; scripts in `streets/`
 run from `streets/`.
@@ -215,7 +215,7 @@ default keeps members only. Details and the e-bike tests: `london_res_effort/not
 ## Data layout
 
 ```
-nyc_transport_data/           top level is by KIND: raw / derived / reference / docs, and _meta / _archive
+data/           top level is by KIND: raw / derived / reference / docs, and _meta / _archive
   raw/                      every raw source, as published; never edited. Exception: Citi Bike trips and the
                             EPA AQS files are stored as parquet (converted on download; the zips can be
                             downloaded again)

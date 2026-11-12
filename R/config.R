@@ -1,4 +1,4 @@
-# Shared configuration for the NYC transport data store (nyc_transport_data)
+# Shared configuration for the NYC transport data store (data/)
 #
 # The root is taken from the environment variable NYC_TRANSPORT_DATA, or else from
 # NYC_TRANSPORT_DATA in config.local at the repo root (copy config.example). Layout: raw/ (every raw source: taxi,
@@ -21,7 +21,10 @@ nyc_data_root <- function() {
     readRenviron(nyc_config_file)
     d <- Sys.getenv("NYC_TRANSPORT_DATA", unset = "")
   }
-  if (d == "") stop("NYC_TRANSPORT_DATA not set: copy config.example to ", nyc_config_file, " and edit it")
+  # default since 2026-11-12: the store is data/ at the repo root (not in git)
+  if (d == "") d <- file.path(dirname(nyc_config_file), "data")
+  if (!dir.exists(d)) stop("NYC data store not found at ", d, ": set NYC_TRANSPORT_DATA or copy config.example to ",
+                           nyc_config_file)
   normalizePath(d, winslash = "/", mustWork = FALSE)
 }
 

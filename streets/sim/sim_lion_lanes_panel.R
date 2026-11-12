@@ -1,6 +1,6 @@
 # Simulated LION lane panel
 #
-# Real data: nyc_transport_data/derived/streets/travel_lanes/lion_lanes_panel.parquet (layers/travel_lanes/
+# Real data: data/derived/streets/travel_lanes/lion_lanes_panel.parquet (layers/travel_lanes/
 # 01_lion_panel.R), 6.6M rows: one row per SegmentID and LION release with SegmentTyp, boro,
 # Street, FeatureTyp, RW_TYPE, TrafDir, trav (moving lanes), park (parking lanes), tot (total
 # lanes), width_min, width_max (ft), bikelane (LION's bike lane code, "" none), release,

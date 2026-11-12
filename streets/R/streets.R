@@ -1,4 +1,4 @@
-# Readers for the street network history built in streets/ (outputs in nyc_transport_data/derived/streets/)
+# Readers for the street network history built in streets/ (outputs in data/derived/streets/)
 #
 # Loaded automatically by R/nyc_transport.R; from streets/ scripts: source("R/streets.R")
 # k <- segment_key_map(c(32886, 9000277), date = "2014-06-01")

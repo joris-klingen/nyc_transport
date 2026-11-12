@@ -1,6 +1,6 @@
 # Simulated segment key
 #
-# Real data: nyc_transport_data/derived/streets/spine/segment_key.parquet, read with segment_key_read() and used by
+# Real data: data/derived/streets/spine/segment_key.parquet, read with segment_key_read() and used by
 # segment_key_map() and segment_key_attach(). One row per LION SegmentID x geometry version x key
 # segment (256,309 rows): segment_id, version (1 = first geometry of that id since 12a),
 # first_release / last_release ("12a" ... "26c") with first_date / last_date, length_ft, key_id

@@ -1,4 +1,4 @@
-# Download dated snapshots of NYC Open Data datasets into nyc_transport_data
+# Download dated snapshots of NYC Open Data datasets into data/
 #
 # Usage (from repo root):  Rscript scripts/10_download_opendata.R [names]
 #   names  comma-separated subset of the datasets in nyc_opendata (R/config.R), default all

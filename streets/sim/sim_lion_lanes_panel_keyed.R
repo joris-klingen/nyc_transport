@@ -1,6 +1,6 @@
 # Simulated LION lane panel on the segment key
 #
-# Real data: nyc_transport_data/derived/streets/travel_lanes/lion_lanes_panel_keyed.parquet (layers/travel_lanes/
+# Real data: data/derived/streets/travel_lanes/lion_lanes_panel_keyed.parquet (layers/travel_lanes/
 # 03_key_panels.R), 6.3M rows: the LION lane panel moved onto the key segments: key_id, release,
 # release_date, source_id (the source SegmentID), key_cover (of the key segment), n_sources,
 # cover_total, then the lane panel columns (SegmentTyp, boro, Street, FeatureTyp, RW_TYPE, TrafDir,

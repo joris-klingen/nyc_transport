@@ -5,7 +5,7 @@ renamed to `Dropbox/1_research/nyc_traffic_data` with the flat layout, all three
 (`nyc_traffic` 3982288, `nyc_bikelane_history` 96717c8, `nyc_res_bikelanes` a2cd41f).
 
 State on 2026-10-23: `nyc_traffic` and `nyc_streets` merged into one repo, `nyc_transport` (streets
-in `streets/`, history kept), and the two stores into one, `nyc_transport_data` (street history in
+in `streets/`, history kept), and the two stores into one, `data/` (street history in
 `derived/streets/`). Store root `NYC_TRANSPORT_DATA`. GitHub: nyc_traffic renamed to nyc_transport,
 nyc_streets archived (both 2026-10-23).
 

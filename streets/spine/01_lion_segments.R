@@ -1,9 +1,9 @@
 # Stack the identifying attributes of every LION record over the quarterly releases
 #
-# Reads the attribute table (no geometry) of each release in nyc_transport_data/raw/street_layout/lion through
+# Reads the attribute table (no geometry) of each release in data/raw/street_layout/lion through
 # /vsizip, all feature types: SegmentID, LegacyID, feature and segment type, roadbed layer, roadway
 # type, street code, from/to nodes and coordinates, length, physical and generic ids.
-# Writes nyc_transport_data/derived/streets/spine/lion_segment_releases.parquet (one row per record
+# Writes data/derived/streets/spine/lion_segment_releases.parquet (one row per record
 # and release) and spine/out/release_counts.csv.
 # Run from repo root: Rscript spine/01_lion_segments.R
 

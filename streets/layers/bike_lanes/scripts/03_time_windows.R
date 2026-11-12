@@ -1,6 +1,6 @@
 # Segment x time-window bike lane facilities, all boroughs, from the DOT 2026 version history
 #
-# Base: the DOT bike routes release of 2026-10 (nyc_transport_data/raw/street_layout/bike_routes), which keeps
+# Base: the DOT bike routes release of 2026-10 (data/raw/street_layout/bike_routes), which keeps
 #   every version of a segment's facility: Retired rows with instdate and ret_date, and the Current
 #   row. Per segment the versions are ordered by instdate; a version lasts until the next one starts
 #   (or until its ret_date, when the lane was removed). Facility texts (tf/ft, and tf2/ft2 where a
@@ -12,7 +12,7 @@
 #   facility up to the 2020 release.
 # Street View review overrides (manual/protection_overrides.csv) and the copies to LION 16d ids
 #   (manual/segmentid_crosswalk_lion16d.csv) are applied as before.
-# Output: nyc_transport_data/derived/streets/bike_lanes/bike_lanes_time_windows.RDS, one row per
+# Output: data/derived/streets/bike_lanes/bike_lanes_time_windows.RDS, one row per
 #   SegmentID x time_window with date_from, date_to and tf_/ft_facilit (Protected / Standard /
 #   Sharrows, NA = none), read with bikelane_windows_read(). Until 2026-10-14 the windows came from the
 #   DOT 2020 release plus the Manhattan 2025 updates (moved here from nyc_res_bikelanes 002 on

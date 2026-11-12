@@ -13,7 +13,7 @@ bike lane install dates are often 1 January or the 1st of the month, are revised
 and before 2025 did not record what a segment was *before* an upgrade. LION's lane counts were
 recounted in 2024.
 
-The outputs go to `nyc_transport_data/derived/streets/` (found with `nyc_streets_data_root()`).
+The outputs go to `data/derived/streets/` (found with `nyc_streets_data_root()`).
 All scripts in `streets/` run from `streets/`: `cd streets; Rscript spine/01_lion_segments.R`.
 
 ## Simulated data
@@ -163,7 +163,7 @@ The output is read in other projects (e.g. `nyc_res_bikelanes`) with `bikelane_w
 Rscript layers/bike_lanes/scripts/03_time_windows.R
 ```
 
-Raw DOT releases live in the shared data store: `Dropbox/1_research/nyc_transport_data/raw/street_layout/bike_routes/`
+Raw DOT releases live in the shared data store: `Dropbox/1_research/nyc_transport/data/raw/street_layout/bike_routes/`
 (downloaded by `scripts/10_download_opendata.R` at the repo root).
 
 ## Classification
