@@ -12,7 +12,7 @@ import csv, os, re, sys, time, urllib.request
 import fitz  # pymupdf
 
 ROOT = (os.environ.get("NYC_TRANSPORT_DATA")
-        or os.path.join(os.environ["USERPROFILE"], "Dropbox/1_research/nyc_transport/data/"))
+        or os.path.join(os.environ["USERPROFILE"], "Dropbox/1_research/data_stores/nyc_transport/data/"))
 PDF_DIR = os.path.join(ROOT, "docs", "dot_presentations")
 TIMING = re.compile(r"install|implement|construct|complet|began|begin|upgrad|timeline|next steps|"
                     r"post[- ]implementation|before\b.*\bafter|opened|striped|marking|phase", re.I)

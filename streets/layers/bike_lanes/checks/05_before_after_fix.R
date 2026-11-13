@@ -1,5 +1,5 @@
 library(data.table)
-setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes")
+setwd("C:/Users/admin/Dropbox/1_research/papers_active/nyc_res_bikelanes")
 cat("new file modified:", format(file.mtime("data/archive/normalized_moved_20261013/bike_lanes_time_windows.RDS")), "\n")
 old <- setDT(readRDS("data/archive/normalized_pre_fix_20261010/bike_lanes_time_windows.RDS"))
 new <- setDT(readRDS("data/archive/normalized_moved_20261013/bike_lanes_time_windows.RDS"))

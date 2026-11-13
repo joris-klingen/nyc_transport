@@ -14,7 +14,7 @@ pts <- fread("evidence/aerial_labelling/out/projects.csv")
 seg <- fread("evidence/aerial_labelling/out/project_segments.csv")
 seg[, proj_id := sprintf("M%03d", project)]
 
-st <- setDT(st_drop_geometry(readRDS("../nyc_res_bikelanes/data/intermediate/streets/streets_manhattan_with_bikelanes.RDS")))
+st <- setDT(st_drop_geometry(readRDS("../../papers_active/nyc_res_bikelanes/data/intermediate/streets/streets_manhattan_with_bikelanes.RDS")))
 st <- unique(st[, .(SegmentID, lat_start, lon_start, lat_end, lon_end, MidP_lat, MidP_lon)], by = "SegmentID")
 
 lines <- merge(seg[proj_id %in% rev[, proj_id], .(proj_id, SegmentID)], st, by = "SegmentID")

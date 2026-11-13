@@ -2,7 +2,7 @@ library(data.table)
 library(sf)
 source("../R/nyc_transport.R")
 S <- "C:/Users/admin/AppData/Local/Temp/claude/C--Users-admin-Dropbox-1-research-5-NYC-bikelanes/229146a7-b4e1-44e3-bc9b-8e236e87a233/scratchpad"
-setwd("C:/Users/admin/Dropbox/1_research/nyc_res_bikelanes")
+setwd("C:/Users/admin/Dropbox/1_research/papers_active/nyc_res_bikelanes")
 
 m <- fread(file.path(S, "manual_sheets/dot_2020.csv"), colClasses = "character")
 setnames(m, "street...2", "street")

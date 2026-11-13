@@ -26,7 +26,7 @@ when a paper or review names a source).
       alone and dropped 136 codes of the old one (fixed 2026-11-05, see Crash vehicle types). The
       bikelanes re-run that verifies the fix was stopped on 2026-11-05 after 17 of 37 scripts,
       all reproducing the paper's outputs; the rest is item 21 in
-      `../nyc_res_bikelanes/notes/todo.md`.
+      `../../papers_active/nyc_res_bikelanes/notes/todo.md`.
 - [x] Crashes in NYPD's new format (snapshot 2026-11-04; `dataset_notes.md`, crashes): since
       2026-11-05 `crashes_read()` swaps `off_street_name` and `cross_street_name` back for snapshots
       from 2026-11 (the parquet copy of 20261104 rebuilt with it) and reads their hashed
