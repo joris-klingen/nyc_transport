@@ -15,7 +15,7 @@
 # Output: data/derived/streets/bike_lanes/bike_lanes_time_windows.RDS, one row per
 #   SegmentID x time_window with date_from, date_to and tf_/ft_facilit (Protected / Standard /
 #   Sharrows, NA = none), read with bikelane_windows_read(). Until 2026-10-14 the windows came from the
-#   DOT 2020 release plus the Manhattan 2025 updates (moved here from nyc_res_bikelanes 002 on
+#   DOT 2020 release plus the Manhattan 2025 updates (moved here from nyc_bikelanes 002 on
 #   2026-10-13): kept as bike_lanes_time_windows_dot2020.RDS.
 # Run from repo root: Rscript layers/bike_lanes/scripts/03_time_windows.R
 
@@ -167,7 +167,7 @@ cat("overrides applied to", uniqueN(dot_ov[, SegmentID]), "segments\n")
 
 # Copies for LION 16d segments missing from the DOT data ----
 # the windows of a DOT segment are copied to the LION 16d SegmentID of the same street piece (the
-# nyc_res_bikelanes street network); the copy replaces windows the target has of its own
+# nyc_bikelanes street network); the copy replaces windows the target has of its own
 xw <- fread("layers/bike_lanes/manual/segmentid_crosswalk_lion16d.csv")
 dot_xw <- dot_export[SegmentID %in% xw[, dot_segmentid]]
 dot_xw[, SegmentID := xw[match(dot_xw[, SegmentID], xw[, dot_segmentid]), lion16d_segmentid]]

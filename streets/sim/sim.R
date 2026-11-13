@@ -1,7 +1,7 @@
 # Simulated street network history for code development without the data store (derived/streets)
 #
 # source("sim/sim.R")                                          # from streets/
-# source("../nyc_transport/streets/sim/sim.R")            # from a project next to the repo
+# source("../nyc_db/streets/sim/sim.R")            # from a project next to the repo
 # keys <- sim_key_segments(2000)
 # sp <- sim_street_spells(keys)
 # panel <- streets_panel("2018-01-01", "2019-12-01", spells = sp, keys = keys)   # the real panel code
@@ -18,7 +18,7 @@ local({
   this <- tail(ofiles[grepl("sim\\.R$", ofiles)], 1)
   sim_dir <- normalizePath(if (length(this)) dirname(this) else "sim", winslash = "/")
   repo <- dirname(sim_dir)                                       # streets/
-  tr <- normalizePath(file.path(repo, ".."), winslash = "/")     # the nyc_transport repo root
+  tr <- normalizePath(file.path(repo, ".."), winslash = "/")     # the nyc_db repo root
   source(file.path(tr, "R", "simulate.R"), local = FALSE)
   source(file.path(repo, "R", "streets.R"), local = FALSE)
   prof <- normalizePath(file.path(repo, "profiles"), winslash = "/")

@@ -1,4 +1,4 @@
-# nyc_transport — agent signpost
+# nyc_db — agent signpost
 
 **What this is.** The one shared NYC repo under every `nyc_res_*` project. It downloads and reads
 all raw NYC data, and builds the street network history, into one store: `data/`.
@@ -21,7 +21,7 @@ known issues before counting anything. Generated from the profiles and the hand-
 
 **To use the readers** (one file loads all of them, street history included):
 ```r
-source("../nyc_transport/R/nyc_transport.R")
+source("../nyc_db/R/nyc_transport.R")
 ```
 
 **Rules.** Everything under `raw/` in the store is as published and never edited (Citi Bike trips and
@@ -35,7 +35,7 @@ download date; computed outputs go to `derived/`. Work without the store via `si
 
 ## The data store is inside this repo
 
-Since 2026-11-12 the store is `data/` in this folder (it was the separate folder `nyc_transport/data`). It is
+Since 2026-11-12 the store is `data/` in this folder (it was the separate folder `nyc_db/data`). It is
 ignored by git and holds `raw/`, `derived/`, `reference/`, `docs/`, `_meta/`, `_archive/`; its own
 signpost is `data/README.md`. The readers find it there by default; the environment variable or
 `config.local` only override the place.

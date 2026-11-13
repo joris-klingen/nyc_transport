@@ -3,7 +3,7 @@
 # different LION releases): best facility over both directions per key segment and month
 #
 # - key segments with a facility in each build, by borough
-# - monthly 2012-07 to 2025-08 in Manhattan (the nyc_res_bikelanes study period): key segment-months
+# - monthly 2012-07 to 2025-08 in Manhattan (the nyc_bikelanes study period): key segment-months
 #   whose facility differs, by kind of difference, and the key segments whose first protected month moves
 # Run from repo root: Rscript layers/bike_lanes/checks/06_dot2026_vs_dot2020_windows.R
 

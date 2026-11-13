@@ -1,7 +1,7 @@
 # Readers for the shared NYC transport data store (data/); the one file to source.
 # Also loads the street network history readers (streets/R/streets.R) at the end.
 #
-# source("../nyc_transport/R/nyc_transport.R")
+# source("../nyc_db/R/nyc_transport.R")
 # ds <- tlc_open("fhvhv", years = 2019:2020)      # lazy arrow dataset
 # f  <- nyc_latest("crashes")                     # newest crash snapshot
 #
@@ -523,7 +523,7 @@ citibike_open <- function() {
 #                median, or on the set's minority day type (weekend vs weekday); sets left with fewer than
 #                min_trips go. On Citi Bike 2019 (birth year x gender, sets formed without it) this raises
 #                the share of trip pairs in a set with the same label from 0.88 to 0.92 and keeps 90% of
-#                trips (trim_min 10: 0.93, 85%; london_res_effort/notes/panel_2026-11-12.md). Adds n_kept
+#                trips (trim_min 10: 0.93, 85%; london_effort/notes/panel_2026-11-12.md). Adds n_kept
 #                to the slot table.
 #   use_label    add birth year x gender to the slot to 2019 (members with a known gender only)
 # Returns the panel trips (data.table, one row per trip, `cyclist_set` id) with the slot table as

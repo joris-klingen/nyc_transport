@@ -1,6 +1,6 @@
 # streets/ — agent signpost
 
-**Where you are.** The street network history part of the `nyc_transport` repo (see
+**Where you are.** The street network history part of the `nyc_db` repo (see
 [`../CLAUDE.md`](../CLAUDE.md)). It builds what each street segment looked like at each date (segment
 key, spells, bike-lane and travel-lane panels) from raw LION and DOT releases, with manual review and
 evidence. Outputs go to `data/derived/streets/`.

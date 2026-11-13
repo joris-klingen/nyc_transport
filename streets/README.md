@@ -2,8 +2,8 @@
 
 Curated history of the NYC street network 2012 to now: what each street segment looked like at each
 date (bike lanes, travel lanes, and later bus lanes, parking, traffic rules, Citi Bike stations, ...),
-with the evidence for each date. Used by `nyc_res_bikelanes` (treatment timing) and the gender &
-cycling work. Part of the `nyc_transport` repo; was the separate repo `nyc_streets` until
+with the evidence for each date. Used by `nyc_bikelanes` (treatment timing) and the gender &
+cycling work. Part of the `nyc_db` repo; was the separate repo `nyc_streets` until
 2026-10-23 (merged with its history) and `nyc_bikelane_history` before 2026-10-14.
 
 Raw data (LION releases, DOT bike routes, snapshots of the current-state layout sets) is downloaded
@@ -106,7 +106,7 @@ DOT traffic count SegmentIDs and 99.5% of the DOT 2020 bike route ids reach a cu
 and 95% match current LION directly). Spells for every layer are meant to be keyed on it.
 
 ```r
-source("../nyc_transport/R/nyc_transport.R")   # from a project; loads these readers too
+source("../nyc_db/R/nyc_transport.R")   # from a project; loads these readers too
 segment_key_map(c(32886, 28), date = "2016-06-01")   # 1 Av segment 32886 is now three segments
 ```
 
@@ -130,7 +130,7 @@ segments not yet in LION, and resolve overlapping sources by priority, then key_
 monthly 2012-2026 (2.6M rows) takes about 5 s.
 
 ```r
-source("../nyc_transport/R/nyc_transport.R")   # from a project; loads these readers too
+source("../nyc_db/R/nyc_transport.R")   # from a project; loads these readers too
 s <- streets_state("2019-06-01", boro = 1, geometry = TRUE)
 p <- streets_panel("2012-07-01", "2026-07-01", "month", attributes = c("bike_lane", "travel_lanes"), boro = 1)
 ```
@@ -156,14 +156,14 @@ After editing the sheet, re-export and commit so git records every change:
 Rscript layers/bike_lanes/scripts/01_export_manual_sheet.R
 ```
 
-The output is read in other projects (e.g. `nyc_res_bikelanes`) with `bikelane_windows_read()` from
+The output is read in other projects (e.g. `nyc_bikelanes`) with `bikelane_windows_read()` from
 `R/nyc_transport.R`. All bike lane classification and dating happens in `streets/`:
 
 ```bash
 Rscript layers/bike_lanes/scripts/03_time_windows.R
 ```
 
-Raw DOT releases live in the shared data store: `Dropbox/1_research/data_stores/nyc_transport/data/raw/street_layout/bike_routes/`
+Raw DOT releases live in the shared data store: `Dropbox/1_research/data_stores/nyc_db/data/raw/street_layout/bike_routes/`
 (downloaded by `scripts/10_download_opendata.R` at the repo root).
 
 ## Classification

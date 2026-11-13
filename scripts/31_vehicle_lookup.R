@@ -20,7 +20,7 @@
 # system, writes "Bicyclist", "E-Bike (must have pedals)", "E-Scooter (standing)"), and projects
 # pin older snapshots. Until 2026-11-05 the rule rows came from the newest snapshot alone, so the
 # refresh of 2026-11-04 silently unclassified 1,785 crashes of the 2026-10-10 snapshot (888 bike
-# crashes of 2026) in nyc_res_bikelanes.
+# crashes of 2026) in nyc_bikelanes.
 
 library(data.table)
 source("R/nyc_transport.R")

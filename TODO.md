@@ -2,11 +2,11 @@
 
 State on 2026-10-11: repo renamed to `nyc_traffic` (GitHub `joris-klingen/nyc_traffic`), data store
 renamed to `Dropbox/1_research/nyc_traffic_data` with the flat layout, all three repos pushed
-(`nyc_traffic` 3982288, `nyc_bikelane_history` 96717c8, `nyc_res_bikelanes` a2cd41f).
+(`nyc_traffic` 3982288, `nyc_bikelane_history` 96717c8, `nyc_bikelanes` a2cd41f).
 
-State on 2026-10-23: `nyc_traffic` and `nyc_streets` merged into one repo, `nyc_transport` (streets
+State on 2026-10-23: `nyc_traffic` and `nyc_streets` merged into one repo, `nyc_db` (streets
 in `streets/`, history kept), and the two stores into one, `data/` (street history in
-`derived/streets/`). Store root `NYC_TRANSPORT_DATA`. GitHub: nyc_traffic renamed to nyc_transport,
+`derived/streets/`). Store root `NYC_TRANSPORT_DATA`. GitHub: nyc_traffic renamed to nyc_db,
 nyc_streets archived (both 2026-10-23).
 
 ## Review of 2026-11-04
@@ -26,7 +26,7 @@ when a paper or review names a source).
       alone and dropped 136 codes of the old one (fixed 2026-11-05, see Crash vehicle types). The
       bikelanes re-run that verifies the fix was stopped on 2026-11-05 after 17 of 37 scripts,
       all reproducing the paper's outputs; the rest is item 21 in
-      `../../papers_active/nyc_res_bikelanes/notes/todo.md`.
+      `../../papers_active/nyc_bikelanes/notes/todo.md`.
 - [x] Crashes in NYPD's new format (snapshot 2026-11-04; `dataset_notes.md`, crashes): since
       2026-11-05 `crashes_read()` swaps `off_street_name` and `cross_street_name` back for snapshots
       from 2026-11 (the parquet copy of 20261104 rebuilt with it) and reads their hashed
@@ -40,18 +40,18 @@ when a paper or review names a source).
       Motorized and `number_of_cyclist_injured` fell by 753 (11%); 2024 and earlier unchanged. Find
       which riders moved (vehicle ids are not shared across snapshots; 1,018 Standing Scooter
       vehicles appear) and decide how the bikelanes cyclist outcomes treat 2025 before the pin moves.
-- [ ] Document `raw/citibike/stock_panel/` (21 GB Kaggle station status archive, used by nyc_res_effort):
+- [ ] Document `raw/citibike/stock_panel/` (21 GB Kaggle station status archive, used by nyc_effort):
       README, `dataset_notes.md`, a reader, a profile, `checks/store.R`, a manifest in `_meta/`.
 - [ ] Snapshot the NYS DMV crash cases (data.ny.gov `e8ky-4vqe`, rolling three-year window) into
       `raw/crashes_dmv/` before 2021-2022 roll off.
 - [ ] Weather (ASOS), elevation (USGS 3DEP) and ACS tables into the store with readers; the effort
       project's scripts 030, 011 and 012 are the templates.
-- [ ] Settle `nyc_res_cc/scripts/data_import/109_import_speed_cameras.R` (stub, source never found).
+- [ ] Settle `nyc_cc/scripts/data_import/109_import_speed_cameras.R` (stub, source never found).
 
 ## After the rename
 
 - [x] Folder rename verified 2026-10-13 (`nyc_data_root()` and 176 yellow months; `NYC_DATA` unset).
-- [x] `nyc_res_bikelanes/scripts/000_project_init.R` and `nyc_bikelane_history/checks/01_dot_release_quality.R`
+- [x] `nyc_bikelanes/scripts/000_project_init.R` and `nyc_bikelane_history/checks/01_dot_release_quality.R`
       run against the new paths.
 - [x] `checks/store.R` run on the new layout 2026-10-13: only flags the real COVID drops (2020-04 to
       2020-06); the IDate warning is fixed. 85% of traffic count SegmentIDs are in current LION.
@@ -84,7 +84,7 @@ when a paper or review names a source).
 ## Smaller items
 
 - [x] `lanes/01_lion_panel.R` re-run through `nyc_data_root()` 2026-10-13; output identical.
-- [x] `nyc_res_bikelanes/notes/*.md` point to the current repos and data store (2026-10-16; a
+- [x] `nyc_bikelanes/notes/*.md` point to the current repos and data store (2026-10-16; a
       header line in each note says the paths were updated).
 - [x] `NYC_DATA` and `NYC_TRAFFIC_DATA` fallbacks dropped 2026-10-25 (no environment variable,
       `.Renviron` or config file used them).
@@ -106,7 +106,7 @@ when a paper or review names a source).
 
 The 54 CSVs (2012-01 to 2016-06, 123 GB) are the only copy of yellow trips with pickup and dropoff
 coordinates; TLC no longer serves them (403, checked 2026-10-24), so they stay in the store. Do both
-after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_legacy.R`) has finished.
+after the tips import (`nyc_tips/scripts/data_management/011_import_yellow_legacy.R`) has finished.
 
 - [x] Parquet copy built 2026-10-25 (`scripts/02_yellow_legacy_parquet.R`, 19 GB, `tlc_legacy_open()`);
       rows equal the CSV in all 54 months (`checks/yellow_legacy_parquet.R`). Found on the way: TLC's
@@ -153,7 +153,7 @@ after the tips import (`nyc_res_tips/scripts/data_management/011_import_yellow_l
       `scripts/00_update.R` does this since 2026-10-26. Since 2026-11-05 the table keeps every code
       of every snapshot (union with the superseded tables): the 2026-11-04 rebuild had taken the
       codes of the newest snapshot only, which spells the 2026 codes out ("Bicyclist" for BICY), so
-      1,785 crashes of the pinned 2026-10-10 snapshot lost their class in nyc_res_bikelanes (888
+      1,785 crashes of the pinned 2026-10-10 snapshot lost their class in nyc_bikelanes (888
       bike crashes of 2026; cyclist risk, rerouting and welfare values moved, the area estimates not).
       Verified 2026-11-05: with the repaired table the first 17 scripts of the bikelanes chain
       (import to 267) reproduce the paper's outputs file for file; the remaining 20 are its todo

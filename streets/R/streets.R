@@ -7,7 +7,7 @@ local({
   ofiles <- unlist(lapply(sys.frames(), function(f) if (is.character(f$ofile)) f$ofile))
   this <- tail(ofiles[grepl("(^|[/\\\\])streets\\.R$", ofiles)], 1)
   streets <- if (length(this)) dirname(dirname(this)) else "."
-  # streets/ sits inside nyc_transport; the raw-data readers are in its R/ one level up
+  # streets/ sits inside nyc_db; the raw-data readers are in its R/ one level up
   if (!exists("nyc_data_root")) source(file.path(streets, "..", "R", "nyc_transport.R"), local = FALSE)
 })
 

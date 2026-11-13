@@ -3,7 +3,7 @@
 # Real data: raw/taxi/zones/taxi_zones_YYYYMMDD.zip (shapefile) with taxi_zone_lookup_YYYYMMDD.csv,
 # read with taxi_zones_read(): sf in EPSG 2263 with LocationID, Borough, Zone, service_zone and
 # MULTIPOLYGON geometry, 263 zones (264/265 are "unknown" and have no polygon). PULocationID and
-# DOLocationID in all TLC trips refer to these. nyc_res_bikelanes uses the 2025 version
+# DOLocationID in all TLC trips refer to these. nyc_bikelanes uses the 2025 version
 # (taxi_zones_20250923.zip): the same polygons, but ids 56 and 103 duplicated where 2026 has 57, 104, 105.
 #
 # Kept: the real lookup table (profiles/taxi_zone_lookup_full.csv: all ids, boroughs, zone names),

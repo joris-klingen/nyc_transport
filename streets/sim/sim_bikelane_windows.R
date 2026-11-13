@@ -2,7 +2,7 @@
 #
 # Real data: data/derived/streets/bike_lanes/bike_lanes_time_windows.RDS (version "dot2026", all
 # boroughs, 52,202 rows on 25,123 segments) and bike_lanes_time_windows_dot2020.RDS ("dot2020"),
-# read with bikelane_windows_read(version) in R/nyc_transport.R and used by nyc_res_bikelanes (101).
+# read with bikelane_windows_read(version) in R/nyc_transport.R and used by nyc_bikelanes (101).
 # One row per SegmentID x time_window: SegmentID (numeric), time_window (1, 2, ...), date_from,
 # date_to (POSIXct, America/New_York), tf_facilit and ft_facilit (Protected, Standard, Sharrows;
 # NA = no lane in that direction).

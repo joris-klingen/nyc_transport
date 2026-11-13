@@ -1,4 +1,4 @@
-# nyc_transport
+# nyc_db
 
 Shared NYC transport data for the `nyc_res_*` research projects, in two parts:
 
@@ -22,11 +22,11 @@ the data store. An `NYC_TRANSPORT_DATA` environment variable takes precedence. I
 including the street network history:
 
 ```r
-source("../nyc_transport/R/nyc_transport.R")
+source("../nyc_db/R/nyc_transport.R")
 # needs data.table, arrow, sf
 ```
 
-Locally the repo is `nyc_transport` and the data `data/`, next to the research
+Locally the repo is `nyc_db` and the data `data/`, next to the research
 projects (`nyc_res_*_repo`); the `Find()` above tries both the local name and the plain GitHub name,
 so a fresh clone works too. Scripts at the repo root run from the repo root; scripts in `streets/`
 run from `streets/`.
@@ -37,7 +37,7 @@ To write and test code without the data (in a cloud session, for example), every
 profile and a simulator:
 
 ```r
-source("sim/sim.R")              # from the repo root; ../nyc_transport/sim/sim.R from a project
+source("sim/sim.R")              # from the repo root; ../nyc_db/sim/sim.R from a project
 sim_list()                       # the simulators
 cr  <- sim_crashes(5000, from = "2018-01-01", to = "2019-12-31")
 per <- sim_crash_persons(cr)     # persons and vehicles linked to the simulated crashes
@@ -108,7 +108,7 @@ Coverage is checked by `checks/store.R`.
 
 ```r
 library(data.table); library(sf)
-source("../nyc_transport/R/nyc_transport.R")
+source("../nyc_db/R/nyc_transport.R")
 
 cr  <- crashes_relocate(crashes_read())                   # best location per crash
 pts <- nyc_points_sf(cr, "longitude_ap", "latitude_ap")   # sf points, EPSG 2263
@@ -210,7 +210,7 @@ left below `min_trips`: 0.92, keeping 90% of trips (`trim_min = 10`: 0.93, 85%).
 help (`min_trips = 8` or `p_max = 0.01`: 0.93); the one-a-date rule matters most (0.48 without it). A
 speed trim would raise purity too but must not be used for e-bike work. In 2024, 10% of sets formed
 from members and casual riders mix the two, mostly one casual weekend trip: strays again, so the
-default keeps members only. Details and the e-bike tests: `london_res_effort/notes/panel_2026-11-12.md`.
+default keeps members only. Details and the e-bike tests: `london_effort/notes/panel_2026-11-12.md`.
 
 ## Data layout
 
@@ -239,7 +239,7 @@ data/           top level is by KIND: raw / derived / reference / docs, and _met
                                                              wrapped at 4 GB (scripts/zipfix.py reads them); downloaded by
                                                              hand, the site refuses non-browser downloads
       zones/               taxi_zones_YYYYMMDD.zip (shapefile), taxi_zone_lookup_YYYYMMDD.csv;
-                           taxi_zones_20250923.zip is the 2025 version used by nyc_res_bikelanes (same
+                           taxi_zones_20250923.zip is the 2025 version used by nyc_bikelanes (same
                            polygons, but ids 56 and 103 duplicated where the trips use 57, 104, 105)
     crashes/               Motor_Vehicle_Collisions_-_{Crashes,Person,Vehicles}_YYYYMMDD.csv (dated snapshots)
                            NYPD_Motor_Vehicle_Collisions_YYYYMMDD.csv (pre-2020 version of the crash table)
@@ -273,7 +273,7 @@ data/           top level is by KIND: raw / derived / reference / docs, and _met
                            census_blocks_2020, police_precincts (_YYYYMMDD.geojson);
                            census_tract_2020_to_nta_cdta_YYYYMMDD.csv
       census_block_groups_2020/ tl_2020_36_bg.* (TIGER/Line block groups, New York State) and
-                           nyc_bg_population_2020_YYYYMMDD.json (P1_001N per block group); from nyc_res_cc
+                           nyc_bg_population_2020_YYYYMMDD.json (P1_001N per block group); from nyc_cc
     congestion_pricing/    MTA_Congestion_Relief_Zone_Vehicle_Entries__Beginning_2025_YYYYMMDD.csv (data.ny.gov
                            t6yz-b64h, was t2rz-wjj6 until 2026; 10_download_opendata.R)
     traffic_counts/

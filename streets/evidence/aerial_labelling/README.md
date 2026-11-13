@@ -1,6 +1,6 @@
 # Direct aerial labelling of Manhattan protected-lane projects (2026-10-11)
 
-Goal: check the claimed protection dates of the projects that drive the nyc_res_bikelanes treatment against orthophotos, and produce a short list for Street View checking.
+Goal: check the claimed protection dates of the projects that drive the nyc_bikelanes treatment against orthophotos, and produce a short list for Street View checking.
 
 ## Steps
 
