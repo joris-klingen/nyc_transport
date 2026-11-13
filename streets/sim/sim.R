@@ -1,7 +1,7 @@
 # Simulated street network history for code development without the data store (derived/streets)
 #
 # source("sim/sim.R")                                          # from streets/
-# source("../nyc_db/streets/sim/sim.R")            # from a project next to the repo
+# source(file.path(research_path("nyc_db"), "streets/sim/sim.R"))   # from a project
 # keys <- sim_key_segments(2000)
 # sp <- sim_street_spells(keys)
 # panel <- streets_panel("2018-01-01", "2019-12-01", spells = sp, keys = keys)   # the real panel code

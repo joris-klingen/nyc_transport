@@ -1,7 +1,7 @@
 library(data.table)
 library(sf)
-setwd("C:/Users/admin/Dropbox/1_research/papers_active/nyc_bikelanes")
 source("../R/nyc_transport.R")
+setwd("C:/Users/admin/Dropbox/1_research/papers_active/nyc_bikelanes")
 R <- file.path(nyc_data_root(), "raw/street_layout/bike_routes")
 
 # processed time windows ----

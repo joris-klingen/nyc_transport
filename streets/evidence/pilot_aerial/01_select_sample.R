@@ -8,7 +8,7 @@ library(data.table)
 library(sf)
 sf_use_s2(TRUE)
 
-bl_root <- "../../papers_active/nyc_bikelanes"
+bl_root <- "../../../papers_active/nyc_bikelanes"
 source("../R/nyc_transport.R")
 nyc_data <- nyc_data_root()
 set.seed(20261010)

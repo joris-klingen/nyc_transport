@@ -1,7 +1,7 @@
 # Readers for the shared NYC transport data store (data/); the one file to source.
 # Also loads the street network history readers (streets/R/streets.R) at the end.
 #
-# source("../nyc_db/R/nyc_transport.R")
+# source(file.path(research_path("nyc_db"), "R/nyc_transport.R"))
 # ds <- tlc_open("fhvhv", years = 2019:2020)      # lazy arrow dataset
 # f  <- nyc_latest("crashes")                     # newest crash snapshot
 #

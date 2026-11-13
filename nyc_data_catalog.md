@@ -7,7 +7,7 @@ breaks and gaps to know before using it, and its columns. Paths are relative to 
 One source() loads every reader, including the street network history:
 
 ```r
-source("../nyc_db/R/nyc_transport.R")
+source(file.path(research_path("nyc_db"), "R/nyc_transport.R"))
 ```
 
 Read **Known issues** before using a dataset for counts or trends: several sources have breaks

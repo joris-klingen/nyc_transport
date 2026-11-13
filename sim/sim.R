@@ -1,7 +1,7 @@
 # Simulated data for code development without the data store
 #
 # source("sim/sim.R")                                   # from the repo root
-# source("../nyc_db/sim/sim.R")            # from a project next to the repo
+# source(file.path(research_path("nyc_db"), "sim/sim.R"))   # from a project
 # cr <- sim_crashes(5000)
 #
 # Loads R/simulate.R and every sim/sim_<source>.R. Each sim_<source>() returns a table shaped like

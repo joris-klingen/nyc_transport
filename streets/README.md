@@ -106,7 +106,7 @@ DOT traffic count SegmentIDs and 99.5% of the DOT 2020 bike route ids reach a cu
 and 95% match current LION directly). Spells for every layer are meant to be keyed on it.
 
 ```r
-source("../nyc_db/R/nyc_transport.R")   # from a project; loads these readers too
+source(file.path(research_path("nyc_db"), "R/nyc_transport.R"))   # from a project; loads these readers too
 segment_key_map(c(32886, 28), date = "2016-06-01")   # 1 Av segment 32886 is now three segments
 ```
 
@@ -130,7 +130,7 @@ segments not yet in LION, and resolve overlapping sources by priority, then key_
 monthly 2012-2026 (2.6M rows) takes about 5 s.
 
 ```r
-source("../nyc_db/R/nyc_transport.R")   # from a project; loads these readers too
+source(file.path(research_path("nyc_db"), "R/nyc_transport.R"))   # from a project; loads these readers too
 s <- streets_state("2019-06-01", boro = 1, geometry = TRUE)
 p <- streets_panel("2012-07-01", "2026-07-01", "month", attributes = c("bike_lane", "travel_lanes"), boro = 1)
 ```

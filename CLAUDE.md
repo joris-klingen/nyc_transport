@@ -21,7 +21,7 @@ known issues before counting anything. Generated from the profiles and the hand-
 
 **To use the readers** (one file loads all of them, street history included):
 ```r
-source("../nyc_db/R/nyc_transport.R")
+source(file.path(research_path("nyc_db"), "R/nyc_transport.R"))
 ```
 
 **Rules.** Everything under `raw/` in the store is as published and never edited (Citi Bike trips and

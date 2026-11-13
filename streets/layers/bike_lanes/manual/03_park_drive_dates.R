@@ -14,7 +14,7 @@ library(sf)
 chk <- fread("evidence/aerial_labelling/out/review_checklist.csv")
 park <- chk[category == "park_drive_definition", .(proj_id, street)]
 seg <- fread("evidence/aerial_labelling/out/project_segments.csv")[, proj_id := sprintf("M%03d", project)]
-st <- setDT(st_drop_geometry(readRDS("../../papers_active/nyc_bikelanes/data/intermediate/streets/streets_manhattan_with_bikelanes.RDS")))
+st <- setDT(st_drop_geometry(readRDS("../../../papers_active/nyc_bikelanes/data/intermediate/streets/streets_manhattan_with_bikelanes.RDS")))
 st <- unique(st[, .(SegmentID, MidP_lat, MidP_lon)], by = "SegmentID")
 
 # 72nd St across the park: CPW & W 72 St to Fifth Av & E 72 St

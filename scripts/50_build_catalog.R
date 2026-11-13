@@ -115,7 +115,7 @@ lines <- c(
   "One source() loads every reader, including the street network history:",
   "",
   "```r",
-  "source(Find(file.exists, c(\"../nyc_db/R/nyc_transport.R\", \"../nyc_db/R/nyc_transport.R\")))",
+  "source(file.path(research_path(\"nyc_db\"), \"R/nyc_transport.R\"))   # research_path() is in each project's scripts/project_init.R",
   "```",
   "",
   "Read **Known issues** before using a dataset for counts or trends: several sources have breaks",
